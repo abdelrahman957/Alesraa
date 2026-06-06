@@ -9,6 +9,7 @@
     'security/ir.model.access.csv',
     'views/sale_order_views.xml',
     'reports/sale_order_report.xml',
+    'views/product_views.xml',
 ],
     'installable': True,
     'auto_install': False,

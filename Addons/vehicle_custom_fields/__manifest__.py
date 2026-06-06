@@ -5,9 +5,9 @@
     'summary': 'Add custom fields to Fleet Vehicle',
     'depends': ['fleet'],
     'data': [
-        'security/ir.model.access.csv',
-        'views/fleet_vehicle_views.xml',
-    ],
+    'views/fleet_vehicle_views.xml',
+    'security/ir.model.access.csv',
+],
     'installable': True,
     'auto_install': False,
 }

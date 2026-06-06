@@ -6,18 +6,18 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='partner_id']" position="after">
-                <group string="Rental Period">
+                <separator string="Rental Period"/>
+                <group>
                     <group>
-                        <field name="rental_date_from"/>
-                        <field name="rental_date_to"/>
+                        <field name="rental_date_from" string="From"/>
+                        <field name="rental_date_to" string="To"/>
                     </group>
                     <group>
-                        <field name="rental_duration" 
-                               string="Duration"
-                               widget="integer"
-                               readonly="1"/> Days
-                        <field name="delivery_location"/>
+                        <field name="rental_duration" string="Duration" readonly="1" nolabel="1"/>
                     </group>
+                </group>
+                <group>
+                    <field name="delivery_location" string="Delivery Location" nolabel="0"/>
                 </group>
             </xpath>
         </field>

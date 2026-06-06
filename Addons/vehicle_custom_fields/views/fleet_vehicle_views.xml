@@ -96,6 +96,8 @@
             <xpath expr="//field[@name='category_id']" position="replace"/>
             <xpath expr="//field[@name='co2']" position="replace"/>
             <xpath expr="//field[@name='acquisition_date']" position="replace"/>
+            <xpath expr="//field[@name='contract_renewal_due_soon']" position="replace"/>
+            <xpath expr="//field[@name='contract_renewal_overdue']" position="replace"/>
             
 
             <!-- Hide remaining default fields we don't want -->

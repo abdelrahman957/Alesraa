@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- Inherit the original sale order report template -->
     <template id="report_sale_order_custom" inherit_id="sale.report_saleorder_document">
 
-        <!-- Add product image column header -->
-        <xpath expr="//th[hasclass('text-start')][1]" position="after">
-            <th class="text-center">Image</th>
+        <!-- Add Image column header after Description -->
+        <xpath expr="//th[@name='th_description']" position="after">
+            <th name="th_image" class="text-center">Image</th>
         </xpath>
 
-        <!-- Add product image in each line -->
-        <xpath expr="//td[hasclass('text-start')][1]" position="after">
-            <td class="text-center">
+        <!-- Add Image cell after description cell in each line -->
+        <xpath expr="//td[@name='td_product_subtotal']" position="before">
+            <td name="td_product_image" class="text-center">
                 <t t-if="line.product_id.image_128">
                     <img t-att-src="image_data_uri(line.product_id.image_128)"
                          style="max-height:60px; max-width:80px;"/>
@@ -19,7 +18,7 @@
             </td>
         </xpath>
 
-        <!-- Add Delivery Location, From, To, Duration under the header info -->
+        <!-- Add Rental info table after document header -->
         <xpath expr="//div[@id='informations']" position="after">
             <table class="table table-bordered" style="margin-bottom:16px;">
                 <tr>

@@ -7,30 +7,20 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='partner_id']" position="after">
                 <separator string="Rental Period"/>
-                <div class="row">
-                    <div class="col-12">
-                        <label for="rental_date_from" string="From"/>
-                        <field name="rental_date_from" nolabel="1" class="w-100"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <label for="rental_date_to" string="To"/>
-                        <field name="rental_date_to" nolabel="1" class="w-100"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <label for="rental_duration" string="Duration"/>
-                        <field name="rental_duration" nolabel="1" readonly="1" class="w-100"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <label for="delivery_location" string="Delivery Location"/>
-                        <field name="delivery_location" nolabel="1" class="w-100"/>
-                    </div>
-                </div>
+                <group>
+                    <group colspan="4">
+                        <field name="rental_date_from" string="From"/>
+                    </group>
+                    <group colspan="4">
+                        <field name="rental_date_to" string="To"/>
+                    </group>
+                    <group colspan="4">
+                        <field name="rental_duration" string="Duration" readonly="1"/>
+                    </group>
+                    <group colspan="4">
+                        <field name="delivery_location" string="Delivery Location"/>
+                    </group>
+                </group>
             </xpath>
         </field>
     </record>

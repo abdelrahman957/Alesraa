@@ -96,13 +96,13 @@
             <xpath expr="//field[@name='category_id']" position="replace"/>
             <xpath expr="//field[@name='co2']" position="replace"/>
             <xpath expr="//field[@name='acquisition_date']" position="replace"/>
-            <xpath expr="//field[@name='state_id']" position="replace"/>
+            
 
             <!-- Hide remaining default fields we don't want -->
             <xpath expr="//field[@name='driver_id']" position="attributes">
                 <attribute name="optional">show</attribute>
             </xpath>
-            <xpath expr="//field[@name='state_id']" position="replace"/>
+            
             <xpath expr="//field[@name='last_odometer']" position="replace"/>
         </field>
     </record>

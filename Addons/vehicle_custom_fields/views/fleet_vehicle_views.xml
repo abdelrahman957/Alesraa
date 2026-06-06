@@ -41,7 +41,7 @@
         <field name="inherit_id" ref="fleet.fleet_vehicle_view_tree"/>
         <field name="arch" type="xml">
             <xpath expr="//list" position="replace">
-                <list string="Vehicle" multi_edit="1" sample="1">
+                <list string="Vehicle" multi_edit="1" sample="1" decoration-danger="insurance_end_date and insurance_end_date &lt; current_date" decoration-danger="driving_license_expiry and driving_license_expiry &lt; current_date">
                     <field name="active" column_invisible="True"/>
                     <field name="model_id" string="Model" widget="many2one_avatar" readonly="1"/>
                     <field name="model_year" optional="show"/>

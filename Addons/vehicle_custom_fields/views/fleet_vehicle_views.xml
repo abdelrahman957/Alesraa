@@ -5,16 +5,12 @@
         <field name="model">fleet.vehicle</field>
         <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='page_model']" position="after">
-                <page string="Custom Info" name="custom_info">
-                    <group>
-                        <field name="has_gps"/>
-                        <field name="driving_license_expiry"/>
-                        <field name="motor_number"/>
-                        <field name="insurance_type_id"/>
-                        <field name="insurance_end_date"/>
-                    </group>
-                </page>
+            <xpath expr="//group[@name='vehicle_group']" position="inside">
+                <field name="has_gps"/>
+                <field name="driving_license_expiry"/>
+                <field name="motor_number"/>
+                <field name="insurance_type_id"/>
+                <field name="insurance_end_date"/>
             </xpath>
         </field>
     </record>

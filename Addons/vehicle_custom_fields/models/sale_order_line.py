@@ -13,7 +13,7 @@ class SaleOrderLine(models.Model):
                 price = line.price_unit * line.product_uom_qty * duration
                 if line.discount:
                     price = price * (1 - line.discount / 100)
-                taxes = line.tax_id.compute_all(
+                taxes = line.tax_ids.compute_all(
                     price,
                     line.order_id.currency_id,
                     1,

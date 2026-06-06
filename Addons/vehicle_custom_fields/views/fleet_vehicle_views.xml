@@ -59,7 +59,7 @@
     <record id="fleet_vehicle_list_view_inherit" model="ir.ui.view">
         <field name="name">fleet.vehicle.list.inherit</field>
         <field name="model">fleet.vehicle</field>
-        <field name="inherit_id" ref="fleet.fleet_vehicle_view_list"/>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_tree"/>
         <field name="arch" type="xml">
             <!-- Replace the full list content -->
             <xpath expr="//list" position="attributes">

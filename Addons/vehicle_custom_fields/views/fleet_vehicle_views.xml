@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
+    <!-- ═══════════════════════════════════════════════════
+         FORM VIEW — inherit existing form, add custom fields
+         ═══════════════════════════════════════════════════ -->
     <record id="fleet_vehicle_form_view_inherit" model="ir.ui.view">
         <field name="name">fleet.vehicle.form.inherit</field>
         <field name="model">fleet.vehicle</field>
         <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
         <field name="arch" type="xml">
-           <xpath expr="//field[@name='category_id']" position="before">
+            <xpath expr="//field[@name='category_id']" position="before">
                 <field name="has_gps"/>
                 <field name="gps_installation_date" invisible="not has_gps"/>
                 <field name="driving_license_expiry"/>
@@ -33,7 +37,75 @@
             </xpath>
         </field>
     </record>
-    <!-- Insurance Type Model -->
+
+    <!-- ═══════════════════════════════════════════════════
+         LIST VIEW — full replacement with custom columns
+         Order:
+           1. Model (model_id)          — first, no optional
+           2. Model Year (model_year)
+           3. License Plate (license_plate)
+           4. Chassis Number (vin_sn)
+           5. Motor Number (motor_number)
+           6. Owner (owner_id)          — computed from contract insurer
+           7. Mobile (owner_mobile)
+           8. ID / Tax ID (owner_vat)
+           9. Driver (driver_id)
+          10. GPS (has_gps)
+          11. Driving License Expiry (driving_license_expiry)
+          12. Insurance Type (insurance_type_id)
+          13. Insurance End Date (insurance_end_date)
+          14. Tags (tag_ids)
+         ═══════════════════════════════════════════════════ -->
+    <record id="fleet_vehicle_list_view_inherit" model="ir.ui.view">
+        <field name="name">fleet.vehicle.list.inherit</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_list"/>
+        <field name="arch" type="xml">
+            <!-- Replace the full list content -->
+            <xpath expr="//list" position="attributes">
+                <attribute name="decoration-danger">
+                    insurance_end_date and insurance_end_date &lt; current_date
+                </attribute>
+                <attribute name="decoration-warning">
+                    driving_license_expiry and driving_license_expiry &lt; current_date
+                </attribute>
+            </xpath>
+
+            <!-- Remove future_driver_id -->
+            <xpath expr="//field[@name='future_driver_id']" position="replace"/>
+
+            <!-- Move model_id to be first by replacing the list fields entirely -->
+            <xpath expr="//field[@name='name']" position="replace">
+                <field name="model_id" string="Model" optional="show"/>
+                <field name="model_year" optional="show"/>
+                <field name="license_plate" optional="show"/>
+                <field name="vin_sn" string="Chassis Number" optional="show"/>
+                <field name="motor_number" optional="show"/>
+                <field name="owner_id" string="Owner" optional="show"/>
+                <field name="owner_mobile" string="Mobile" optional="show"/>
+                <field name="owner_vat" string="ID" optional="show"/>
+                <field name="driver_id" optional="show"/>
+                <field name="has_gps" string="GPS" optional="show"/>
+                <field name="driving_license_expiry" string="Driving License Expiry" optional="show"/>
+                <field name="insurance_type_id" optional="show"/>
+                <field name="insurance_end_date" optional="show"/>
+                <field name="tag_ids" widget="many2many_tags" optional="show"/>
+                <!-- Hidden helper fields for decorations -->
+                <field name="current_date" column_invisible="1"/>
+            </xpath>
+
+            <!-- Hide remaining default fields we don't want -->
+            <xpath expr="//field[@name='driver_id']" position="attributes">
+                <attribute name="optional">show</attribute>
+            </xpath>
+            <xpath expr="//field[@name='state_id']" position="replace"/>
+            <xpath expr="//field[@name='last_odometer']" position="replace"/>
+        </field>
+    </record>
+
+    <!-- ═══════════════════════════════════════════════════
+         Insurance Type — Form, List, Action, Menu
+         ═══════════════════════════════════════════════════ -->
     <record id="fleet_vehicle_insurance_type_view_form" model="ir.ui.view">
         <field name="name">fleet.vehicle.insurance.type.form</field>
         <field name="model">fleet.vehicle.insurance.type</field>
@@ -64,9 +136,10 @@
         <field name="view_mode">list,form</field>
     </record>
 
-   <menuitem id="menu_fleet_insurance_type"
-    name="Insurance Types"
-    parent="fleet.fleet_configuration"
-    action="action_fleet_vehicle_insurance_type"
-    sequence="20"/>
+    <menuitem id="menu_fleet_insurance_type"
+        name="Insurance Types"
+        parent="fleet.fleet_configuration"
+        action="action_fleet_vehicle_insurance_type"
+        sequence="20"/>
+
 </odoo>

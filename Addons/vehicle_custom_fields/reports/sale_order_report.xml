@@ -3,12 +3,10 @@
 
     <template id="report_sale_order_custom" inherit_id="sale.report_saleorder_document">
 
-        <!-- Add Image column header after Description -->
         <xpath expr="//th[@name='th_description']" position="after">
             <th name="th_image" class="text-center">Image</th>
         </xpath>
 
-        <!-- Add Image cell in each line -->
         <xpath expr="//td[@name='td_product_quantity']" position="before">
             <td name="td_product_image" class="text-center">
                 <t t-if="line.product_id.image_1920">
@@ -18,9 +16,8 @@
             </td>
         </xpath>
 
-        <!-- Add Rental info table -->
-        <xpath expr="//div[@id='informations']" position="after">
-            <table class="table table-bordered" style="margin-bottom:16px;">
+        <xpath expr="//div[@id='informations']" position="before">
+            <table class="table table-bordered mb-4">
                 <tr>
                     <td><strong>Delivery Location:</strong><br/><span t-field="doc.delivery_location"/></td>
                     <td><strong>From:</strong><br/><span t-field="doc.rental_date_from"/></td>

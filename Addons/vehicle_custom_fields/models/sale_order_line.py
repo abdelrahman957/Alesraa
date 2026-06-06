@@ -13,13 +13,13 @@ class SaleOrderLine(models.Model):
                 price = line.price_unit * line.product_uom_qty * duration
                 if line.discount:
                     price = price * (1 - line.discount / 100)
-                taxes = line.tax_ids.compute_all(
-                    price,
+                    taxes = line.tax_ids.compute_all(
+                    line.price_unit * duration,
                     line.order_id.currency_id,
-                    1,
+                    line.product_uom_qty,
                     product=line.product_id,
                     partner=line.order_id.partner_shipping_id,
-                )
+                    )
                 line.price_subtotal = taxes['total_excluded']
                 line.price_tax = taxes['total_included'] - taxes['total_excluded']
                 line.price_total = taxes['total_included']

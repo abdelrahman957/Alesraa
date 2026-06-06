@@ -8,7 +8,7 @@
             <th name="th_image" class="text-center">Image</th>
         </xpath>
 
-        <!-- Add Image cell after description cell in each line -->
+        <!-- Add Image cell in each line -->
         <xpath expr="//td[@name='td_product_subtotal']" position="before">
             <td name="td_product_image" class="text-center">
                 <t t-if="line.product_id.image_128">
@@ -24,19 +24,19 @@
                 <tr>
                     <td>
                         <strong>Delivery Location:</strong><br/>
-                        <span t-field="o.delivery_location"/>
+                        <span t-field="doc.delivery_location"/>
                     </td>
                     <td>
                         <strong>From:</strong><br/>
-                        <span t-field="o.rental_date_from"/>
+                        <span t-field="doc.rental_date_from"/>
                     </td>
                     <td>
                         <strong>To:</strong><br/>
-                        <span t-field="o.rental_date_to"/>
+                        <span t-field="doc.rental_date_to"/>
                     </td>
                     <td>
                         <strong>Duration in Days:</strong><br/>
-                        <span t-field="o.rental_duration"/>
+                        <span t-field="doc.rental_duration"/>
                     </td>
                 </tr>
             </table>

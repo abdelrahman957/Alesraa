@@ -71,8 +71,7 @@
                 </attribute>
             </xpath>
 
-            <!-- Remove future_driver_id -->
-            <xpath expr="//field[@name='future_driver_id']" position="replace"/>
+            
 
             <!-- Move model_id to be first by replacing the list fields entirely -->
             <xpath expr="//field[@name='license_plate']" position="before">
@@ -94,7 +93,6 @@
                 <field name="insurance_end_date" optional="show"/>
             </xpath>
 
-            <xpath expr="//field[@name='future_driver_id']" position="replace"/>
             <xpath expr="//field[@name='category_id']" position="replace"/>
             <xpath expr="//field[@name='co2']" position="replace"/>
             <xpath expr="//field[@name='acquisition_date']" position="replace"/>

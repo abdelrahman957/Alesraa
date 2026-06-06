@@ -73,15 +73,11 @@
 
             
 
-            <!-- Move model_id to be first by replacing the list fields entirely -->
-            <xpath expr="//field[@name='license_plate']" position="before">
+           <!-- Move model_id to be first by replacing the list fields entirely -->
+            <xpath expr="//field[@name='license_plate']" position="replace">
                 <field name="model_id" string="Model" optional="show"/>
-            </xpath>
-
-            <xpath expr="//field[@name='model_id']" position="replace"/>
-
-            <xpath expr="//field[@name='license_plate']" position="after">
                 <field name="model_year" optional="show"/>
+                <field name="license_plate" optional="show"/>
                 <field name="vin_sn" string="Chassis Number" optional="show"/>
                 <field name="motor_number" optional="show"/>
                 <field name="owner_id" string="Owner" optional="show"/>
@@ -93,12 +89,13 @@
                 <field name="insurance_end_date" optional="show"/>
             </xpath>
 
+            <xpath expr="//field[@name='model_id']" position="replace"/>
             <xpath expr="//field[@name='category_id']" position="replace"/>
             <xpath expr="//field[@name='co2']" position="replace"/>
             <xpath expr="//field[@name='acquisition_date']" position="replace"/>
             <xpath expr="//field[@name='contract_renewal_due_soon']" position="replace"/>
             <xpath expr="//field[@name='contract_renewal_overdue']" position="replace"/>
-            
+                        
 
             <!-- Hide remaining default fields we don't want -->
             <xpath expr="//field[@name='driver_id']" position="attributes">

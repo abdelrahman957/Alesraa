@@ -5,7 +5,7 @@
         <field name="model">fleet.vehicle</field>
         <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//div[@name='other']" position="before">
+            <xpath expr="//page[@name='page_model']" position="after">
                 <page string="Custom Info" name="custom_info">
                     <group>
                         <field name="has_gps"/>

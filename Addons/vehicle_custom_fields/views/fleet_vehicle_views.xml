@@ -75,24 +75,30 @@
             <xpath expr="//field[@name='future_driver_id']" position="replace"/>
 
             <!-- Move model_id to be first by replacing the list fields entirely -->
-            <xpath expr="//field[@name='name']" position="replace">
+            <xpath expr="//field[@name='license_plate']" position="before">
                 <field name="model_id" string="Model" optional="show"/>
+            </xpath>
+
+            <xpath expr="//field[@name='model_id']" position="replace"/>
+
+            <xpath expr="//field[@name='license_plate']" position="after">
                 <field name="model_year" optional="show"/>
-                <field name="license_plate" optional="show"/>
                 <field name="vin_sn" string="Chassis Number" optional="show"/>
                 <field name="motor_number" optional="show"/>
                 <field name="owner_id" string="Owner" optional="show"/>
                 <field name="owner_mobile" string="Mobile" optional="show"/>
                 <field name="owner_vat" string="ID" optional="show"/>
-                <field name="driver_id" optional="show"/>
                 <field name="has_gps" string="GPS" optional="show"/>
                 <field name="driving_license_expiry" string="Driving License Expiry" optional="show"/>
                 <field name="insurance_type_id" optional="show"/>
                 <field name="insurance_end_date" optional="show"/>
-                <field name="tag_ids" widget="many2many_tags" optional="show"/>
-                <!-- Hidden helper fields for decorations -->
-                <field name="current_date" column_invisible="1"/>
             </xpath>
+
+            <xpath expr="//field[@name='future_driver_id']" position="replace"/>
+            <xpath expr="//field[@name='category_id']" position="replace"/>
+            <xpath expr="//field[@name='co2']" position="replace"/>
+            <xpath expr="//field[@name='acquisition_date']" position="replace"/>
+            <xpath expr="//field[@name='state_id']" position="replace"/>
 
             <!-- Hide remaining default fields we don't want -->
             <xpath expr="//field[@name='driver_id']" position="attributes">

@@ -11,3 +11,4 @@ class FleetVehicle(models.Model):
         string='Insurance Type'
     )
     insurance_end_date = fields.Date(string='Insurance End Date')
+    gps_installation_date = fields.Date(string='GPS Installation Date')

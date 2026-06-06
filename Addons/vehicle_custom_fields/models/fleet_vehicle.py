@@ -40,14 +40,14 @@ class FleetVehicle(models.Model):
                 ('vehicle_id', '=', vehicle.id),
                 ('insurer_id', '!=', False),
                 ('state', 'in', ['open', 'running']),
-            ], order='date_start desc', limit=1)
+            ], order='date desc', limit=1)
 
             # Fallback: any contract with insurer if no running one found
             if not contract:
                 contract = self.env['fleet.vehicle.log.contract'].search([
                     ('vehicle_id', '=', vehicle.id),
                     ('insurer_id', '!=', False),
-                ], order='date_start desc', limit=1)
+                ], order='date desc', limit=1)
 
             if contract and contract.insurer_id:
                 vehicle.owner_id = contract.insurer_id

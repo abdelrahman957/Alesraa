@@ -26,3 +26,12 @@ class SaleOrderLine(models.Model):
                 line.price_tax = line.price_total - line.price_subtotal
             else:
                 super(SaleOrderLine, line)._compute_amount()
+
+    def _prepare_base_line_for_taxes_computation(self, **kwargs):
+        result = super()._prepare_base_line_for_taxes_computation(**kwargs)
+        if self.product_id.is_vehicle and self.order_id.rental_duration:
+            duration = self.order_id.rental_duration
+            unit_price = self.price_unit * (1 - (self.discount or 0.0) / 100.0)
+            result['price_unit'] = unit_price * duration
+            result['discount'] = 0.0
+        return result

@@ -9,11 +9,11 @@
         </xpath>
 
         <!-- Add Image cell in each line -->
-        <xpath expr="//td[@name='td_product_subtotal']" position="before">
+        <xpath expr="//td[@name='td_product_quantity']" position="before">
             <td name="td_product_image" class="text-center">
-                <t t-if="line.product_id.image_128">
-                    <img t-att-src="image_data_uri(line.product_id.image_128)"
-                         style="max-height:60px; max-width:80px;"/>
+                <t t-if="line.product_id.image_1920">
+                    <img t-att-src="image_data_uri(line.product_id.image_1920)"
+                        style="max-height:250px; max-width:250px;"/>
                 </t>
             </td>
         </xpath>

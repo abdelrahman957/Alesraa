@@ -15,7 +15,10 @@ class SaleOrderLine(models.Model):
                     price_unit=unit_price * duration,
                     quantity=line.product_uom_qty,
                 )
-                self.env['account.tax']._add_tax_details_in_base_lines(
+                self.env['account.tax']._add_tax_details_in_base_line(
+                    base_line, line.company_id
+                )
+                self.env['account.tax']._round_base_lines_tax_details(
                     [base_line], line.company_id
                 )
                 line.price_subtotal = base_line['tax_details']['total_excluded_currency']

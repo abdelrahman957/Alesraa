@@ -51,7 +51,7 @@ class FleetVehicle(models.Model):
 
             if contract and contract.insurer_id:
                 vehicle.owner_id = contract.insurer_id
-                vehicle.owner_mobile = contract.insurer_id.mobile or contract.insurer_id.phone or False
+                vehicle.owner_mobile = contract.insurer_id.phone or False
                 vehicle.owner_vat = contract.insurer_id.vat or False
             else:
                 vehicle.owner_id = False

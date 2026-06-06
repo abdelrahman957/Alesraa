@@ -8,14 +8,10 @@
             <xpath expr="//field[@name='partner_id']" position="after">
                 <separator string="Rental Period"/>
                 <group>
-                    <group string="Dates">
-                        <field name="rental_date_from" string="From"/>
-                        <field name="rental_date_to" string="To"/>
-                        <field name="rental_duration" string="Duration" readonly="1"/>
-                    </group>
-                    <group string="Delivery">
-                        <field name="delivery_location" string="Delivery Location"/>
-                    </group>
+                    <field name="rental_date_from" string="From"/>
+                    <field name="rental_date_to" string="To"/>
+                    <field name="rental_duration" string="Duration" readonly="1"/>
+                    <field name="delivery_location" string="Delivery Location"/>
                 </group>
             </xpath>
         </field>

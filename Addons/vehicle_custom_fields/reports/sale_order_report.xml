@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Report Action -->
+    <record id="action_report_sale_order_custom" model="ir.actions.report">
+        <field name="name">Order</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">vehicle_custom_fields.report_sale_order_custom</field>
+        <field name="report_file">vehicle_custom_fields.report_sale_order_custom</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- QWeb Template -->
+    <template id="report_sale_order_custom">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+
+                        <!-- Customer -->
+                        <div class="text-center mb-4">
+                            <span t-field="o.partner_id.name" style="font-size: 14px;"/>
+                        </div>
+
+                        <!-- Order Title -->
+                        <h2>Order # <span t-field="o.name"/></h2>
+
+                        <!-- Rental Info -->
+                        <table class="table table-bordered" style="margin-bottom: 16px;">
+                            <tr>
+                                <td><strong>Delivery Location:</strong><br/><span t-field="o.delivery_location"/></td>
+                                <td><strong>From:</strong><br/><span t-field="o.rental_date_from"/></td>
+                                <td><strong>To:</strong><br/><span t-field="o.rental_date_to"/></td>
+                                <td><strong>Duration in Days:</strong><br/><span t-field="o.rental_duration"/></td>
+                            </tr>
+                        </table>
+
+                        <!-- Order Date & Salesperson -->
+                        <table class="table" style="margin-bottom: 16px; border: none;">
+                            <tr>
+                                <td style="border: none;">
+                                    <strong>Order Date</strong><br/>
+                                    <span t-field="o.date_order" t-options='{"widget": "date"}'/>
+                                </td>
+                                <td style="border: none;">
+                                    <strong>Salesperson</strong><br/>
+                                    <span t-field="o.user_id.name"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- Order Lines -->
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr style="background-color: #f5f5f5;">
+                                    <th>Description</th>
+                                    <th>Image</th>
+                                    <th class="text-right">Quantity</th>
+                                    <th class="text-right">Unit Price</th>
+                                    <th>Taxes</th>
+                                    <th class="text-right">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.order_line" t-as="line">
+                                    <tr>
+                                        <td><span t-field="line.name"/></td>
+                                        <td>
+                                            <t t-if="line.product_id.image_128">
+                                                <img t-att-src="'data:image/png;base64,' + line.product_id.image_128.decode('utf-8')" style="max-height: 60px; max-width: 80px;"/>
+                                            </t>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="line.product_uom_qty"/>
+                                            <span t-field="line.product_uom"/>
+                                        </td>
+                                        <td class="text-right"><span t-field="line.price_unit"/></td>
+                                        <td>
+                                            <t t-foreach="line.tax_id" t-as="tax">
+                                                <span t-field="tax.name"/>
+                                            </t>
+                                        </td>
+                                        <td class="text-right"><span t-field="line.price_subtotal"/></td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <!-- Totals -->
+                        <div class="row">
+                            <div class="col-6 offset-6">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <td>Untaxed Amount</td>
+                                        <td class="text-right"><span t-field="o.amount_untaxed"/></td>
+                                    </tr>
+                                    <t t-foreach="o.amount_by_group" t-as="tax_group">
+                                        <tr>
+                                            <td><span t-esc="tax_group[0]"/></td>
+                                            <td class="text-right"><span t-esc="tax_group[1]"/></td>
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <td><strong>Total</strong></td>
+                                        <td class="text-right"><strong><span t-field="o.amount_total"/></strong></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

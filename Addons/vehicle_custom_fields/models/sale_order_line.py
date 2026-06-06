@@ -5,8 +5,7 @@ class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     @api.depends('product_id', 'product_uom_qty', 'price_unit', 'discount',
-             'order_id.rental_duration', 'product_id.is_vehicle', 
-             'tax_ids', 'price_subtotal', 'price_total')
+                 'order_id.rental_duration', 'product_id.is_vehicle', 'tax_ids')
     def _compute_amount(self):
         for line in self:
             if line.product_id.is_vehicle and line.order_id.rental_duration:
@@ -27,10 +26,24 @@ class SaleOrderLine(models.Model):
             else:
                 super(SaleOrderLine, line)._compute_amount()
 
+
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     @api.depends('order_line.price_subtotal', 'order_line.price_tax',
-                 'order_line.price_total', 'rental_duration')
+                 'order_line.price_total', 'rental_duration',
+                 'currency_id', 'company_id')
     def _compute_amounts(self):
-        return super()._compute_amounts()
+        for order in self:
+            has_vehicle_lines = any(
+                l.product_id.is_vehicle and order.rental_duration
+                for l in order.order_line
+            )
+            if has_vehicle_lines:
+                amount_untaxed = sum(order.order_line.mapped('price_subtotal'))
+                amount_tax = sum(order.order_line.mapped('price_tax'))
+                order.amount_untaxed = amount_untaxed
+                order.amount_tax = amount_tax
+                order.amount_total = amount_untaxed + amount_tax
+            else:
+                super(SaleOrder, order)._compute_amounts()

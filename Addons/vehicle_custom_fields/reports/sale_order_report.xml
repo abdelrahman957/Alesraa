@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <template id="report_sale_order_custom" inherit_id="sale.report_saleorder_document">
+    <template id="report_sale_order_custom" inherit_id="sale.report_saleorder_raw">
 
         <!-- Add Image column header after Description -->
         <xpath expr="//th[@name='th_description']" position="after">

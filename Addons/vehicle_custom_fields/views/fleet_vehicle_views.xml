@@ -51,12 +51,12 @@
                     <field name="owner_id" string="Owner" optional="show"/>
                     <field name="owner_mobile" string="Mobile" optional="show"/>
                     <field name="owner_vat" string="ID" optional="show"/>
-                    <field name="acquisition_date" string="Acquisition Date" readonly="1" optional="show"  options="{'date_format': 'dd/MM/yyyy'}"/>
+                    <field name="acquisition_date" string="Acquisition Date" readonly="1" optional="show" widget="date" options="{'format': 'dd/MM/yyyy'}"/>
                     <field name="driver_id" widget="many2one_avatar" readonly="1" optional="show"/>
                     <field name="has_gps" string="GPS" optional="show"/>
-                    <field name="driving_license_expiry" string="Driving License Expiry" optional="show"  options="{'date_format': 'dd/MM/yyyy'}"/>
+                    <field name="driving_license_expiry" string="Driving License Expiry" optional="show" widget="date" options="{'format': 'dd/MM/yyyy'}"/>
                     <field name="insurance_type_id" optional="show"/>
-                    <field name="insurance_end_date" optional="show"  options="{'date_format': 'dd/MM/yyyy'}"/>
+                    <field name="insurance_end_date" optional="show" widget="date" options="{'format': 'dd/MM/yyyy'}"/>
                     <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" readonly="1" optional="show"/>
                 </list>
             </xpath>

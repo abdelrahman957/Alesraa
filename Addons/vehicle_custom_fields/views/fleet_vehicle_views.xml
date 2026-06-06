@@ -103,7 +103,7 @@
                 <attribute name="optional">show</attribute>
             </xpath>
             
-            <xpath expr="//field[@name='last_odometer']" position="replace"/>
+            
         </field>
     </record>
 

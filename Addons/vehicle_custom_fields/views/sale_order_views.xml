@@ -36,7 +36,7 @@
     <record id="sale_order_list_view_inherit" model="ir.ui.view">
         <field name="name">sale.order.list.inherit.rental</field>
         <field name="model">sale.order</field>
-        <field name="inherit_id" ref="sale.view_quotation_tree"/>
+        <field name="inherit_id" ref="sale.sale_order_tree"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='amount_total']" position="after">
                 <field name="has_rental_contract" string="Rental Contract" optional="show" widget="boolean_toggle"/>
@@ -45,20 +45,25 @@
     </record>
 
     <record id="sale_order_search_view_inherit" model="ir.ui.view">
-        <field name="name">sale.order.search.inherit.rental</field>
-        <field name="model">sale.order</field>
-        <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
-        <field name="arch" type="xml">
-            <xpath expr="//search" position="inside">
-                <separator/>
-                <filter string="Has Rental Contract"
-                        name="has_rental_contract"
-                        domain="[('has_rental_contract', '=', True)]"/>
-                <filter string="No Rental Contract"
-                        name="no_rental_contract"
-                        domain="[('has_rental_contract', '=', False)]"/>
-            </xpath>
-        </field>
-    </record>
+    <field name="name">sale.order.search.inherit.rental</field>
+    <field name="model">sale.order</field>
+    <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+    <field name="arch" type="xml">
+        <xpath expr="//search" position="inside">
+            <separator/>
+            <filter string="Has Rental Contract"
+                    name="has_rental_contract"
+                    domain="[('has_rental_contract', '=', True)]"/>
+            <filter string="No Rental Contract"
+                    name="no_rental_contract"
+                    domain="[('has_rental_contract', '=', False)]"/>
+            <group expand="0" string="Group By">
+                <filter string="Rental Contract"
+                        name="group_has_rental_contract"
+                        context="{'group_by': 'has_rental_contract'}"/>
+            </group>
+        </xpath>
+    </field>
+</record>
 
 </odoo>

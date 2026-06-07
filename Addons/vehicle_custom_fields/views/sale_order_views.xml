@@ -47,7 +47,7 @@
     <record id="sale_order_search_view_inherit" model="ir.ui.view">
     <field name="name">sale.order.search.inherit.rental</field>
     <field name="model">sale.order</field>
-    <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+    <field name="inherit_id" ref="sale.view_sales_order_filter"/>
     <field name="arch" type="xml">
         <xpath expr="//search" position="inside">
             <separator/>

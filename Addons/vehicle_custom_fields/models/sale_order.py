@@ -29,3 +29,24 @@ class SaleOrder(models.Model):
             if order.rental_date_from and order.rental_date_to:
                 if order.rental_date_to < order.rental_date_from:
                     raise ValidationError("End date cannot be before start date.")
+                
+
+    rental_contract_count = fields.Integer(
+    string='Rental Contracts',
+    compute='_compute_rental_contract_count',
+    )
+
+    def _compute_rental_contract_count(self):
+        for order in self:
+            order.rental_contract_count = self.env['car.rental.contract'].search_count([
+                ('sale_order_id', '=', order.id)
+            ])
+
+    def action_view_rental_contracts(self):
+        return {
+            'name': 'Rental Contracts',
+            'type': 'ir.actions.act_window',
+            'res_model': 'car.rental.contract',
+            'view_mode': 'list,form',
+            'domain': [('sale_order_id', '=', self.id)],
+        }

@@ -14,6 +14,21 @@ class SaleOrder(models.Model):
     )
     delivery_location = fields.Text(string='Delivery Location')
 
+    sale_order_contract_ids = fields.One2many(
+        'car.rental.contract',
+        'sale_order_id',
+        string='Rental Contracts',
+    )
+    rental_contract_count = fields.Integer(
+        string='Rental Contracts',
+        compute='_compute_rental_contract_count',
+    )
+    has_rental_contract = fields.Boolean(
+        string='Has Rental Contract',
+        compute='_compute_rental_contract_count',
+        store=True,
+    )
+
     @api.depends('rental_date_from', 'rental_date_to')
     def _compute_rental_duration(self):
         for order in self:
@@ -23,24 +38,19 @@ class SaleOrder(models.Model):
             else:
                 order.rental_duration = 0
 
+    @api.depends('sale_order_contract_ids')
+    def _compute_rental_contract_count(self):
+        for order in self:
+            contracts = order.sale_order_contract_ids
+            order.rental_contract_count = len(contracts)
+            order.has_rental_contract = bool(contracts)
+
     @api.constrains('rental_date_from', 'rental_date_to')
     def _check_rental_dates(self):
         for order in self:
             if order.rental_date_from and order.rental_date_to:
                 if order.rental_date_to < order.rental_date_from:
                     raise ValidationError("End date cannot be before start date.")
-                
-
-    rental_contract_count = fields.Integer(
-    string='Rental Contracts',
-    compute='_compute_rental_contract_count',
-    )
-
-    def _compute_rental_contract_count(self):
-        for order in self:
-            order.rental_contract_count = self.env['car.rental.contract'].search_count([
-                ('sale_order_id', '=', order.id)
-            ])
 
     def action_view_rental_contracts(self):
         return {

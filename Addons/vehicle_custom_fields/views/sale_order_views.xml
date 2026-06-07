@@ -31,5 +31,8 @@
                 </button>
             </xpath>
         </field>
+        <xpath expr="//field[@name='amount_total']" position="after">
+            <field name="rental_contract_count" string="Rental Contracts" optional="show"/>
+        </xpath>
     </record>
 </odoo>

@@ -38,7 +38,7 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.sale_order_tree"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='amount_total'][@decoration-bf='1']" position="after">
+            <xpath expr="//field[@name='tag_ids']" position="before">
                 <field name="rental_contract_count" string="Rental Contracts" optional="show"/>
             </xpath>
         </field>

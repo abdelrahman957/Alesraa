@@ -49,7 +49,7 @@
     <field name="model">sale.order</field>
     <field name="inherit_id" ref="sale.view_sales_order_filter"/>
     <field name="arch" type="xml">
-        <xpath expr="//search" position="inside">
+        <filter name="my_sale_orders_filter" position="after">
             <separator/>
             <filter string="Has Rental Contract"
                     name="has_rental_contract"
@@ -57,12 +57,12 @@
             <filter string="No Rental Contract"
                     name="no_rental_contract"
                     domain="[('has_rental_contract', '=', False)]"/>
-            <group expand="0" string="Group By">
-                <filter string="Rental Contract"
-                        name="group_has_rental_contract"
-                        context="{'group_by': 'has_rental_contract'}"/>
-            </group>
-        </xpath>
+        </filter>
+        <filter name="customer" position="after">
+            <filter string="Rental Contract"
+                    name="group_has_rental_contract"
+                    context="{'group_by': 'has_rental_contract'}"/>
+        </filter>
     </field>
 </record>
 

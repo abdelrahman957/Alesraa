@@ -52,7 +52,6 @@
                        <table style="width:100%; border-collapse:collapse; background-color:#1a3a4a; color:white; margin-top:0;">
                                     <tr>
                                         <td style="padding:6px 8px; vertical-align:top;">
-                                            <u>This rental agreement is made on
                                     <u>This rental agreement is made on <span t-out="datetime.date.today().strftime('%d-%m-%Y')"/> between:</u><br/>
                                     <strong>First Party (The Lessor):</strong>
                                 </td>

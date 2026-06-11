@@ -42,7 +42,7 @@
                                 </td>
                                 <td style="vertical-align:middle; text-align:right;">
                                     <t t-if="o.company_id.logo">
-                                        <img t-att-src="image_data_uri(o.company_id.logo)" style="max-height:100px; max-width:200px;"/>
+                                        <img t-att-src="image_data_uri(o.company_id.logo)" style="max-height:180px; max-width:320px;"/>
                                     </t>
                                 </td>
                             </tr>

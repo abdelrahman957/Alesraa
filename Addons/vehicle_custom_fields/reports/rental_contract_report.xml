@@ -17,174 +17,174 @@
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
                 <t t-call="web.basic_layout">
-                    <div class="page" style="font-family: Arial, sans-serif; font-size: 11px; color:#000;">
+                    <div class="page" style="font-family: Arial, sans-serif; font-size:12px; color:#000; display:flex; flex-direction:column; min-height:1040px; padding:0 4px;">
 
-                        <!-- Header Logo -->
-                        <div style="text-align:center; margin-bottom:4px;">
-                            <span style="font-size:28px; font-weight:bold; letter-spacing:6px;">ALESRAA</span><br/>
-                            <span style="font-size:12px; letter-spacing:3px;">AUTO GROUP</span>
+                        <!-- ===== Header Logo ===== -->
+                        <div style="text-align:center; margin-bottom:6px;">
+                            <span style="font-size:32px; font-weight:bold; letter-spacing:8px;">ALESRAA</span><br/>
+                            <span style="font-size:13px; letter-spacing:4px;">AUTO GROUP</span>
                         </div>
-                        <div style="text-align:center; font-size:10px; margin-bottom:4px;">- 1 -</div>
+                        <div style="text-align:center; font-size:11px; margin-bottom:8px;">- 1 -</div>
 
-                        <!-- Agreement intro (dark header) -->
+                        <!-- ===== Agreement intro ===== -->
                         <table style="width:100%; border-collapse:collapse; background-color:#1a3a4a; color:white;">
                             <tr>
-                                <td style="padding:4px 6px;">
+                                <td style="padding:6px 8px; vertical-align:top;">
                                     <u>This rental agreement is made on <span t-out="datetime.date.today().strftime('%d-%m-%Y')"/> between:</u><br/>
                                     <strong>First Party (The Lessor):</strong>
                                 </td>
-                                <td style="padding:4px 6px; text-align:right; direction:rtl;">
+                                <td style="padding:6px 8px; text-align:right; direction:rtl; vertical-align:top;">
                                     <u>هذا العقد محرر بتاريخ <span t-out="datetime.date.today().strftime('%Y/%m/%d')"/> بين كل من:</u><br/>
                                     <strong>طرف اول (مؤجر):</strong>
                                 </td>
                             </tr>
                         </table>
 
-                        <!-- Lessor Info -->
+                        <!-- ===== Lessor ===== -->
                         <table style="width:100%; border-collapse:collapse;">
                             <tr>
-                                <td style="padding:3px 6px; border-bottom:1px solid #ddd;"><strong>Name:</strong> <span t-field="o.company_id.name"/></td>
-                                <td style="padding:3px 6px; border-bottom:1px solid #ddd; text-align:right; direction:rtl; width:120px;"><strong>الأسم</strong></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Name:</strong> <span t-field="o.company_id.name"/></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; text-align:right; direction:rtl; width:120px;"><strong>الأسم</strong></td>
                             </tr>
                             <tr>
-                                <td style="padding:3px 6px; border-bottom:1px solid #ddd;"><strong>Address:</strong> <span t-field="o.company_id.partner_id.contact_address"/></td>
-                                <td style="padding:3px 6px; border-bottom:1px solid #ddd; text-align:right; direction:rtl;"><strong>العنوان</strong></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Address:</strong> <span t-field="o.company_id.partner_id.contact_address"/></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; text-align:right; direction:rtl;"><strong>العنوان</strong></td>
                             </tr>
                         </table>
 
-                        <!-- Lessee Header -->
-                        <table style="width:100%; border-collapse:collapse; background-color:#1a3a4a; color:white;">
+                        <!-- ===== Lessee header ===== -->
+                        <table style="width:100%; border-collapse:collapse; background-color:#1a3a4a; color:white; margin-top:4px;">
                             <tr>
-                                <td style="padding:4px 6px;"><strong>Second Party (The lessee):</strong></td>
-                                <td style="padding:4px 6px; text-align:right; direction:rtl;"><strong>طرف ثاني (مستأجر):</strong></td>
+                                <td style="padding:6px 8px;"><strong>Second Party (The lessee):</strong></td>
+                                <td style="padding:6px 8px; text-align:right; direction:rtl;"><strong>طرف ثاني (مستأجر):</strong></td>
                             </tr>
                         </table>
 
-                        <!-- Lessee Info -->
+                        <!-- ===== Lessee info ===== -->
                         <table style="width:100%; border-collapse:collapse;">
                             <tr>
-                                <td style="padding:3px 6px; border-bottom:1px solid #ddd;" colspan="2"><strong>Full Name:</strong> <span t-field="o.customer_id.name"/></td>
-                                <td style="padding:3px 6px; border-bottom:1px solid #ddd; text-align:right; direction:rtl; width:90px;"><strong>الأسم</strong></td>
+                                <td colspan="2" style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Full Name:</strong> <span t-field="o.customer_id.name"/></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; text-align:right; direction:rtl; width:90px;"><strong>الأسم</strong></td>
                             </tr>
                             <tr>
-                                <td style="padding:3px 6px; border-bottom:1px solid #ddd; width:40%;"><strong>Telephone Number:</strong> <span t-field="o.customer_id.phone"/></td>
-                                <td style="padding:3px 6px; border-bottom:1px solid #ddd;"><strong>ID No:</strong> <span t-field="o.customer_id.vat"/></td>
-                                <td style="padding:3px 6px; border-bottom:1px solid #ddd;"><strong>Valid Till:</strong></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; width:40%;"><strong>Telephone Number:</strong> <span t-field="o.customer_id.phone"/></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>ID No:</strong> <span t-field="o.customer_id.vat"/></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Valid Till:</strong></td>
                             </tr>
                             <tr>
-                                <td style="padding:3px 6px; border-bottom:1px solid #ddd;"><strong>Address:</strong> <span t-field="o.customer_id.contact_address"/></td>
-                                <td style="padding:3px 6px; border-bottom:1px solid #ddd;"><strong>DL No:</strong></td>
-                                <td style="padding:3px 6px; border-bottom:1px solid #ddd;"><strong>Valid Till:</strong></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Address:</strong> <span t-field="o.customer_id.contact_address"/></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>DL No:</strong></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Valid Till:</strong></td>
                             </tr>
                         </table>
 
-                        <!-- Vehicle Header -->
-                        <table style="width:100%; border-collapse:collapse; background-color:#1a3a4a; color:white;">
-                            <tr><td style="padding:4px 6px;"><strong>Rented Vehicle Details:</strong></td></tr>
+                        <!-- ===== Vehicle header ===== -->
+                        <table style="width:100%; border-collapse:collapse; background-color:#1a3a4a; color:white; margin-top:4px;">
+                            <tr><td style="padding:6px 8px;"><strong>Rented Vehicle Details:</strong></td></tr>
                         </table>
 
-                        <!-- Vehicle Info -->
+                        <!-- ===== Vehicle info ===== -->
                         <table style="width:100%; border-collapse:collapse;">
                             <tr>
-                                <td style="padding:3px 6px; border-bottom:1px solid #ddd; width:33%;"><strong>Car Type:</strong> <span t-field="o.vehicle_id.model_id.brand_id.name"/></td>
-                                <td style="padding:3px 6px; border-bottom:1px solid #ddd; width:34%;"><strong>Code:</strong></td>
-                                <td style="padding:3px 6px; border-bottom:1px solid #ddd; width:33%;"></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; width:33%;"><strong>Car Type:</strong> <span t-field="o.vehicle_id.model_id.brand_id.name"/></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; width:34%;"><strong>Code:</strong></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; width:33%;"></td>
                             </tr>
                             <tr>
-                                <td style="padding:3px 6px; border-bottom:1px solid #ddd;"><strong>Model:</strong> <span t-field="o.vehicle_id.model_id.name"/></td>
-                                <td style="padding:3px 6px; border-bottom:1px solid #ddd;"><strong>Chassis:</strong> <span t-field="o.vehicle_id.vin_sn"/></td>
-                                <td style="padding:3px 6px; border-bottom:1px solid #ddd;"><strong>Exit Km:</strong> <span t-field="o.vehicle_id.odometer"/></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Model:</strong> <span t-field="o.vehicle_id.model_id.name"/></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Chassis:</strong> <span t-field="o.vehicle_id.vin_sn"/></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Exit Km:</strong> <span t-field="o.vehicle_id.odometer"/></td>
                             </tr>
                             <tr>
-                                <td style="padding:3px 6px; border-bottom:1px solid #ddd;"><strong>Plate No:</strong> <span t-field="o.vehicle_id.license_plate"/></td>
-                                <td style="padding:3px 6px; border-bottom:1px solid #ddd;"><strong>Engine:</strong> <span t-field="o.vehicle_id.motor_number"/></td>
-                                <td style="padding:3px 6px; border-bottom:1px solid #ddd;"><strong>Exit Fuel:</strong> <span t-field="o.vehicle_id.fuel_type"/></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Plate No:</strong> <span t-field="o.vehicle_id.license_plate"/></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Engine:</strong> <span t-field="o.vehicle_id.motor_number"/></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Exit Fuel:</strong> <span t-field="o.vehicle_id.fuel_type"/></td>
                             </tr>
                         </table>
 
-                        <!-- Charge Summary Header -->
-                        <table style="width:100%; border-collapse:collapse; background-color:#1a3a4a; color:white;">
-                            <tr><td style="padding:4px 6px;"><strong>Charge Summary</strong></td></tr>
+                        <!-- ===== Charge Summary header ===== -->
+                        <table style="width:100%; border-collapse:collapse; background-color:#1a3a4a; color:white; margin-top:4px;">
+                            <tr><td style="padding:6px 8px;"><strong>Charge Summary</strong></td></tr>
                         </table>
 
-                        <!-- Body: left (image + notes) / right (pickup-dropoff + summary) -->
-                        <table style="width:100%; border-collapse:collapse; margin-top:6px;">
+                        <!-- ===== Body: left (image + notes) / right (tables) ===== -->
+                        <table style="width:100%; border-collapse:collapse; margin-top:10px;">
                             <tr>
-                                <!-- LEFT: image + daily rate notes -->
-                                <td style="width:48%; vertical-align:top; padding:6px;">
+                                <td style="width:48%; vertical-align:top; padding:8px;">
                                     <div style="text-align:center;">
                                         <t t-if="o.vehicle_id.vehicle_image">
-                                            <img t-att-src="image_data_uri(o.vehicle_id.vehicle_image)"
-                                                 style="max-width:100%; max-height:200px;"/>
+                                            <img t-att-src="image_data_uri(o.vehicle_id.vehicle_image)" style="max-width:100%; max-height:230px;"/>
                                         </t>
                                     </div>
-                                    <div style="margin-top:10px; font-size:10px;">
+                                    <div style="margin-top:16px; font-size:11px;">
                                         <u><strong>The Daily Rate Above Includes:</strong></u>
-                                        <ul style="margin:2px 0 6px 0; padding-left:16px;">
+                                        <ul style="margin:4px 0 10px 0; padding-left:18px;">
                                             <li>Basic Insurance Policy</li>
                                             <li>Free 150 KM/Day</li>
                                         </ul>
                                         <u><strong>The Daily Rate Above Excludes:</strong></u>
-                                        <ul style="margin:2px 0; padding-left:16px;">
+                                        <ul style="margin:4px 0; padding-left:18px;">
                                             <li>Any Fuel you use during the rental</li>
                                             <li>Any excess KMS after 150 KM/Day, 7 LE/KM</li>
                                         </ul>
                                     </div>
                                 </td>
-                                <!-- RIGHT: pickup/dropoff + summary -->
-                                <td style="width:52%; vertical-align:top; padding:6px;">
+                                <td style="width:52%; vertical-align:top; padding:8px;">
                                     <table style="width:100%; border-collapse:collapse; border:1px solid #ccc;">
                                         <tr style="background-color:#eef3f5;">
-                                            <td style="padding:4px; border:1px solid #ccc; width:34%;"></td>
-                                            <td style="padding:4px; border:1px solid #ccc; text-align:center;"><strong>Pick Up</strong></td>
-                                            <td style="padding:4px; border:1px solid #ccc; text-align:center;"><strong>Drop Off</strong></td>
+                                            <td style="padding:7px; border:1px solid #ccc; width:34%;"></td>
+                                            <td style="padding:7px; border:1px solid #ccc; text-align:center;"><strong>Pick Up</strong></td>
+                                            <td style="padding:7px; border:1px solid #ccc; text-align:center;"><strong>Drop Off</strong></td>
                                         </tr>
                                         <tr>
-                                            <td style="padding:4px; border:1px solid #ccc;"><strong>Location:</strong></td>
-                                            <td style="padding:4px; border:1px solid #ccc; direction:rtl;"><span t-field="o.delivery_location"/></td>
-                                            <td style="padding:4px; border:1px solid #ccc;"></td>
+                                            <td style="padding:7px; border:1px solid #ccc;"><strong>Location:</strong></td>
+                                            <td style="padding:7px; border:1px solid #ccc; direction:rtl;"><span t-field="o.delivery_location"/></td>
+                                            <td style="padding:7px; border:1px solid #ccc;"></td>
                                         </tr>
                                         <tr>
-                                            <td style="padding:4px; border:1px solid #ccc;"><strong>Date:</strong></td>
-                                            <td style="padding:4px; border:1px solid #ccc;"><span t-field="o.rent_start_date"/></td>
-                                            <td style="padding:4px; border:1px solid #ccc;"><span t-field="o.rent_end_date"/></td>
+                                            <td style="padding:7px; border:1px solid #ccc;"><strong>Date:</strong></td>
+                                            <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.rent_start_date"/></td>
+                                            <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.rent_end_date"/></td>
                                         </tr>
                                         <tr>
-                                            <td style="padding:4px; border:1px solid #ccc;"><strong>Time:</strong></td>
-                                            <td style="padding:4px; border:1px solid #ccc;"><span t-field="o.start_time"/></td>
-                                            <td style="padding:4px; border:1px solid #ccc;"><span t-field="o.end_time"/></td>
+                                            <td style="padding:7px; border:1px solid #ccc;"><strong>Time:</strong></td>
+                                            <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.start_time"/></td>
+                                            <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.end_time"/></td>
                                         </tr>
                                         <tr style="background-color:#eef3f5;">
-                                            <td colspan="3" style="padding:4px; border:1px solid #ccc; text-align:center;"><strong>Summary</strong></td>
+                                            <td colspan="3" style="padding:7px; border:1px solid #ccc; text-align:center;"><strong>Summary</strong></td>
                                         </tr>
                                         <tr style="background-color:#fdf6e3;">
-                                            <td style="padding:4px; border:1px solid #ccc;"><strong>Rental Period:</strong></td>
-                                            <td colspan="2" style="padding:4px; border:1px solid #ccc;"><span t-field="o.rental_period_days"/> Days</td>
+                                            <td style="padding:7px; border:1px solid #ccc;"><strong>Rental Period:</strong></td>
+                                            <td colspan="2" style="padding:7px; border:1px solid #ccc;"><span t-field="o.rental_period_days"/> Days</td>
                                         </tr>
                                     </table>
                                 </td>
                             </tr>
                         </table>
 
-                        <!-- Signatures -->
-                        <table style="width:100%; border-collapse:collapse; background-color:#1a3a4a; color:white; margin-top:14px;">
+                        <!-- ===== Spacer pushes signatures to bottom ===== -->
+                        <div style="flex-grow:1;"></div>
+
+                        <!-- ===== Signatures ===== -->
+                        <table style="width:100%; border-collapse:collapse; background-color:#1a3a4a; color:white;">
                             <tr>
-                                <td style="padding:4px 6px; width:50%;"><strong>First Party</strong></td>
-                                <td style="padding:4px 6px;"><strong>Second Party</strong></td>
+                                <td style="padding:6px 8px; width:50%;"><strong>First Party</strong></td>
+                                <td style="padding:6px 8px;"><strong>Second Party</strong></td>
                             </tr>
                         </table>
                         <table style="width:100%; border-collapse:collapse;">
                             <tr>
-                                <td style="padding:4px 6px; border-bottom:1px solid #ddd;"><strong>Name:</strong></td>
-                                <td style="padding:4px 6px; border-bottom:1px solid #ddd;"><strong>Name:</strong></td>
+                                <td style="padding:8px; border-bottom:1px solid #ddd; width:50%;"><strong>Name:</strong></td>
+                                <td style="padding:8px; border-bottom:1px solid #ddd;"><strong>Name:</strong></td>
                             </tr>
                             <tr>
-                                <td style="padding:4px 6px; border-bottom:1px solid #ddd;"><strong>Signature:</strong></td>
-                                <td style="padding:4px 6px; border-bottom:1px solid #ddd;"><strong>Signature:</strong></td>
+                                <td style="padding:8px; border-bottom:1px solid #ddd;"><strong>Signature:</strong></td>
+                                <td style="padding:8px; border-bottom:1px solid #ddd;"><strong>Signature:</strong></td>
                             </tr>
                             <tr>
-                                <td style="padding:4px 6px; border-bottom:1px solid #ddd;"><strong>Date:</strong></td>
-                                <td style="padding:4px 6px; border-bottom:1px solid #ddd;"><strong>Date:</strong></td>
+                                <td style="padding:8px; border-bottom:1px solid #ddd;"><strong>Date:</strong></td>
+                                <td style="padding:8px; border-bottom:1px solid #ddd;"><strong>Date:</strong></td>
                             </tr>
                         </table>
 
@@ -193,5 +193,3 @@
             </t>
         </t>
     </template>
-
-</odoo>

@@ -12,6 +12,7 @@
     'views/product_views.xml',
     'views/car_rental_contract_views.xml',
     'reports/rental_contract_report.xml',
+    'views/fleet_vehicle_model_views.xml',
 ],
     'installable': True,
     'auto_install': False,

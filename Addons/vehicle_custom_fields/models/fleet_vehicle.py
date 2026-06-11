@@ -31,6 +31,12 @@ class FleetVehicle(models.Model):
         compute='_compute_owner_fields',
         store=True,
     )
+    
+    vehicle_image = fields.Image(
+        string='Vehicle Image',
+        related='model_id.vehicle_image',
+        store=True,
+    )
 
     @api.depends('log_contracts', 'log_contracts.insurer_id', 'log_contracts.state')
     def _compute_owner_fields(self):

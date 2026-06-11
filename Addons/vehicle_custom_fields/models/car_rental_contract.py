@@ -31,4 +31,4 @@ class CarRentalContract(models.Model):
             if contract.rent_start_date and contract.rent_end_date:
                 contract.rental_period_days = (contract.rent_end_date - contract.rent_start_date).days
             else:
-                contract.rental_period_days = 0
+                contract.rental_period_days = 0 

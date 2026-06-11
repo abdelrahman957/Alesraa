@@ -115,8 +115,8 @@
                             <tr>
                                 <!-- Vehicle Image on the left -->
                                 <td style="width:45%; vertical-align:top; text-align:center; padding:8px;">
-                                    <t t-if="o.vehicle_id.model_id.vehicle_image">
-                                        <img t-att-src="image_data_uri(o.vehicle_id.model_id.vehicle_image)"
+                                    <t t-if="o.vehicle_id.vehicle_image">
+                                        <img t-att-src="image_data_uri(o.vehicle_id.vehicle_image)"
                                             style="max-width:100%; max-height:250px;"/>
                                     </t>
                                 </td>

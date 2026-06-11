@@ -11,6 +11,7 @@
     'reports/sale_order_report.xml',
     'views/product_views.xml',
     'views/car_rental_contract_views.xml',
+    'reports/rental_contract_report.xml',
 ],
     'installable': True,
     'auto_install': False,

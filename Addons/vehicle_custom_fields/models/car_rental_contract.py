@@ -18,3 +18,17 @@ class CarRentalContract(models.Model):
             self.rent_start_date = self.sale_order_id.rental_date_from
             self.rent_end_date = self.sale_order_id.rental_date_to
             self.delivery_location = self.sale_order_id.delivery_location
+
+
+    rental_period_days = fields.Integer(
+        string='Rental Period (Days)',
+        compute='_compute_rental_period_days',
+    )
+
+    @api.depends('rent_start_date', 'rent_end_date')
+    def _compute_rental_period_days(self):
+        for contract in self:
+            if contract.rent_start_date and contract.rent_end_date:
+                contract.rental_period_days = (contract.rent_end_date - contract.rent_start_date).days
+            else:
+                contract.rental_period_days = 0

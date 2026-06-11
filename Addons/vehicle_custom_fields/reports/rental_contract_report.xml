@@ -48,7 +48,7 @@
                                     <strong>First Party (The Lessor):</strong>
                                 </td>
                                 <td style="padding:6px 8px; text-align:right; direction:rtl; vertical-align:top;">
-                                    <u>هذا العقد محرر بتاريخ <span style="unicode-bidi:embed; direction:ltr; display:inline-block;" t-out="datetime.date.today().strftime('%Y/%m/%d')"/> بين كل من:</u><br/>
+                                    <u>هذا العقد محرر بين كل من بتاريخ <span style="unicode-bidi:isolate; direction:ltr;" t-out="datetime.date.today().strftime('%Y/%m/%d')"/></u><br/>
                                     <strong>طرف اول (مؤجر):</strong>
                                 </td>
                             </tr>

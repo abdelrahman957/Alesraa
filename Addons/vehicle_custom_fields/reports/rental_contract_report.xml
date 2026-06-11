@@ -115,10 +115,10 @@
                             <tr>
                                 <!-- Vehicle Image on the left -->
                                 <td style="width:45%; vertical-align:top; text-align:center; padding:8px;">
-                                    <t t-if="o.vehicle_id.model_id.brand_id.image_128">
-                                    <img t-att-src="image_data_uri(o.vehicle_id.model_id.brand_id.image_128)"
-                                        style="max-width:100%; max-height:250px;"/>
-                                </t>
+                                    <t t-if="o.vehicle_id.model_id.brand_id.image_512">
+                                        <img t-att-src="image_data_uri(o.vehicle_id.model_id.brand_id.image_512)"
+                                            style="max-width:100%; max-height:250px;"/>
+                                    </t>
                                 </td>
                                 <!-- Pickup / Dropoff + Summary on the right -->
                                 <td style="width:55%; vertical-align:top;">

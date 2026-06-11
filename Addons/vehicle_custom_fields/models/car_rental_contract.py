@@ -11,6 +11,8 @@ class CarRentalContract(models.Model):
     )
     delivery_location = fields.Char(string='Delivery Location')
 
+    image = fields.Binary(related='vehicle_id.vehicle_image')
+
     @api.onchange('sale_order_id')
     def _onchange_sale_order_id(self):
         if self.sale_order_id:

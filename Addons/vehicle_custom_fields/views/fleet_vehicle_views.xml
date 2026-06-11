@@ -50,7 +50,8 @@
                 <list string="Vehicle" multi_edit="1" sample="1"
     decoration-danger="(insurance_end_date and insurance_end_date &lt; current_date) or (driving_license_expiry and driving_license_expiry &lt; current_date)">
                     <field name="active" column_invisible="True"/>
-                    <field name="model_id" string="Model" widget="many2one_avatar" readonly="1"/>
+                    <field name="vehicle_image" widget="image" class="o_image_small" options="{'size': [30, 30]}"/>
+                    <field name="model_id" string="Model" readonly="1"/>
                     <field name="model_year" optional="show"/>
                     <field name="license_plate" readonly="1"/>
                     <field name="vin_sn" string="Chassis Number" readonly="1" optional="show"/>

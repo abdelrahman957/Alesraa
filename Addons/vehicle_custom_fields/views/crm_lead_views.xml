@@ -5,10 +5,20 @@
         <field name="model">crm.lead</field>
         <field name="inherit_id" ref="crm.crm_lead_view_form"/>
         <field name="arch" type="xml">
-          <xpath expr="//field[@name='phone']/parent::div" position="after">
-    <field name="interested_vehicle_ids" string="Car" widget="many2many_tags"
-           options="{'no_create': True}"/>
-</xpath>
+            <xpath expr="//field[@name='phone']/parent::div" position="after">
+                <field name="interested_vehicle_ids" string="Car" widget="many2many_tags"
+                    options="{'no_create': True}"/>
+            </xpath>
+        </field>
+    </record>
+     <record id="crm_lead_kanban_inherit" model="ir.ui.view">
+        <field name="name">crm.lead.kanban.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="interested_vehicle_ids" widget="many2many_tags"/>
+            </field>
         </field>
     </record>
 </odoo>

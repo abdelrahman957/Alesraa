@@ -87,7 +87,7 @@
                         <table style="width:100%; border-collapse:collapse;">
                             <tr>
                                 <td colspan="2" style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Full Name:</strong><span t-out="' '.join(o.customer_id.name.split()[:3]) if o.customer_id.name else ''"/></td>
-                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; text-align:right; direction:rtl; width:120px;"><strong>الاسم</strong><span>: </span><span style="unicode-bidi:isolate;" t-field="o.customer_id.name_arabic"/></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; text-align:right; direction:rtl; width:120px;"><strong>الاسم</strong><span>: </span><span style="unicode-bidi:isolate;" t-out="' '.join(o.customer_id.name_arabic.split()[:3]) if o.customer_id.name_arabic else ''"/></td>
                             </tr>
                             <tr>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd; width:40%;"><strong>Telephone Number:</strong> <span t-field="o.customer_id.phone"/></td>

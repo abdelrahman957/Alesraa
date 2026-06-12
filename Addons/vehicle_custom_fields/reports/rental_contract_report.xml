@@ -43,7 +43,7 @@
                                 </td>
                                 <td style="vertical-align:middle; text-align:right;">
                                     <t t-if="o.company_id.logo">
-                                        <img t-att-src="image_data_uri(o.company_id.logo)" style="max-height:200px; max-width:200px; display:block; margin-left:auto;"/>
+                                        <!--<img t-att-src="image_data_uri(o.company_id.logo)" style="max-height:200px; max-width:200px; display:block; margin-left:auto;"/>-->
                                     </t>
                                 </td>
                             </tr>
@@ -110,11 +110,11 @@
                         <table style="width:100%; border-collapse:collapse;">
                             <tr>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd; width:33%;"><strong>Car Type:</strong> <span t-field="o.vehicle_id.model_id.brand_id.name"/></td>
-                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; width:34%;"><strong>Code:</strong></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; width:34%;"><strong>Model:</strong> <span t-field="o.vehicle_id.model_id.name"/></td>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd; width:33%;"></td>
                             </tr>
                             <tr>
-                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Model:</strong> <span t-field="o.vehicle_id.model_id.name"/></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Model Year:</strong> <span t-field="o.vehicle_id.model_year"/></td>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Chassis:</strong> <span t-field="o.vehicle_id.vin_sn"/></td>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Exit Km:</strong> <span t-field="o.vehicle_id.odometer"/></td>
                             </tr>
@@ -179,7 +179,7 @@
                                     </table>
 
                                     <!-- مسافة فاصلة -->
-                                    <div style="height:30px;"></div>
+                                    <div style="height:60px;"></div>
 
                                     <!-- جدول Summary -->
                                     <table style="width:100%; border-collapse:collapse; border:1px solid #ccc; table-layout:fixed;">

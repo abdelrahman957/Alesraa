@@ -173,7 +173,9 @@
                                             <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.start_time"/></td>
                                             <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.end_time"/></td>
                                         </tr>
-                                        <br/><br/>
+                                        <Space
+                                            android:layout_width="match_parent"
+                                            android:layout_height="20dp" />
                                         <tr style="background-color:#eef3f5;">
                                             <td colspan="3" style="padding:7px; border:1px solid #ccc; text-align:center;"><strong>Summary</strong></td>
                                         </tr>

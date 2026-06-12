@@ -27,6 +27,23 @@ class CarRentalContract(models.Model):
         default=lambda self: self._default_checklist_line(),
     )
 
+    rent_fees_amount = fields.Float(
+        string='Rent Fees',
+        compute='_compute_charge_amounts',
+    )
+    pickup_charge_amount = fields.Float(
+        string='Pick Up Charge',
+        compute='_compute_charge_amounts',
+    )
+    dropoff_charge_amount = fields.Float(
+        string='Drop Off Charge',
+        compute='_compute_charge_amounts',
+    )
+    total_requested_charge = fields.Float(
+        string='Total Requested Charge',
+        compute='_compute_charge_amounts',
+    )
+
     def _default_checklist_line(self):
         tools = self.env['car.tools'].search([
             ('name', 'in', ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges'])
@@ -40,6 +57,23 @@ class CarRentalContract(models.Model):
                 contract.rental_period_days = (contract.rent_end_date - contract.rent_start_date).days
             else:
                 contract.rental_period_days = 0
+
+    @api.depends('checklist_line', 'checklist_line.price', 'checklist_line.name')
+    def _compute_charge_amounts(self):
+        for contract in self:
+            rent = pickup = dropoff = 0.0
+            for line in contract.checklist_line:
+                name = line.name.name if line.name else ''
+                if name == 'Rent Fees':
+                    rent += line.price
+                elif name == 'Pick Up Charges':
+                    pickup += line.price
+                elif name == 'Drop Off Charges':
+                    dropoff += line.price
+            contract.rent_fees_amount = rent
+            contract.pickup_charge_amount = pickup
+            contract.dropoff_charge_amount = dropoff
+            contract.total_requested_charge = rent + pickup + dropoff
 
     @api.onchange('sale_order_id')
     def _onchange_sale_order_id(self):
@@ -79,37 +113,3 @@ class CarTools(models.Model):
                     "You cannot delete the default items (Rent Fees, Pick Up Charges, Drop Off Charges)."
                 )
         return super().unlink()
-    
-    rent_fees_amount = fields.Float(
-            string='Rent Fees',
-            compute='_compute_charge_amounts',
-        )
-    pickup_charge_amount = fields.Float(
-            string='Pick Up Charge',
-            compute='_compute_charge_amounts',
-        )
-    dropoff_charge_amount = fields.Float(
-            string='Drop Off Charge',
-            compute='_compute_charge_amounts',
-        )
-    total_requested_charge = fields.Float(
-            string='Total Requested Charge',
-            compute='_compute_charge_amounts',
-        )
-
-    @api.depends('checklist_line', 'checklist_line.price', 'checklist_line.name')
-    def _compute_charge_amounts(self):
-            for contract in self:
-                rent = pickup = dropoff = 0.0
-                for line in contract.checklist_line:
-                    name = line.name.name if line.name else ''
-                    if name == 'Rent Fees':
-                        rent += line.price
-                    elif name == 'Pick Up Charges':
-                        pickup += line.price
-                    elif name == 'Drop Off Charges':
-                        dropoff += line.price
-                contract.rent_fees_amount = rent
-                contract.pickup_charge_amount = pickup
-                contract.dropoff_charge_amount = dropoff
-                contract.total_requested_charge = rent + pickup + dropoff

@@ -95,7 +95,7 @@
                             </tr>
                             <tr>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Address:</strong> <span t-field="o.customer_id.contact_address"/></td>
-                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>DL No:</strong></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>DL No:</strong> <span t-field="o.customer_id.driving_license_no"/></td>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Valid Till:</strong></td>
                             </tr>
                         </table>

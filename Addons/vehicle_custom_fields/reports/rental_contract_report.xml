@@ -194,15 +194,15 @@
                                     </tr>
                                     <tr>
                                         <td style="padding:7px; border:1px solid #ccc;"><strong>Total Rental Fees:</strong></td>
-                                        <td style="padding:7px; border:1px solid #ccc; text-align:right;">0 EGP</td>
+                                        <td style="padding:7px; border:1px solid #ccc; text-align:right;"><span t-field="o.rent_fees_amount"/> EGP</td>
                                     </tr>
                                     <tr>
                                         <td style="padding:7px; border:1px solid #ccc;"><strong>Pick Up Charge:</strong></td>
-                                        <td style="padding:7px; border:1px solid #ccc; text-align:right;">0 EGP</td>
+                                        <td style="padding:7px; border:1px solid #ccc; text-align:right;"><span t-field="o.pickup_charge_amount"/> EGP</td>
                                     </tr>
                                     <tr>
                                         <td style="padding:7px; border:1px solid #ccc;"><strong>Drop off Charge:</strong></td>
-                                        <td style="padding:7px; border:1px solid #ccc; text-align:right;">0 EGP</td>
+                                        <td style="padding:7px; border:1px solid #ccc; text-align:right;"><span t-field="o.dropoff_charge_amount"/> EGP</td>
                                     </tr>
                                     <tr>
                                         <td style="padding:7px; border:1px solid #ccc;"><strong>Paid Deposit:</strong></td>
@@ -214,7 +214,7 @@
                                     </tr>
                                     <tr style="background-color:#1a3a4a; color:white;">
                                         <td style="padding:7px; border:1px solid #ccc;"><strong>Total Requested Charge:</strong></td>
-                                        <td style="padding:7px; border:1px solid #ccc; text-align:right;"><strong>0 EGP</strong></td>
+                                        <td style="padding:7px; border:1px solid #ccc; text-align:right;"><strong><span t-field="o.total_requested_charge"/> EGP</strong></td>
                                     </tr>
                                 </table>
 

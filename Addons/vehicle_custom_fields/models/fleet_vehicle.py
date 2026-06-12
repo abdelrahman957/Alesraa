@@ -46,7 +46,7 @@ class FleetVehicle(models.Model):
                 vehicle.vehicle_image = vehicle.model_id.vehicle_image
             else:
                 vehicle.vehicle_image = False
-                
+
     @api.depends('log_contracts', 'log_contracts.insurer_id', 'log_contracts.state')
     def _compute_owner_fields(self):
         for vehicle in self:
@@ -79,3 +79,25 @@ class FleetVehicle(models.Model):
             # لو فيه لون متخزن، سيبه؛ لو لأ، خليه فاضي
             if not vehicle.color or vehicle.color == '#FFFFFF':
                 vehicle.color = False
+
+    rental_status = fields.Char(
+        string='Status',
+        compute='_compute_rental_status',
+    )
+    rental_return_date = fields.Date(
+        string='Return Date',
+        compute='_compute_rental_status',
+    )
+
+    def _compute_rental_status(self):
+        for vehicle in self:
+            running_contract = self.env['car.rental.contract'].search([
+                ('vehicle_id', '=', vehicle.id),
+                ('state', '=', 'running'),
+            ], order='rent_end_date desc', limit=1)
+            if running_contract:
+                vehicle.rental_status = 'In Rent'
+                vehicle.rental_return_date = running_contract.rent_end_date
+            else:
+                vehicle.rental_status = 'Available'
+                vehicle.rental_return_date = False

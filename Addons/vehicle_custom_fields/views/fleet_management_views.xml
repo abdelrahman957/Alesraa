@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Fleet Management List View -->
+    <record id="fleet_management_view_list" model="ir.ui.view">
+        <field name="name">fleet.management.view.list</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="arch" type="xml">
+            <list string="Fleet Management" create="false">
+                <field name="display_name" string="Vehicle"/>
+                <field name="rental_status" string="Status"
+                       decoration-success="rental_status == 'Available'"
+                       decoration-bf="rental_status == 'In Rent'"/>
+                <field name="rental_return_date" string="Return Date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Fleet Management Action -->
+    <record id="action_fleet_management" model="ir.actions.act_window">
+        <field name="name">Fleet Management</field>
+        <field name="res_model">fleet.vehicle</field>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="fleet_management_view_list"/>
+    </record>
+
+    <!-- Rebind the Checklist menu to Fleet Management -->
+    <record id="fleet_rental.menu_car_checklist" model="ir.ui.menu">
+        <field name="name">Fleet Management</field>
+        <field name="action" ref="action_fleet_management"/>
+    </record>
+</odoo>

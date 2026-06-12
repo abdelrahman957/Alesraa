@@ -86,8 +86,8 @@
                         <table style="width:100%; border-collapse:collapse;">
                             <tr>
                                 <td colspan="2" style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Full Name:</strong> <span t-field="o.customer_id.name"/></td>
-                                <td style="padding:6px 25px; border-bottom:1px solid #ddd; text-align:right; direction:rtl;"><strong>الاسم:</strong> <span t-field="o.customer_id.name_arabic"/></td>
-                            </tr>                           
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; text-align:right; direction:rtl; width:120px;"><strong>الاسم:</strong> <span t-field="o.customer_id.name_arabic"/></td>
+                            </tr>                         
                             <tr>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd; width:40%;"><strong>Telephone Number:</strong> <span t-field="o.customer_id.phone"/></td>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>ID No:</strong> <span t-field="o.customer_id.vat"/></td>

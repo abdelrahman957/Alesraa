@@ -39,3 +39,14 @@ class CarRentalContract(models.Model):
                 contract.rental_period_days = (contract.rent_end_date - contract.rent_start_date).days
             else:
                 contract.rental_period_days = 0 
+
+    checklist_line = fields.One2many(
+        default=lambda self: self._default_checklist_line(),
+    )
+
+    def _default_checklist_line(self):
+        return [
+            (0, 0, {'name': 'Rent Fees', 'price': 0.0}),
+            (0, 0, {'name': 'Pick Up Charges', 'price': 0.0}),
+            (0, 0, {'name': 'Drop Off Charges', 'price': 0.0}),
+        ]

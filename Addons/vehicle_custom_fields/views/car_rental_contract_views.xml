@@ -21,15 +21,13 @@
         <field name="name">car.rental.contract.view.search</field>
         <field name="model">car.rental.contract</field>
         <field name="arch" type="xml">
-            <search>
+            <search string="Rental Contracts">
                 <field name="customer_id"/>
                 <field name="vehicle_id"/>
-                <group expand="0" string="Group By">
-                    <filter string="Vehicle" name="group_vehicle"
-                            context="{'group_by': 'vehicle_id'}"/>
-                    <filter string="Customer" name="group_customer"
-                            context="{'group_by': 'customer_id'}"/>
-                </group>
+                <filter string="Vehicle" name="group_vehicle"
+                        context="{'group_by': 'vehicle_id'}"/>
+                <filter string="Customer" name="group_customer"
+                        context="{'group_by': 'customer_id'}"/>
             </search>
         </field>
     </record>

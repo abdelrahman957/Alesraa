@@ -5,7 +5,7 @@
         <field name="model">crm.lead</field>
         <field name="inherit_id" ref="crm.crm_lead_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='phone']" position="after">
+            <xpath expr="//field[@name='phone']/ancestor::group[1]" position="after">
                 <group>
                     <field name="interested_vehicle_ids" string="Car" widget="many2many_tags"
                         options="{'no_create': True}"/>

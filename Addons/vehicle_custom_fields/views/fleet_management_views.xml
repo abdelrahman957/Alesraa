@@ -41,7 +41,6 @@
                 <field name="rental_return_date" string="Return Date"/>
                 <field name="has_reservation" column_invisible="1"/>
                 <field name="rental_status" column_invisible="1"/>
-                <field name="rental_return_date" string="Return Date"/>
                 <field name="reservation_source" string="Source"/>
                 <field name="reservation_customer_id" string="Customer"/>
                 <field name="reservation_date_from" string="Reserved From"/>

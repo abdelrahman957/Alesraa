@@ -86,7 +86,7 @@
                         <!-- ===== Lessee info ===== -->
                         <table style="width:100%; border-collapse:collapse;">
                             <tr>
-                                <td colspan="2" style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Full Name:</strong> <span t-field="o.customer_id.name"/></td>
+                                <td colspan="2" style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Full Name:</strong><span t-out="' '.join(o.customer_id.name.split()[:3]) if o.customer_id.name else ''"/></td>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd; text-align:right; direction:rtl; width:120px;"><strong>الاسم</strong><span>: </span><span style="unicode-bidi:isolate;" t-field="o.customer_id.name_arabic"/></td>
                             </tr>
                             <tr>
@@ -138,7 +138,7 @@
                                 <t t-if="o.vehicle_id.vehicle_image">
                                     <img t-att-src="image_data_uri(o.vehicle_id.vehicle_image)" style="max-width:100%; max-height:230px; display:block; margin:0 auto;"/>
                                 </t>
-                                <div style="padding-top:145px; font-size:14px;">
+                                <div style="padding-top:142px; font-size:14px;">
                                     <u><strong>The Daily Rate Above Includes:</strong></u>
                                     <ul style="margin:4px 0 10px 0; padding-left:18px;">
                                         <li>Basic Insurance Policy</li>

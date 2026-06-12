@@ -41,13 +41,13 @@
                                     <div style="font-size:18px; font-weight:bold; letter-spacing:6px; text-align:center; width:300px;">AUTO GROUP</div>
                                 </td>
                                 <td style="vertical-align:middle; text-align:right;">
-                                    <t t-if="o.company_id.logo">
+                                    <!-- <t t-if="o.company_id.logo">
                                         <img t-att-src="image_data_uri(o.company_id.logo)" style="max-height:260px; max-width:400px;"/>
-                                    </t>
+                                    </t> -->
                                 </td>
                             </tr>
                         </table>
-                        <div style="text-align:center; font-size:11px; margin:-100px 0 4px 0;">- 1 -</div>
+                        <div style="text-align:center; font-size:11px; margin:0px 0 4px 0;">- 1 -</div>
                         <!-- ===== Agreement intro ===== -->
                        <table style="width:100%; border-collapse:collapse; background-color:#1a3a4a; color:white; margin-top:0;">
                                     <tr>

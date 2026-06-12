@@ -160,8 +160,8 @@
                                         </tr>
                                         <tr>
                                             <td style="padding:7px; border:1px solid #ccc;"><strong>Location:</strong></td>
-                                            <td style="padding:7px; border:1px solid #ccc; direction:rtl;"><span t-field="o.pickup_location"/></td>
-                                            <td style="padding:7px; border:1px solid #ccc; direction:rtl;"><span t-field="o.dropoff_location"/></td>
+                                            <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.pickup_location"/></td>
+                                            <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.dropoff_location"/></td>
                                         </tr>
                                         <tr>
                                             <td style="padding:7px; border:1px solid #ccc;"><strong>Date:</strong></td>

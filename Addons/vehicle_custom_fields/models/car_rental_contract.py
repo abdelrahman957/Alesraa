@@ -45,8 +45,7 @@ class CarRentalContract(models.Model):
     )
 
     def _default_checklist_line(self):
-        return [
-            (0, 0, {'name': 2, 'price': 0.0}),
-            (0, 0, {'name': 4, 'price': 0.0}),
-            (0, 0, {'name': 6, 'price': 0.0}),
-        ]
+        tools = self.env['car.tools'].search([
+            ('name', 'in', ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges'])
+        ])
+        return [(0, 0, {'name': tool.id, 'price': 0.0}) for tool in tools]

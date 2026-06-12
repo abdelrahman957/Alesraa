@@ -131,89 +131,94 @@
                         </table>
 
                         <!-- ===== Body: left (image + notes) / right (tables) ===== -->
-                        <table style="width:100%; border-collapse:collapse; margin-top:10px;">
-                            <tr>
-                                <td style="width:48%; vertical-align:top; padding:8px;">
-                                    <t t-if="o.vehicle_id.vehicle_image">
-                                        <img t-att-src="image_data_uri(o.vehicle_id.vehicle_image)" style="max-width:100%; max-height:230px; display:block; margin:0 auto;"/>
-                                    </t>
+                        <div style="margin-top:10px; overflow:hidden;">
+
+                            <!-- LEFT column: image + notes -->
+                            <div style="float:left; width:46%; padding:8px; box-sizing:border-box;">
+                                <t t-if="o.vehicle_id.vehicle_image">
+                                    <img t-att-src="image_data_uri(o.vehicle_id.vehicle_image)" style="max-width:100%; max-height:230px; display:block; margin:0 auto;"/>
+                                </t>
                                 <div style="margin-top:16px; font-size:14px;">
-                                        <u><strong>The Daily Rate Above Includes:</strong></u>
-                                        <ul style="margin:4px 0 10px 0; padding-left:18px;">
-                                            <li>Basic Insurance Policy</li>
-                                            <li>Free 150 KM/Day</li>
-                                        </ul>
-                                        <u><strong>The Daily Rate Above Excludes:</strong></u>
-                                        <ul style="margin:4px 0; padding-left:18px;">
-                                            <li>Any Fuel you use during the rental</li>
-                                            <li>Any excess KMS after 150 KM/Day, 7 LE/KM</li>
-                                        </ul>
-                                    </div>
-                                </td>
-                                <td style="width:52%; vertical-align:top; padding:8px;">
+                                    <u><strong>The Daily Rate Above Includes:</strong></u>
+                                    <ul style="margin:4px 0 10px 0; padding-left:18px;">
+                                        <li>Basic Insurance Policy</li>
+                                        <li>Free 150 KM/Day</li>
+                                    </ul>
+                                    <u><strong>The Daily Rate Above Excludes:</strong></u>
+                                    <ul style="margin:4px 0; padding-left:18px;">
+                                        <li>Any Fuel you use during the rental</li>
+                                        <li>Any excess KMS after 150 KM/Day, 7 LE/KM</li>
+                                    </ul>
+                                </div>
+                            </div>
 
-                                    <!-- جدول Pick Up / Drop Off -->
-                                    <table style="width:100%; border-collapse:collapse; border:1px solid #ccc; table-layout:fixed;">
-                                        <tr style="background-color:#eef3f5;">
-                                            <td style="padding:7px; border:1px solid #ccc;"><strong>Details</strong></td>
-                                            <td style="padding:7px; border:1px solid #ccc; text-align:center;"><strong>Pick Up</strong></td>
-                                            <td style="padding:7px; border:1px solid #ccc; text-align:center;"><strong>Drop Off</strong></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="padding:7px; border:1px solid #ccc;"><strong>Location:</strong></td>
-                                            <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.pickup_location"/></td>
-                                            <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.dropoff_location"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="padding:7px; border:1px solid #ccc;"><strong>Date:</strong></td>
-                                            <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.rent_start_date"/></td>
-                                            <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.rent_end_date"/></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="padding:7px; border:1px solid #ccc;"><strong>Time:</strong></td>
-                                            <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.start_time"/></td>
-                                            <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.end_time"/></td>
-                                        </tr>
-                                    </table>
+                            <!-- RIGHT column: tables -->
+                            <div style="float:right; width:52%; padding:8px; box-sizing:border-box;">
 
+                                <!-- جدول Pick Up / Drop Off -->
+                                <table style="width:100%; border-collapse:collapse; border:1px solid #ccc; table-layout:fixed;">
+                                    <tr style="background-color:#eef3f5;">
+                                        <td style="padding:7px; border:1px solid #ccc;"><strong>Details</strong></td>
+                                        <td style="padding:7px; border:1px solid #ccc; text-align:center;"><strong>Pick Up</strong></td>
+                                        <td style="padding:7px; border:1px solid #ccc; text-align:center;"><strong>Drop Off</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:7px; border:1px solid #ccc;"><strong>Location:</strong></td>
+                                        <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.pickup_location"/></td>
+                                        <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.dropoff_location"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:7px; border:1px solid #ccc;"><strong>Date:</strong></td>
+                                        <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.rent_start_date"/></td>
+                                        <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.rent_end_date"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:7px; border:1px solid #ccc;"><strong>Time:</strong></td>
+                                        <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.start_time"/></td>
+                                        <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.end_time"/></td>
+                                    </tr>
+                                </table>
 
-                                    <!-- جدول Summary -->
-                                    <table style="width:100%; border-collapse:collapse; border:1px solid #ccc; table-layout:fixed; margin-top:60px;">
-                                        <tr style="background-color:#eef3f5;">
-                                            <td colspan="2" style="padding:7px; border:1px solid #ccc; text-align:center;"><strong>Summary</strong></td>                                        </tr>
-                                        <tr style="background-color:#eef3f5;">
-                                            <td style="padding:7px; border:1px solid #ccc;"><strong>Rental Period:</strong></td>
-                                            <td style="padding:7px; border:1px solid #ccc; text-align:right;"><span t-field="o.rental_period_days"/> Days</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="padding:7px; border:1px solid #ccc;"><strong>Total Rental Fees:</strong></td>
-                                            <td style="padding:7px; border:1px solid #ccc; text-align:right;">0 EGP</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="padding:7px; border:1px solid #ccc;"><strong>Pick Up Charge:</strong></td>
-                                            <td style="padding:7px; border:1px solid #ccc; text-align:right;">0 EGP</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="padding:7px; border:1px solid #ccc;"><strong>Drop off Charge:</strong></td>
-                                            <td style="padding:7px; border:1px solid #ccc; text-align:right;">0 EGP</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="padding:7px; border:1px solid #ccc;"><strong>Paid Deposit:</strong></td>
-                                            <td style="padding:7px; border:1px solid #ccc; text-align:right;">0 EGP</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="padding:7px; border:1px solid #ccc;"><strong>Contract Guarantee:</strong></td>
-                                            <td style="padding:7px; border:1px solid #ccc; text-align:right;">0 EGP</td>
-                                        </tr>
-                                        <tr style="background-color:#1a3a4a; color:white;">
-                                            <td style="padding:7px; border:1px solid #ccc;"><strong>Total Requested Charge:</strong></td>
-                                            <td style="padding:7px; border:1px solid #ccc; text-align:right;"><strong>0 EGP</strong></td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
+                                <!-- جدول Summary -->
+                                <table style="width:100%; border-collapse:collapse; border:1px solid #ccc; table-layout:fixed; margin-top:60px;">
+                                    <tr style="background-color:#eef3f5;">
+                                        <td colspan="2" style="padding:7px; border:1px solid #ccc; text-align:center;"><strong>Summary</strong></td>
+                                    </tr>
+                                    <tr style="background-color:#eef3f5;">
+                                        <td style="padding:7px; border:1px solid #ccc;"><strong>Rental Period:</strong></td>
+                                        <td style="padding:7px; border:1px solid #ccc; text-align:right;"><span t-field="o.rental_period_days"/> Days</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:7px; border:1px solid #ccc;"><strong>Total Rental Fees:</strong></td>
+                                        <td style="padding:7px; border:1px solid #ccc; text-align:right;">0 EGP</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:7px; border:1px solid #ccc;"><strong>Pick Up Charge:</strong></td>
+                                        <td style="padding:7px; border:1px solid #ccc; text-align:right;">0 EGP</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:7px; border:1px solid #ccc;"><strong>Drop off Charge:</strong></td>
+                                        <td style="padding:7px; border:1px solid #ccc; text-align:right;">0 EGP</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:7px; border:1px solid #ccc;"><strong>Paid Deposit:</strong></td>
+                                        <td style="padding:7px; border:1px solid #ccc; text-align:right;">0 EGP</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:7px; border:1px solid #ccc;"><strong>Contract Guarantee:</strong></td>
+                                        <td style="padding:7px; border:1px solid #ccc; text-align:right;">0 EGP</td>
+                                    </tr>
+                                    <tr style="background-color:#1a3a4a; color:white;">
+                                        <td style="padding:7px; border:1px solid #ccc;"><strong>Total Requested Charge:</strong></td>
+                                        <td style="padding:7px; border:1px solid #ccc; text-align:right;"><strong>0 EGP</strong></td>
+                                    </tr>
+                                </table>
 
+                            </div>
+
+                            <div style="clear:both;"></div>
+                        </div>
+                        
                         <!-- ===== Spacer pushes signatures to bottom ===== -->
                         <div style="flex-grow:1;"></div>
 

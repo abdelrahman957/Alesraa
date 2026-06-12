@@ -1,5 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- Reservation Wizard Form -->
+    <record id="vehicle_reservation_view_form" model="ir.ui.view">
+        <field name="name">vehicle.reservation.view.form</field>
+        <field name="model">vehicle.reservation</field>
+        <field name="arch" type="xml">
+            <form string="Reservation">
+                <sheet>
+                    <group>
+                        <field name="vehicle_id" readonly="1"/>
+                        <field name="sale_order_id"/>
+                        <field name="customer_id" readonly="1"/>
+                    </group>
+                    <group string="Rental Period">
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Save" special="save" class="btn-primary"/>
+                    <button name="unlink" string="Delete Reservation" type="object"
+                            class="btn-danger" invisible="not id"
+                            confirm="Are you sure you want to delete this reservation?"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
     <!-- Fleet Management List View -->
     <record id="fleet_management_view_list" model="ir.ui.view">
         <field name="name">fleet.management.view.list</field>
@@ -11,6 +39,14 @@
                        decoration-success="rental_status == 'Available'"
                        decoration-bf="rental_status == 'In Rent'"/>
                 <field name="rental_return_date" string="Return Date"/>
+                <field name="has_reservation" column_invisible="1"/>
+                <field name="rental_status" column_invisible="1"/>
+                <button name="action_make_reserve" type="object" string="Make Reserve"
+                        class="btn-primary"
+                        invisible="rental_status != 'In Rent' or has_reservation"/>
+                <button name="action_edit_reserve" type="object" string="Edit Reserve"
+                        class="btn-secondary"
+                        invisible="not has_reservation"/>
             </list>
         </field>
     </record>

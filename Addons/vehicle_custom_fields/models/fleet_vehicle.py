@@ -101,3 +101,50 @@ class FleetVehicle(models.Model):
             else:
                 vehicle.rental_status = 'Available'
                 vehicle.rental_return_date = False
+
+    reservation_id = fields.Many2one(
+        'vehicle.reservation',
+        string='Reservation',
+        compute='_compute_reservation',
+    )
+    has_reservation = fields.Boolean(
+        string='Has Reservation',
+        compute='_compute_reservation',
+    )
+
+    def _compute_reservation(self):
+        for vehicle in self:
+            reservation = self.env['vehicle.reservation'].search([
+                ('vehicle_id', '=', vehicle.id),
+            ], limit=1)
+            vehicle.reservation_id = reservation
+            vehicle.has_reservation = bool(reservation)
+
+    def action_make_reserve(self):
+        """ يفتح wizard فاضي لعمل حجز جديد """
+        self.ensure_one()
+        return {
+            'name': 'Make Reservation',
+            'type': 'ir.actions.act_window',
+            'res_model': 'vehicle.reservation',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {
+                'default_vehicle_id': self.id,
+            },
+        }
+
+    def action_edit_reserve(self):
+        """ يفتح wizard بالحجز الموجود للتعديل """
+        self.ensure_one()
+        reservation = self.env['vehicle.reservation'].search([
+            ('vehicle_id', '=', self.id),
+        ], limit=1)
+        return {
+            'name': 'Edit Reservation',
+            'type': 'ir.actions.act_window',
+            'res_model': 'vehicle.reservation',
+            'view_mode': 'form',
+            'res_id': reservation.id,
+            'target': 'new',
+        }

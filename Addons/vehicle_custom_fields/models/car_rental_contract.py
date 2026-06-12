@@ -49,3 +49,30 @@ class CarRentalContract(models.Model):
             ('name', 'in', ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges'])
         ])
         return [(0, 0, {'name': tool.id, 'price': 0.0}) for tool in tools]
+    
+    @api.onchange('sale_order_id')
+    def _onchange_sale_order_id(self):
+        if self.sale_order_id:
+            self.customer_id = self.sale_order_id.partner_id
+            self.rent_start_date = self.sale_order_id.rental_date_from
+            self.rent_end_date = self.sale_order_id.rental_date_to
+            self.pickup_location = self.sale_order_id.pickup_location
+            self.dropoff_location = self.sale_order_id.dropoff_location
+
+            # ملء البنود من سطور الـ SO
+            for line in self.checklist_line:
+                tool_name = line.name.name
+                if tool_name == 'Rent Fees':
+                    # ياخد من سطر المنتج اللي is_vehicle = True
+                    vehicle_lines = self.sale_order_id.order_line.filtered(
+                        lambda l: l.product_id.is_vehicle
+                    )
+                    if vehicle_lines:
+                        line.price = sum(vehicle_lines.mapped('price_subtotal'))
+                else:
+                    # باقي البنود: ياخد من المنتج اللي ليه نفس الاسم
+                    matching = self.sale_order_id.order_line.filtered(
+                        lambda l: l.product_id.name == tool_name
+                    )
+                    if matching:
+                        line.price = matching[0].price_subtotal

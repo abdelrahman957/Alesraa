@@ -138,7 +138,7 @@
                                 <t t-if="o.vehicle_id.vehicle_image">
                                     <img t-att-src="image_data_uri(o.vehicle_id.vehicle_image)" style="max-width:100%; max-height:230px; display:block; margin:0 auto;"/>
                                 </t>
-                                <div style="margin-top:16px; font-size:14px;">
+                                <div style="margin-top:30px; font-size:14px;">
                                     <u><strong>The Daily Rate Above Includes:</strong></u>
                                     <ul style="margin:4px 0 10px 0; padding-left:18px;">
                                         <li>Basic Insurance Policy</li>

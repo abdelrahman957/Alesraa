@@ -21,4 +21,18 @@
             </field>
         </field>
     </record>
+    <record id="crm_lead_search_inherit" model="ir.ui.view">
+        <field name="name">crm.lead.search.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="interested_vehicle_ids"/>
+            </field>
+            <filter name="salesperson" position="after">
+                <filter string="Car" name="group_interested_vehicle"
+                        context="{'group_by': 'interested_vehicle_ids'}"/>
+            </filter>
+        </field>
+    </record>
 </odoo>

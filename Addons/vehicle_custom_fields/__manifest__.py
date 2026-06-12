@@ -3,7 +3,7 @@
     'version': '19.0.1.0.0',
     'category': 'Fleet',
     'summary': 'Add custom fields to Fleet Vehicle',
-    'depends': ['fleet', 'sale','fleet_rental'],
+    'depends': ['fleet','sale','fleet_rental','crm'],
     'data': [
     'views/fleet_vehicle_views.xml',
     'security/ir.model.access.csv',
@@ -14,6 +14,7 @@
     'reports/rental_contract_report.xml',
     'views/fleet_vehicle_model_views.xml',
     'views/res_partner_views.xml',
+    'views/crm_lead_views.xml',
 ],
     'installable': True,
     'auto_install': False,

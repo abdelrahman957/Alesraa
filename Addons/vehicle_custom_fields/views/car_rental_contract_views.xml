@@ -13,8 +13,8 @@
                 <field name="dropoff_location"/>
                 <field name="exit_fuel"/>
             </xpath>
-            <xpath expr="//page[@string='Checklist']" position="after">
-                <xpath expr="//page[@string='Recurring Invoices']" position="move"/>
+            <xpath expr="//field[@name='attachment_ids']/ancestor::page[1]" position="after">
+                <xpath expr="//field[@name='recurring_line']/ancestor::page[1]" position="move"/>
             </xpath>
         </field>
     </record>

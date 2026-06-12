@@ -15,4 +15,28 @@
             </xpath>
         </field>
     </record>
+
+    <!-- Search view with Group By -->
+    <record id="car_rental_contract_view_search" model="ir.ui.view">
+        <field name="name">car.rental.contract.view.search</field>
+        <field name="model">car.rental.contract</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="customer_id"/>
+                <field name="vehicle_id"/>
+                <group expand="0" string="Group By">
+                    <filter string="Vehicle" name="group_vehicle"
+                            context="{'group_by': 'vehicle_id'}"/>
+                    <filter string="Customer" name="group_customer"
+                            context="{'group_by': 'customer_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Attach search view to the action -->
+    <record id="fleet_rental.action_car_rental_contract" model="ir.actions.act_window">
+        <field name="search_view_id" ref="car_rental_contract_view_search"/>
+    </record>
+
 </odoo>

@@ -12,8 +12,10 @@ class SaleOrder(models.Model):
         compute='_compute_rental_duration',
         store=True,
     )
-    delivery_location = fields.Text(string='Delivery Location')
 
+    pickup_location = fields.Text(string='Pick Up Location')
+    dropoff_location = fields.Text(string='Drop Off Location')
+    
     sale_order_contract_ids = fields.One2many(
         'car.rental.contract',
         'sale_order_id',

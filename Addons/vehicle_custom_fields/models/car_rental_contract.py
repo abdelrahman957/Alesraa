@@ -9,7 +9,9 @@ class CarRentalContract(models.Model):
         string='Sales Order',
         domain=[('state', 'in', ['sale', 'done'])],
     )
-    delivery_location = fields.Char(string='Delivery Location')
+
+    pickup_location = fields.Char(string='Pick Up Location')
+    dropoff_location = fields.Char(string='Drop Off Location')
 
     image = fields.Binary(related='vehicle_id.vehicle_image')
 
@@ -21,7 +23,8 @@ class CarRentalContract(models.Model):
             self.customer_id = self.sale_order_id.partner_id
             self.rent_start_date = self.sale_order_id.rental_date_from
             self.rent_end_date = self.sale_order_id.rental_date_to
-            self.delivery_location = self.sale_order_id.delivery_location
+            self.pickup_location = self.sale_order_id.pickup_location
+            self.dropoff_location = self.sale_order_id.dropoff_location
 
 
     rental_period_days = fields.Integer(

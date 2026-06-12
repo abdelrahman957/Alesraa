@@ -7,7 +7,8 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='customer_id']" position="before">
                 <field name="sale_order_id"/>
-                <field name="delivery_location"/>
+                <field name="pickup_location"/>
+                <field name="dropoff_location"/>
                 <field name="exit_fuel"/>
             </xpath>
         </field>

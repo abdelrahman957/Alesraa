@@ -119,6 +119,16 @@ class FleetVehicle(models.Model):
             ], limit=1)
             vehicle.reservation_id = reservation
             vehicle.has_reservation = bool(reservation)
+            if reservation:
+                vehicle.reservation_source = reservation.sale_order_id.name
+                vehicle.reservation_customer_id = reservation.customer_id
+                vehicle.reservation_date_from = reservation.date_from
+                vehicle.reservation_date_to = reservation.date_to
+            else:
+                vehicle.reservation_source = False
+                vehicle.reservation_customer_id = False
+                vehicle.reservation_date_from = False
+                vehicle.reservation_date_to = False
 
     def action_make_reserve(self):
         """ يفتح wizard فاضي لعمل حجز جديد """
@@ -148,3 +158,21 @@ class FleetVehicle(models.Model):
             'res_id': reservation.id,
             'target': 'new',
         }
+    
+    reservation_source = fields.Char(
+        string='Source',
+        compute='_compute_reservation',
+    )
+    reservation_customer_id = fields.Many2one(
+        'res.partner',
+        string='Customer',
+        compute='_compute_reservation',
+    )
+    reservation_date_from = fields.Date(
+        string='Reserved From',
+        compute='_compute_reservation',
+    )
+    reservation_date_to = fields.Date(
+        string='Reserved Till',
+        compute='_compute_reservation',
+    )

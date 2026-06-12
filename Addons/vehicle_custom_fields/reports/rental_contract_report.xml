@@ -47,7 +47,7 @@
                                 </td>
                             </tr>
                         </table>
-                        <div style="text-align:center; font-size:11px; margin:0px 0 4px 0;">- 1 -</div>
+                        <div style="text-align:center; font-size:14px; margin:0px 0 4px 0;">- 1 -</div>
                         <!-- ===== Agreement intro ===== -->
                        <table style="width:100%; border-collapse:collapse; background-color:#1a3a4a; color:white; margin-top:0;">
                                     <tr>
@@ -138,7 +138,7 @@
                                             <img t-att-src="image_data_uri(o.vehicle_id.vehicle_image)" style="max-width:100%; max-height:230px;"/>
                                         </t>
                                     </div>
-                                    <div style="margin-top:16px; font-size:11px;">
+                                    <div style="margin-top:16px; font-size:14px;">
                                         <u><strong>The Daily Rate Above Includes:</strong></u>
                                         <ul style="margin:4px 0 10px 0; padding-left:18px;">
                                             <li>Basic Insurance Policy</li>

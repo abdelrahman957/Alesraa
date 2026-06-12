@@ -68,13 +68,13 @@ class CarRentalContract(models.Model):
                         line.price = matching[0].price_subtotal
 
 
-class CarRentalChecklist(models.Model):
-    _inherit = 'car.rental.checklist'
+class CarTools(models.Model):
+    _inherit = 'car.tools'
 
     def unlink(self):
         protected_names = ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges']
-        for line in self:
-            if line.name and line.name.name in protected_names:
+        for tool in self:
+            if tool.name in protected_names:
                 raise ValidationError(
                     "You cannot delete the default items (Rent Fees, Pick Up Charges, Drop Off Charges)."
                 )

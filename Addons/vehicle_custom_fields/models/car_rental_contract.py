@@ -84,6 +84,15 @@ class CarRentalContract(models.Model):
             self.pickup_location = self.sale_order_id.pickup_location
             self.dropoff_location = self.sale_order_id.dropoff_location
 
+            # التأكد من وجود البنود الـ 3 الأساسية، وإضافة الناقص
+            required_names = ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges']
+            existing_names = self.checklist_line.mapped('name.name')
+            for tool_name in required_names:
+                if tool_name not in existing_names:
+                    tool = self.env['car.tools'].search([('name', '=', tool_name)], limit=1)
+                    if tool:
+                        self.checklist_line = [(0, 0, {'name': tool.id, 'price': 0.0})]
+
             # ملء البنود من سطور الـ SO
             for line in self.checklist_line:
                 line.price = 0.0  # تصفير القيمة الأول

@@ -32,7 +32,7 @@
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
                 <t t-call="web.basic_layout">
-                    <div class="page" style="font-family: Arial, sans-serif; font-size:14px; color:#000; padding:0 4px;">
+                    <div class="page" style="font-family: Arial, sans-serif; font-size:14px; color:#000; padding:0 4px 24px; position:relative; min-height:262mm;">
                         <!-- ===== Header: text left + logo right ===== -->
                         <table style="width:100%; border-collapse:collapse; margin-bottom:8px;">
                             <tr>
@@ -66,7 +66,7 @@
                         <table style="width:100%; border-collapse:collapse;">
                             <tr>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Name:</strong> <span t-field="o.company_id.name"/></td>
-                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; text-align:right; direction:rtl; width:120px;"><strong>الأسم</strong></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; text-align:right; direction:rtl; width:120px;"><strong>الاسم</strong></td>
                             </tr>
                             <tr>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Address:</strong> <span t-field="o.company_id.partner_id.contact_address"/></td>
@@ -86,7 +86,7 @@
                         <table style="width:100%; border-collapse:collapse;">
                             <tr>
                                 <td colspan="2" style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Full Name:</strong> <span t-field="o.customer_id.name"/></td>
-                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; text-align:right; direction:rtl; width:160px;"><strong>الأسم:</strong> <span t-field="o.customer_id.name_arabic"/></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; text-align:right; direction:rtl; width:160px;"><strong>الاسم:</strong> <span t-field="o.customer_id.name_arabic"/></td>
                             </tr>
                             <tr>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd; width:40%;"><strong>Telephone Number:</strong> <span t-field="o.customer_id.phone"/></td>
@@ -169,16 +169,16 @@
                                             <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.rent_end_date"/></td>
                                         </tr>
                                         <tr>
-                                            <td style="padding:7px; border:1px solid #ccc;"><strong>Time:</strong></td>
-                                            <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.start_time"/></td>
-                                            <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.end_time"/></td>
+                                            <td style="padding:7px; border:1px solid #ccc; border-bottom:none;"><strong>Time:</strong></td>
+                                            <td style="padding:7px; border:1px solid #ccc; border-bottom:none;"><span t-field="o.start_time"/></td>
+                                            <td style="padding:7px; border:1px solid #ccc; border-bottom:none;"><span t-field="o.end_time"/></td>
                                         </tr>
-                                        
+
                                         <tr>
-                                            <td colspan="3" style="padding:20px 0; border:none;"></td>
+                                            <td colspan="3" style="height:50px; padding:0; border:none;"></td>
                                         </tr>
                                         <tr style="background-color:#eef3f5;">
-                                            <td colspan="3" style="padding:7px; border:1px solid #ccc; text-align:center;"><strong>Summary</strong></td>
+                                            <td colspan="3" style="padding:7px; border:1px solid #ccc; border-top:none; text-align:center;"><strong>Summary</strong></td>
                                         </tr>
                                         <tr style="background-color:#eef3f5;">
                                             <td style="padding:7px; border:1px solid #ccc;"><strong>Rental Period:</strong></td>
@@ -237,7 +237,7 @@
                                 <td style="padding:8px; border-bottom:1px solid #ddd;"><strong>Date:</strong></td>
                             </tr>
                         </table>
-                        <div style="text-align:center; font-size:14px; margin-top:8px;">Page 1 / 1</div>
+                        <div style="position:absolute; bottom:4px; left:0; right:0; text-align:center; font-size:14px;">Page 1 / 1</div>
 
                     </div>
                 </t>

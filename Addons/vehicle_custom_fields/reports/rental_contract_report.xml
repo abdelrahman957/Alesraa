@@ -66,7 +66,7 @@
                         <table style="width:100%; border-collapse:collapse;">
                             <tr>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Name:</strong> <span t-field="o.company_id.name"/></td>
-                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; text-align:right; direction:rtl; width:200px; word-wrap:break-word;"><strong>الاسم:</strong> <span t-field="o.customer_id.name_arabic"/></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; text-align:right; direction:rtl; width:120px;"><strong>الاسم</strong></td>
                             </tr>
                             <tr>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Address:</strong> <span t-field="o.company_id.partner_id.contact_address"/></td>
@@ -87,7 +87,7 @@
                             <tr>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd; width:40%;"><strong>Full Name:</strong> <span t-field="o.customer_id.name"/></td>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd;"></td>
-                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; text-align:right; direction:rtl; white-space:nowrap;"><strong>الاسم:</strong> <span t-field="o.customer_id.name_arabic"/></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; text-align:right; direction:rtl; width:200px; word-wrap:break-word;"><strong>الاسم:</strong> <span t-field="o.customer_id.name_arabic"/></td>
                             </tr>
                             <tr>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd; width:40%;"><strong>Telephone Number:</strong> <span t-field="o.customer_id.phone"/></td>
@@ -238,7 +238,7 @@
                                 <td style="padding:8px; border-bottom:1px solid #ddd;"><strong>Date:</strong></td>
                             </tr>
                         </table>
-                        <div style="text-align:center; font-size:14px; margin-top:40px; padding-bottom:10px;">Page 1 / 1</div>
+                        <div style="position:absolute; bottom:0; left:0; right:0; text-align:center; font-size:14px;">Page 1 / 1</div>
 
                     </div>
                 </t>

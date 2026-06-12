@@ -80,11 +80,11 @@ class CarRentalContract(models.Model):
     class CarRentalChecklist(models.Model):
         _inherit = 'car.rental.checklist'
 
-        @api.ondelete(at_uninstall=False)
-        def _prevent_delete_default_lines(self):
-            protected_names = ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges']
-            for line in self:
-                if line.name and line.name.name in protected_names:
-                    raise ValidationError(
-                        "لا يمكن حذف البنود الأساسية (Rent Fees, Pick Up Charges, Drop Off Charges)."
-                    )
+    def unlink(self):
+        protected_names = ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges']
+        for line in self:
+            if line.name and line.name.name in protected_names:
+                raise ValidationError(
+                    "You cannot delete the default items (Rent Fees, Pick Up Charges, Drop Off Charges)."
+                )
+        return super().unlink()

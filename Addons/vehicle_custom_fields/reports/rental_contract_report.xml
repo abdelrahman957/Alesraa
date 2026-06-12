@@ -85,8 +85,9 @@
                         <!-- ===== Lessee info ===== -->
                         <table style="width:100%; border-collapse:collapse;">
                             <tr>
-                                <td colspan="2" style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Full Name:</strong> <span t-field="o.customer_id.name"/></td>
-                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; text-align:right; direction:rtl; width:160px;"><strong>الاسم:</strong> <span t-field="o.customer_id.name_arabic"/></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; width:40%;"><strong>Full Name:</strong> <span t-field="o.customer_id.name"/></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; text-align:right; direction:rtl; white-space:nowrap;"><strong>الاسم:</strong> <span t-field="o.customer_id.name_arabic"/></td>
                             </tr>
                             <tr>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd; width:40%;"><strong>Telephone Number:</strong> <span t-field="o.customer_id.phone"/></td>

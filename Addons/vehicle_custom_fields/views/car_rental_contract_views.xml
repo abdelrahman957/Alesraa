@@ -13,6 +13,9 @@
                 <field name="dropoff_location"/>
                 <field name="exit_fuel"/>
             </xpath>
+            <xpath expr="//page[@string='Checklist']" position="after">
+                <xpath expr="//page[@string='Recurring Invoices']" position="move"/>
+            </xpath>
         </field>
     </record>
 

@@ -49,4 +49,14 @@
         <field name="search_view_id" ref="car_rental_contract_view_search"/>
     </record>
 
+    <!-- Rename Accessories/Tools action -->
+    <record id="fleet_rental.action_fleet_car_tools" model="ir.actions.act_window">
+        <field name="name">Financial Details</field>
+    </record>
+
+    <!-- Rename Accessories/Tools menu -->
+    <record id="fleet_rental.menu_car_tools" model="ir.ui.menu">
+        <field name="name">Financial Details</field>
+    </record>
+    
 </odoo>

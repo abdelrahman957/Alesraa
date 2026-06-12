@@ -90,12 +90,12 @@
                             </tr>
                             <tr>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd; width:40%;"><strong>Telephone Number:</strong> <span t-field="o.customer_id.phone"/></td>
-                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>ID No:</strong> <span t-field="o.customer_id.vat"/></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; white-space:nowrap;"><strong>Valid Till:</strong> <span t-field="o.customer_id.vat_valid_to"/></td>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Valid Till:</strong> <span t-field="o.customer_id.vat_valid_to"/></td>
                             </tr>
                             <tr>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Address:</strong> <span t-field="o.customer_id.contact_address"/></td>
-                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>DL No:</strong> <span t-field="o.customer_id.driving_license_no"/></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; white-space:nowrap;"><strong>Valid Till:</strong> <span t-field="o.customer_id.driving_license_valid_to"/></td>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Valid Till:</strong> <span t-field="o.customer_id.driving_license_valid_to"/></td>
                             </tr>
                         </table>

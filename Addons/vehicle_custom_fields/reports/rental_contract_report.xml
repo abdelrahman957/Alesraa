@@ -70,7 +70,9 @@
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd; text-align:right; direction:rtl; width:120px;"><strong>الاسم</strong></td>
                             </tr>
                             <tr>
-                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Address:</strong> <span t-field="o.company_id.partner_id.contact_address"/></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Address:</strong>
+                                    <span t-out="', '.join([p for p in [o.company_id.partner_id.street, o.company_id.partner_id.street2, o.company_id.partner_id.city, o.company_id.partner_id.state_id.name, o.company_id.partner_id.country_id.name] if p])"/>
+                                </td>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd; text-align:right; direction:rtl;"><strong>العنوان</strong></td>
                             </tr>
                         </table>
@@ -138,7 +140,7 @@
                                 <t t-if="o.vehicle_id.vehicle_image">
                                     <img t-att-src="image_data_uri(o.vehicle_id.vehicle_image)" style="max-width:100%; max-height:230px; display:block; margin:0 auto;"/>
                                 </t>
-                                <div style="padding-top:142px; font-size:14px;">
+                                <div style="padding-top:143px; font-size:14px;">
                                     <u><strong>The Daily Rate Above Includes:</strong></u>
                                     <ul style="margin:4px 0 10px 0; padding-left:18px;">
                                         <li>Basic Insurance Policy</li>
@@ -182,7 +184,7 @@
                                 <!-- جدول Summary -->
                                 <table style="width:100%; border-collapse:collapse; border:1px solid #ccc; table-layout:fixed; margin-top:60px;">
                                     <tr style="background-color:#eef3f5;">
-                                        <td colspan="2" style="padding:10px; border:1px solid #ccc; text-align:center; vertical-align:middle;"><strong>Summary</strong></td>
+                                        <td colspan="2" style="padding:5px; border:1px solid #ccc; text-align:center; vertical-align:middle;"><strong>Summary</strong></td>
                                     </tr>
                                     <tr style="background-color:#eef3f5;">
                                         <td style="padding:7px; border:1px solid #ccc;"><strong>Rental Period:</strong></td>

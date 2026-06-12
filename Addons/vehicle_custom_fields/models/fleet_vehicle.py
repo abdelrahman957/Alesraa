@@ -34,10 +34,19 @@ class FleetVehicle(models.Model):
     
     vehicle_image = fields.Image(
         string='Vehicle Image',
-        related='model_id.vehicle_image',
+        compute='_compute_vehicle_image',
         store=True,
+        readonly=False,
     )
 
+    @api.depends('model_id')
+    def _compute_vehicle_image(self):
+        for vehicle in self:
+            if vehicle.model_id:
+                vehicle.vehicle_image = vehicle.model_id.vehicle_image
+            else:
+                vehicle.vehicle_image = False
+                
     @api.depends('log_contracts', 'log_contracts.insurer_id', 'log_contracts.state')
     def _compute_owner_fields(self):
         for vehicle in self:
@@ -63,7 +72,7 @@ class FleetVehicle(models.Model):
                 vehicle.owner_id = False
                 vehicle.owner_mobile = False
                 vehicle.owner_vat = False
-                
+
     @api.depends('model_id')
     def _compute_color(self):
         for vehicle in self:

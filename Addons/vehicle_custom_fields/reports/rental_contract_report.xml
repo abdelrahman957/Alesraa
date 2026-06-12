@@ -169,16 +169,15 @@
                                             <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.rent_end_date"/></td>
                                         </tr>
                                         <tr>
-                                            <td style="padding:7px; border:1px solid #ccc; border-bottom:none;"><strong>Time:</strong></td>
-                                            <td style="padding:7px; border:1px solid #ccc; border-bottom:none;"><span t-field="o.start_time"/></td>
-                                            <td style="padding:7px; border:1px solid #ccc; border-bottom:none;"><span t-field="o.end_time"/></td>
+                                            <td style="padding:7px; border:1px solid #ccc;"><strong>Time:</strong></td>
+                                            <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.start_time"/></td>
+                                            <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.end_time"/></td>
                                         </tr>
-
                                         <tr>
-                                            <td colspan="3" style="height:50px; padding:0; border:none;"></td>
+                                            <td colspan="3" style="height:30px; padding:0; border:none; border-left:none; border-right:none; background-color:white;"></td>
                                         </tr>
                                         <tr style="background-color:#eef3f5;">
-                                            <td colspan="3" style="padding:7px; border:1px solid #ccc; border-top:none; text-align:center;"><strong>Summary</strong></td>
+                                            <td colspan="3" style="padding:7px; border:1px solid #ccc; text-align:center;"><strong>Summary</strong></td>
                                         </tr>
                                         <tr style="background-color:#eef3f5;">
                                             <td style="padding:7px; border:1px solid #ccc;"><strong>Rental Period:</strong></td>

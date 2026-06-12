@@ -157,7 +157,7 @@
                                     <!-- جدول Pick Up / Drop Off -->
                                     <table style="width:100%; border-collapse:collapse; border:1px solid #ccc; table-layout:fixed;">
                                         <tr style="background-color:#eef3f5;">
-                                            <td style="padding:7px; border:1px solid #ccc;"></td>
+                                            <td style="padding:7px; border:1px solid #ccc;"><strong>Details</strong></td>
                                             <td style="padding:7px; border:1px solid #ccc; text-align:center;"><strong>Pick Up</strong></td>
                                             <td style="padding:7px; border:1px solid #ccc; text-align:center;"><strong>Drop Off</strong></td>
                                         </tr>
@@ -188,7 +188,7 @@
                                         </tr>
                                         <tr style="background-color:#eef3f5;">
                                             <td style="padding:7px; border:1px solid #ccc;"><strong>Rental Period:</strong></td>
-                                            <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.rental_period_days"/> Days</td>
+                                            <td style="padding:7px; border:1px solid #ccc; text-align:right;"><span t-field="o.rental_period_days"/> Days</td>
                                         </tr>
                                         <tr>
                                             <td style="padding:7px; border:1px solid #ccc;"><strong>Total Rental Fees:</strong></td>

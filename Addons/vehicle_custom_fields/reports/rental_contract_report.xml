@@ -131,7 +131,7 @@
                         </table>
 
                         <!-- ===== Body: left (image + notes) / right (tables) ===== -->
-                        <div style="overflow:hidden;padding:20px 0px">
+                        <div style="overflow:hidden;padding:5px 0px">
 
                             <!-- LEFT column: image + notes -->
                             <div style="float:left; width:46%; padding:8px; box-sizing:border-box;">

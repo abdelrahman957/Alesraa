@@ -53,6 +53,9 @@
                 <button name="action_edit_reserve" type="object" string="Edit Reserve"
                         class="btn-secondary"
                         invisible="not has_reservation"/>
+                <button name="action_convert_reservation" type="object" string="Convert to Contract"
+                class="btn-success"
+                invisible="rental_status != 'Available' or not has_reservation"/>
             </list>
         </field>
     </record>

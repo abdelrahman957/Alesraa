@@ -131,8 +131,7 @@
                         </table>
 
                         <!-- ===== Body: left (image + notes) / right (tables) ===== -->
-                        <div style="margin-top:10px; overflow:hidden;">
-
+                        <div style="overflow:hidden;">
                             <!-- LEFT column: image + notes -->
                             <div style="float:left; width:46%; padding:8px; box-sizing:border-box;">
                                 <t t-if="o.vehicle_id.vehicle_image">

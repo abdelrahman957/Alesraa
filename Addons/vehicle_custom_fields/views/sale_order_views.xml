@@ -18,7 +18,10 @@
                         <field name="rental_duration" string="Duration" readonly="1"/>
                     </group>
                     <group colspan="4">
-                        <field name="delivery_location" string="Delivery Location"/>
+                        <field name="pickup_location" string="Pick Up Location"/>
+                    </group>
+                    <group colspan="4">
+                        <field name="dropoff_location" string="Drop Off Location"/>
                     </group>
                 </group>
             </xpath>

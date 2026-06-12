@@ -47,7 +47,7 @@
                                 </td>
                             </tr>
                         </table>
-                        <div style="text-align:center; font-size:14px; margin:0px 0 4px 0;">- 1 -</div>
+                        
                         <!-- ===== Agreement intro ===== -->
                        <table style="width:100%; border-collapse:collapse; background-color:#1a3a4a; color:white; margin-top:0;">
                                     <tr>
@@ -86,7 +86,7 @@
                         <table style="width:100%; border-collapse:collapse;">
                             <tr>
                                 <td colspan="2" style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Full Name:</strong> <span t-field="o.customer_id.name"/></td>
-                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; text-align:right; direction:rtl;"><strong>الأسم:</strong> <span t-field="o.customer_id.name_arabic"/></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; text-align:right; direction:rtl; width:160px;"><strong>الأسم:</strong> <span t-field="o.customer_id.name_arabic"/></td>
                             </tr>
                             <tr>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd; width:40%;"><strong>Telephone Number:</strong> <span t-field="o.customer_id.phone"/></td>
@@ -233,6 +233,7 @@
                                 <td style="padding:8px; border-bottom:1px solid #ddd;"><strong>Date:</strong></td>
                             </tr>
                         </table>
+                        <div style="text-align:center; font-size:14px; margin:0px 0 4px 0;">Page 1 / 1</div>
 
                     </div>
                 </t>

@@ -173,10 +173,11 @@
                                             <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.start_time"/></td>
                                             <td style="padding:7px; border:1px solid #ccc;"><span t-field="o.end_time"/></td>
                                         </tr>
+                                        <br/><br/>
                                         <tr style="background-color:#eef3f5;">
                                             <td colspan="3" style="padding:7px; border:1px solid #ccc; text-align:center;"><strong>Summary</strong></td>
                                         </tr>
-                                        <tr style="background-color:#fdf6e3;">
+                                        <tr style="background-color:#eef3f5;">
                                             <td style="padding:7px; border:1px solid #ccc;"><strong>Rental Period:</strong></td>
                                             <td colspan="2" style="padding:7px; border:1px solid #ccc;"><span t-field="o.rental_period_days"/> Days</td>
                                         </tr>

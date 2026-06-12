@@ -61,16 +61,15 @@ class CarRentalContract(models.Model):
 
             # ملء البنود من سطور الـ SO
             for line in self.checklist_line:
+                line.price = 0.0  # تصفير القيمة الأول
                 tool_name = line.name.name
                 if tool_name == 'Rent Fees':
-                    # ياخد من سطر المنتج اللي is_vehicle = True
                     vehicle_lines = self.sale_order_id.order_line.filtered(
                         lambda l: l.product_id.is_vehicle
                     )
                     if vehicle_lines:
                         line.price = sum(vehicle_lines.mapped('price_subtotal'))
                 else:
-                    # باقي البنود: ياخد من المنتج اللي ليه نفس الاسم
                     matching = self.sale_order_id.order_line.filtered(
                         lambda l: l.product_id.name == tool_name
                     )

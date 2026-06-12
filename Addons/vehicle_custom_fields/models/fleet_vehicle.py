@@ -63,3 +63,10 @@ class FleetVehicle(models.Model):
                 vehicle.owner_id = False
                 vehicle.owner_mobile = False
                 vehicle.owner_vat = False
+                
+    @api.depends('model_id')
+    def _compute_color(self):
+        for vehicle in self:
+            # لو فيه لون متخزن، سيبه؛ لو لأ، خليه فاضي
+            if not vehicle.color or vehicle.color == '#FFFFFF':
+                vehicle.color = False

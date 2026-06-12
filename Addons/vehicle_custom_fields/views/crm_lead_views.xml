@@ -5,10 +5,10 @@
         <field name="model">crm.lead</field>
         <field name="inherit_id" ref="crm.crm_lead_view_form"/>
         <field name="arch" type="xml">
-           <xpath expr="//field[@name='email_from'][@id='email_from_group_lead_info']/ancestor::div[1]" position="after">
-    <field name="interested_vehicle_ids" string="Car" widget="many2many_tags"
-           options="{'no_create': True}"/>
-</xpath>
+           <xpath expr="//field[@name='function']" position="after">
+                <field name="interested_vehicle_ids" string="Car" widget="many2many_tags"
+                    options="{'no_create': True}"/>
+            </xpath>
         </field>
     </record>
 </odoo>

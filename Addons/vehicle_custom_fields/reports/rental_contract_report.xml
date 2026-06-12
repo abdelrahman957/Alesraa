@@ -33,7 +33,7 @@
             <t t-foreach="docs" t-as="o">
                 <t t-call="web.basic_layout">
                 <t t-set="footer" t-value="True"/>
-                    <div class="page" style="font-family: Arial, sans-serif; font-size:14px; color:#000; padding:0 4px 24px; display:flex; flex-direction:column; min-height:262mm;">
+                    <div class="page" style="font-family: Arial, sans-serif; font-size:14px; color:#000; padding:0 4px 24px; display:flex; flex-direction:column; min-height:277mm;">
                         <!-- ===== Header: text left + logo right ===== -->
                         <table style="width:100%; border-collapse:collapse; margin-bottom:8px;">
                             <tr>

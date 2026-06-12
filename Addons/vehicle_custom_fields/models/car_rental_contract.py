@@ -13,6 +13,8 @@ class CarRentalContract(models.Model):
 
     image = fields.Binary(related='vehicle_id.vehicle_image')
 
+    exit_fuel = fields.Float(string='Exit Fuel (%)')
+
     @api.onchange('sale_order_id')
     def _onchange_sale_order_id(self):
         if self.sale_order_id:

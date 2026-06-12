@@ -8,6 +8,7 @@
             <xpath expr="//field[@name='customer_id']" position="before">
                 <field name="sale_order_id"/>
                 <field name="delivery_location"/>
+                <field name="exit_fuel"/>
             </xpath>
         </field>
     </record>

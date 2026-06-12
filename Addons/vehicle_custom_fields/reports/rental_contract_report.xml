@@ -120,7 +120,7 @@
                             <tr>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Plate No:</strong> <span t-field="o.vehicle_id.license_plate"/></td>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Engine:</strong> <span t-field="o.vehicle_id.motor_number"/></td>
-                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Exit Fuel:</strong> <span t-field="o.vehicle_id.fuel_type"/></td>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Exit Fuel:</strong> <span t-field="o.exit_fuel"/>%</td>
                             </tr>
                         </table>
 

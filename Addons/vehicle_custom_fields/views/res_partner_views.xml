@@ -6,7 +6,9 @@
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='vat']" position="after">
+                <field name="vat_valid_to"/>
                 <field name="driving_license_no"/>
+                <field name="driving_license_valid_to"/>
             </xpath>
         </field>
     </record>

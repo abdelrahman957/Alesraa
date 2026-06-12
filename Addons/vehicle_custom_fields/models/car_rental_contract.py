@@ -46,7 +46,7 @@ class CarRentalContract(models.Model):
 
     def _default_checklist_line(self):
         return [
-            (0, 0, {'name': 'Rent Fees', 'price': 0.0}),
-            (0, 0, {'name': 'Pick Up Charges', 'price': 0.0}),
-            (0, 0, {'name': 'Drop Off Charges', 'price': 0.0}),
+            (0, 0, {'name': 2, 'price': 0.0}),
+            (0, 0, {'name': 4, 'price': 0.0}),
+            (0, 0, {'name': 6, 'price': 0.0}),
         ]

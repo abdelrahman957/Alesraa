@@ -19,6 +19,12 @@
             <xpath expr="//field[@name='attachment_ids']/ancestor::page[1]" position="attributes">
                 <attribute name="string">Financial Details</attribute>
             </xpath>
+            <xpath expr="//field[@name='checklist_line']//field[@name='checklist_active']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='checklist_line']//field[@name='checklist_number']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
         </field>
     </record>
 

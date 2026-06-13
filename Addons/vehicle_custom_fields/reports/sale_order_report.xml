@@ -10,8 +10,10 @@
         <xpath expr="//td[@name='td_product_quantity']" position="before">
             <td name="td_product_image" class="text-center">
                 <t t-if="line.product_id.image_1920">
-                    <img t-att-src="image_data_uri(line.product_id.image_1920)"
-                         style="max-height:250px; max-width:250px;"/>
+                    <div style="background-color:#ffffff; display:inline-block; padding:2px;">
+                        <img t-att-src="image_data_uri(line.product_id.image_1920)"
+                            style="max-height:250px; max-width:250px;"/>
+                    </div>
                 </t>
             </td>
         </xpath>

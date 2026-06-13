@@ -22,8 +22,8 @@
                        invisible="service_category != 'periodic'"/>
             </xpath>
 
-            <!-- إضافة الـ Lines قبل الـ Notes separator -->
-            <xpath expr="//separator[@string='Notes']" position="before">
+            <!-- إضافة الـ Lines قبل الـ Notes -->
+            <xpath expr="//field[@name='notes']" position="before">
                 <separator string="Service Details"/>
                 <field name="service_line_ids">
                     <list editable="bottom">
@@ -35,8 +35,8 @@
                 </field>
                 <group class="oe_subtotal_footer oe_right">
                     <field name="amount" widget="monetary"
-                           string="Total"
-                           class="oe_subtotal_footer_separator"/>
+                        string="Total"
+                        class="oe_subtotal_footer_separator"/>
                 </group>
             </xpath>
         </field>

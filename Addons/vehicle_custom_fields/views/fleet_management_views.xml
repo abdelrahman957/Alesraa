@@ -75,4 +75,9 @@
         <field name="name">Fleet Management</field>
         <field name="action" ref="action_fleet_management"/>
     </record>
+    <!-- Move Services menu under Rental Management and rename to Service Report -->
+    <record id="fleet.fleet_vehicle_log_services_menu" model="ir.ui.menu">
+        <field name="name">Service Report</field>
+        <field name="parent_id" ref="fleet_rental.menu_car_parent"/>
+    </record>
 </odoo>

@@ -11,6 +11,9 @@ class FleetVehicleLogServices(models.Model):
         ],
         string='Service Category',
     )
+    service_type_id = fields.Many2one(
+        required=False,
+    )
     responsibility = fields.Selection(
         selection=[
             ('owner', 'Owner'),

@@ -28,7 +28,8 @@
             <xpath expr="//field[@name='attachment_ids']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
-                        <!-- إخفاء Missing Cost -->
+
+            <!-- إخفاء Missing Cost -->
             <xpath expr="//field[@name='tools_missing_cost']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
@@ -38,7 +39,12 @@
                 <attribute name="invisible">1</attribute>
             </xpath>
 
-                    <!-- إخفاء الـ total الأصلي -->
+            <!-- إخفاء Total الأخير -->
+            <xpath expr="//field[@name='total_cost']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- إخفاء الـ total الأصلي -->
             <xpath expr="//field[@name='total']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
@@ -47,18 +53,11 @@
             <xpath expr="//field[@name='total']" position="after">
                 <div class="oe_right" style="text-align:right;">
                     <span style="font-weight:bold;">Total: </span>
-                    <span style="font-weight:bold;"><field name="total" nolabel="1" readonly="1" class="oe_inline"/></span>
+                    <field name="total" nolabel="1" readonly="1" class="oe_inline" style="font-weight:bold;"/>
                 </div>
             </xpath>
 
-            <!-- إضافة Total مخصص بـ div -->
-            <xpath expr="//field[@name='total']" position="after">
-                <div class="oe_right" style="text-align:right; border:none;">
-                    <span style="font-size:18px; color:#000000;">Total: </span>
-                    <field name="total" nolabel="1" readonly="1"
-                        style="font-size:18px; color:#000000; display:inline;"/>
-                </div>
-            </xpath>
+            <!-- شيل الخط الفاصل من الـ group -->
             <xpath expr="//field[@name='total_cost']/ancestor::group[1]" position="attributes">
                 <attribute name="class">oe_right</attribute>
             </xpath>
@@ -95,5 +94,5 @@
     <record id="fleet_rental.menu_car_tools" model="ir.ui.menu">
         <field name="name">Financial Details</field>
     </record>
-    
+
 </odoo>

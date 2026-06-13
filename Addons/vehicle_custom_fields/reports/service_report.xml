@@ -6,7 +6,7 @@
         <field name="format">A4</field>
         <field name="orientation">Portrait</field>
         <field name="margin_top">5</field>
-        <field name="margin_bottom">12</field>
+        <field name="margin_bottom">15</field>
         <field name="margin_left">5</field>
         <field name="margin_right">5</field>
         <field name="header_spacing">5</field>
@@ -29,8 +29,10 @@
     <template id="report_service_document">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <t t-call="web.basic_layout">
-                    <div class="page" style="font-family:'Cairo',sans-serif; color:#2c3e50; direction:rtl;">
+
+                <!-- Article (body) -->
+                <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id">
+                    <div class="page" style="font-family:'Cairo','Noto Sans Arabic',sans-serif; color:#2c3e50; direction:rtl;">
                         <style>
                             .srv-header { background:#ffffff; color:#1a3a4a; padding:15px 35px 20px; border-bottom:4px solid #1a3a4a; }
                             .srv-header table { width:100%; border:none; }
@@ -42,19 +44,17 @@
                             .srv-content { padding:30px 35px; }
                             .srv-section { margin-bottom:28px; }
                             .srv-title { font-size:16px; font-weight:700; color:#1a3a4a; margin-bottom:12px; padding-right:12px; border-right:4px solid #f5b800; }
-                            .srv-grid { width:100%; border:none; border-collapse:separate; border-spacing:8px; }
-                            .srv-grid td { background:#f7f9fb; border:1px solid #e3e9ef; border-radius:6px; padding:12px 15px; width:50%; vertical-align:top; }
+                            .srv-grid { width:100%; border:none; border-collapse:separate; border-spacing:8px; table-layout:fixed; }
+                            .srv-grid td { background:#f7f9fb; border:1px solid #e3e9ef; border-radius:6px; padding:12px 15px; width:50%; vertical-align:top; overflow:hidden; }
                             .srv-card .lbl { font-size:12px; color:#7a8a99; margin-bottom:3px; }
-                            .srv-card .val { font-size:15px; font-weight:600; color:#1a3a4a; unicode-bidi:plaintext; }
+                            .srv-card .val { font-size:15px; font-weight:600; color:#1a3a4a; direction:rtl; text-align:right; overflow-wrap:break-word; word-break:break-word; }
                             .srv-table { width:100%; border-collapse:collapse; }
                             .srv-table thead th { background:#1a3a4a; color:#fff; padding:12px 15px; font-size:13px; text-align:right; }
-                            .srv-table tbody td { padding:12px 15px; font-size:13px; border-bottom:1px solid #eef1f4; word-break:break-word; unicode-bidi:plaintext; }
+                            .srv-table tbody td { padding:12px 15px; font-size:13px; border-bottom:1px solid #eef1f4; direction:rtl; text-align:right; overflow-wrap:break-word; word-break:break-word; }
                             .srv-total { background:#1a3a4a; color:#fff; padding:14px 30px; border-radius:6px; display:inline-block; margin-top:18px; }
                             .srv-total .tl { font-size:15px; font-weight:600; }
                             .srv-total .tv { font-size:22px; font-weight:900; color:#f5b800; padding-right:25px; }
                             .srv-notes { background:#fffbe6; border:1px dashed #e0c870; border-radius:6px; padding:15px; font-size:13px; color:#6b5d2f; }
-                            .badge2 { display:inline-block; padding:6px 16px; border-radius:20px; font-size:13px; font-weight:600; margin-left:25px; }
-                            .srv-footer { text-align:center; font-size:11px; color:#95a5a6; padding-top:10px; border-top:1px solid #e3e9ef; margin-top:20px; }
                         </style>
 
                         <!-- Header -->
@@ -73,7 +73,7 @@
                         <div class="srv-meta">
                             <table>
                                 <tr>
-                                    <td style="text-align:right;">تاريخ الطباعة: <span t-out="datetime.date.today().strftime('%d/%m/%Y')"/></td>
+                                    <td style="text-align:right;">تاريخ الطباعة: <span dir="ltr" t-out="datetime.date.today().strftime('%d/%m/%Y')"/></td>
                                 </tr>
                             </table>
                         </div>
@@ -88,7 +88,7 @@
                                         <td class="srv-card"><div class="lbl">سنة الصنع</div><div class="val"><span t-out="o.vehicle_id.model_year"/></div></td>
                                     </tr>
                                     <tr>
-                                        <td class="srv-card"><div class="lbl">رقم اللوحة</div><div class="val" style="direction:rtl; text-align:right; unicode-bidi:plaintext;"><span t-out="o.vehicle_id.license_plate"/></div></td>
+                                        <td class="srv-card"><div class="lbl">رقم اللوحة</div><div class="val"><span t-out="o.vehicle_id.license_plate"/></div></td>
                                         <td class="srv-card"><div class="lbl">رقم الشاسيه</div><div class="val"><span t-out="o.vehicle_id.vin_sn"/></div></td>
                                     </tr>
                                     <tr>
@@ -130,10 +130,10 @@
                                 <table class="srv-table">
                                     <thead>
                                         <tr>
-                                            <th>نوع الخدمة</th>
+                                            <th style="width:24%;">نوع الخدمة</th>
                                             <th>الوصف</th>
-                                            <th t-if="o.service_category == 'periodic'">المسؤول</th>
-                                            <th style="text-align:left;">المبلغ</th>
+                                            <th t-if="o.service_category == 'periodic'" style="width:16%;">المسؤول</th>
+                                            <th style="text-align:left; width:20%;">المبلغ</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -161,14 +161,15 @@
                                 <div class="srv-title">ملاحظات</div>
                                 <div class="srv-notes"><span t-out="o.notes"/></div>
                             </div>
-
-                            <!-- Footer with page number -->
-                            <div class="srv-footer">
-                                Page <span class="page"/> / <span class="topage"/>
-                            </div>
                         </div>
                     </div>
-                </t>
+                </div>
+
+                <!-- Footer حقيقي (هنا أرقام الصفحات بتشتغل) -->
+                <div class="footer" style="text-align:center; font-size:10px; color:#95a5a6; direction:ltr;">
+                    <span class="page"/> / <span class="topage"/>
+                </div>
+
             </t>
         </t>
     </template>

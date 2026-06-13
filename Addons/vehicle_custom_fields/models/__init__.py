@@ -8,3 +8,4 @@ from . import fleet_vehicle_model
 from . import res_partner
 from . import crm_lead
 from . import vehicle_reservation
+from . import fleet_service

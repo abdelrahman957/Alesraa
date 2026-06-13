@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_fleet_insurance_type,fleet.vehicle.insurance.type,model_fleet_vehicle_insurance_type,,1,1,1,1
 access_vehicle_reservation,access_vehicle_reservation,model_vehicle_reservation,base.group_user,1,1,1,1
+access_fleet_service_line,access_fleet_service_line,model_fleet_service_line,base.group_user,1,1,1,1

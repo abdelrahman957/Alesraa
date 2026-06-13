@@ -44,13 +44,18 @@
             </xpath>
 
             <!-- تغيير اسم Total (Accessories/Tools) لـ Total -->
+           <!-- إخفاء الـ total الأصلي بالـ label بتاعه -->
             <xpath expr="//field[@name='total']" position="attributes">
-                <attribute name="nolabel">1</attribute>
-                <attribute name="style">font-size:18px; font-weight:bold; color:#000000;</attribute>
+                <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//field[@name='total']" position="before">
-                <label for="total" string="Total"
-                    style="font-size:18px; font-weight:bold; color:#000000;"/>
+
+            <!-- إضافة Total مخصص بـ div -->
+            <xpath expr="//field[@name='total']" position="after">
+                <div class="oe_subtotal_footer oe_right" style="text-align:right;">
+                    <span style="font-size:18px; font-weight:bold; color:#000000;">Total: </span>
+                    <field name="total" nolabel="1" readonly="1"
+                        style="font-size:18px; font-weight:bold; color:#000000; display:inline;"/>
+                </div>
             </xpath>
         </field>
     </record>

@@ -15,16 +15,16 @@ class CarRentalContract(models.Model):
     dropoff_location = fields.Char(string='Drop Off Location')
 
     vehicle_image_display = fields.Image(
-            string='Vehicle Image',
-            compute='_compute_vehicle_image_display',
-            store=True,
-        )
+        string='Vehicle Image',
+        compute='_compute_vehicle_image_display',
+        store=True,
+    )
 
     @api.depends('vehicle_id', 'vehicle_id.vehicle_image')
     def _compute_vehicle_image_display(self):
         for contract in self:
-            contract.vehicle_image_display = contract.vehicle_id.vehicle_image if contract.vehicle_id else False  
-                      
+            contract.vehicle_image_display = contract.vehicle_id.vehicle_image if contract.vehicle_id else False 
+
     @api.depends('vehicle_id', 'vehicle_id.vehicle_image')
     def _compute_contract_image(self):
         for contract in self:

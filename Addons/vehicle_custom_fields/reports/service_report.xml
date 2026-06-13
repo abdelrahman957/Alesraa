@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- Paper Format -->
+    <record id="paperformat_service_report" model="report.paperformat">
+        <field name="name">Service Report Format</field>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_spacing">5</field>
+        <field name="dpi">90</field>
+    </record>
+
     <!-- Report Action -->
     <record id="action_report_service" model="ir.actions.report">
         <field name="name">تقرير صيانة</field>
@@ -9,6 +22,7 @@
         <field name="report_file">vehicle_custom_fields.report_service_document</field>
         <field name="binding_model_id" ref="fleet.model_fleet_vehicle_log_services"/>
         <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_service_report"/>
     </record>
 
     <!-- Report Template -->
@@ -18,7 +32,7 @@
                 <t t-call="web.basic_layout">
                     <div class="page" style="font-family:'Cairo',sans-serif; color:#2c3e50; direction:rtl;">
                         <style>
-                            .srv-header { background:#ffffff; color:#1a3a4a; padding:25px 35px; border-bottom:4px solid #1a3a4a; }
+                            .srv-header { background:#ffffff; color:#1a3a4a; padding:15px 35px 20px; border-bottom:4px solid #1a3a4a; }
                             .srv-header table { width:100%; border:none; }
                             .srv-header td { border:none; vertical-align:middle; }
                             .srv-header h1 { font-size:28px; font-weight:900; margin:0; color:#1a3a4a; }
@@ -34,12 +48,12 @@
                             .srv-card .val { font-size:15px; font-weight:600; color:#1a3a4a; }
                             .srv-table { width:100%; border-collapse:collapse; }
                             .srv-table thead th { background:#1a3a4a; color:#fff; padding:12px 15px; font-size:13px; text-align:right; }
-                            .srv-table tbody td { padding:12px 15px; font-size:13px; border-bottom:1px solid #eef1f4; word-break:break-word; }
+                            .srv-table tbody td { padding:12px 15px; font-size:13px; border-bottom:1px solid #eef1f4; word-break:break-word; unicode-bidi:plaintext; }
                             .srv-total { background:#1a3a4a; color:#fff; padding:14px 30px; border-radius:6px; display:inline-block; margin-top:18px; }
                             .srv-total .tl { font-size:15px; font-weight:600; }
                             .srv-total .tv { font-size:22px; font-weight:900; color:#f5b800; padding-right:25px; }
                             .srv-notes { background:#fffbe6; border:1px dashed #e0c870; border-radius:6px; padding:15px; font-size:13px; color:#6b5d2f; }
-                            .badge2 { display:inline-block; padding:6px 16px; border-radius:20px; font-size:13px; font-weight:600; margin-left:10px; }
+                            .badge2 { display:inline-block; padding:6px 16px; border-radius:20px; font-size:13px; font-weight:600; margin-left:18px; }
                         </style>
 
                         <!-- Header -->

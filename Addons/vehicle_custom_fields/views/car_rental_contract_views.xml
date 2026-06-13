@@ -57,6 +57,9 @@
                         style="font-size:18px; color:#000000; display:inline;"/>
                 </div>
             </xpath>
+            <xpath expr="//field[@name='total_cost']/ancestor::group[1]" position="attributes">
+                <attribute name="class">oe_right</attribute>
+            </xpath>
         </field>
     </record>
 

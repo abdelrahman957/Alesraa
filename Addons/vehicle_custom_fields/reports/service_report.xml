@@ -101,13 +101,18 @@
                             <!-- Service Info -->
                             <div class="srv-section">
                                 <div class="srv-title">تفاصيل الصيانة</div>
-                                <table style="border:none; border-collapse:collapse; margin-bottom:15px; width:auto;">
+                                <table class="srv-grid">
                                     <tr>
-                                        <td style="border:none; padding:0; white-space:nowrap;">
-                                            <span style="background:#e1f0ff; color:#1565c0; padding:6px 16px; border-radius:20px; font-size:13px; font-weight:600;">النوع: <t t-if="o.service_category == 'periodic'">صيانة دورية</t><t t-if="o.service_category == 'accident'">حادث</t></span>
+                                        <td class="srv-card">
+                                            <div class="lbl">النوع</div>
+                                            <div class="val">
+                                                <t t-if="o.service_category == 'periodic'">صيانة دورية</t>
+                                                <t t-if="o.service_category == 'accident'">حادث</t>
+                                            </div>
                                         </td>
-                                        <td style="border:none; padding:0 12px; white-space:nowrap;">
-                                            <span style="background:#e8f5e9; color:#2e7d32; padding:6px 16px; border-radius:20px; font-size:13px; font-weight:600;">التاريخ: <span t-out="o.date" t-options="{'widget': 'date'}"/></span>
+                                        <td class="srv-card">
+                                            <div class="lbl">التاريخ</div>
+                                            <div class="val"><span t-out="o.date" t-options="{'widget': 'date'}"/></div>
                                         </td>
                                     </tr>
                                 </table>

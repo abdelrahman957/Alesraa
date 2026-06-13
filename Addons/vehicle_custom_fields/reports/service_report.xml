@@ -18,52 +18,70 @@
                 <t t-call="web.basic_layout">
                     <div class="page" style="font-family:'Cairo',sans-serif; color:#2c3e50; direction:rtl;">
                         <style>
-                            .srv-header { background:#1a3a4a; color:#fff; padding:25px 35px; display:flex; justify-content:space-between; align-items:center; }
-                            .srv-header h1 { font-size:26px; font-weight:900; margin:0; }
-                            .srv-meta { background:#f5b800; color:#1a3a4a; padding:10px 35px; display:flex; justify-content:space-between; font-size:13px; font-weight:600; }
+                            .srv-header { background:#ffffff; color:#1a3a4a; padding:25px 35px; border-bottom:4px solid #1a3a4a; }
+                            .srv-header table { width:100%; border:none; }
+                            .srv-header td { border:none; vertical-align:middle; }
+                            .srv-header h1 { font-size:28px; font-weight:900; margin:0; color:#1a3a4a; }
+                            .srv-meta { background:#f5b800; color:#1a3a4a; padding:10px 35px; font-size:13px; font-weight:600; }
+                            .srv-meta table { width:100%; border:none; }
+                            .srv-meta td { border:none; }
                             .srv-content { padding:30px 35px; }
                             .srv-section { margin-bottom:28px; }
                             .srv-title { font-size:16px; font-weight:700; color:#1a3a4a; margin-bottom:12px; padding-right:12px; border-right:4px solid #f5b800; }
-                            .srv-grid { display:flex; flex-wrap:wrap; }
-                            .srv-card { background:#f7f9fb; border:1px solid #e3e9ef; border-radius:6px; padding:12px 15px; width:48%; margin:1%; box-sizing:border-box; }
+                            .srv-grid { width:100%; border:none; border-collapse:separate; border-spacing:8px; }
+                            .srv-grid td { background:#f7f9fb; border:1px solid #e3e9ef; border-radius:6px; padding:12px 15px; width:50%; vertical-align:top; }
                             .srv-card .lbl { font-size:12px; color:#7a8a99; margin-bottom:3px; }
                             .srv-card .val { font-size:15px; font-weight:600; color:#1a3a4a; }
                             .srv-table { width:100%; border-collapse:collapse; }
                             .srv-table thead th { background:#1a3a4a; color:#fff; padding:12px 15px; font-size:13px; text-align:right; }
-                            .srv-table tbody td { padding:12px 15px; font-size:13px; border-bottom:1px solid #eef1f4; }
-                            .srv-total { background:#1a3a4a; color:#fff; padding:14px 30px; border-radius:6px; display:inline-flex; gap:30px; align-items:center; margin-top:18px; }
+                            .srv-table tbody td { padding:12px 15px; font-size:13px; border-bottom:1px solid #eef1f4; word-break:break-word; }
+                            .srv-total { background:#1a3a4a; color:#fff; padding:14px 30px; border-radius:6px; display:inline-block; margin-top:18px; }
                             .srv-total .tl { font-size:15px; font-weight:600; }
-                            .srv-total .tv { font-size:22px; font-weight:900; color:#f5b800; }
+                            .srv-total .tv { font-size:22px; font-weight:900; color:#f5b800; padding-right:25px; }
                             .srv-notes { background:#fffbe6; border:1px dashed #e0c870; border-radius:6px; padding:15px; font-size:13px; color:#6b5d2f; }
-                            .badge2 { padding:6px 16px; border-radius:20px; font-size:13px; font-weight:600; margin-left:8px; }
+                            .badge2 { display:inline-block; padding:6px 16px; border-radius:20px; font-size:13px; font-weight:600; margin-left:10px; }
                         </style>
 
                         <!-- Header -->
                         <div class="srv-header">
-                            <div><h1>تقرير صيانة</h1></div>
-                            <div>
-                                <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height:70px; max-width:160px;"/>
-                            </div>
+                            <table>
+                                <tr>
+                                    <td style="text-align:right;"><h1>تقرير صيانة</h1></td>
+                                    <td style="text-align:left;">
+                                        <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height:80px; max-width:180px;"/>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
 
                         <!-- Meta -->
                         <div class="srv-meta">
-                            <span>رقم التقرير: <span t-out="o.id"/></span>
-                            <span>تاريخ الطباعة: <span t-out="datetime.date.today().strftime('%d/%m/%Y')"/></span>
+                            <table>
+                                <tr>
+                                    <td style="text-align:right;">رقم التقرير: <span t-out="o.id"/></td>
+                                    <td style="text-align:left;">تاريخ الطباعة: <span t-out="datetime.date.today().strftime('%d/%m/%Y')"/></td>
+                                </tr>
+                            </table>
                         </div>
 
                         <div class="srv-content">
                             <!-- Vehicle Info -->
                             <div class="srv-section">
                                 <div class="srv-title">بيانات المركبة</div>
-                                <div class="srv-grid">
-                                    <div class="srv-card"><div class="lbl">الماركة / الموديل</div><div class="val"><span t-out="o.vehicle_id.brand_id.name"/> / <span t-out="o.vehicle_id.model_id.name"/></div></div>
-                                    <div class="srv-card"><div class="lbl">سنة الصنع</div><div class="val"><span t-out="o.vehicle_id.model_year"/></div></div>
-                                    <div class="srv-card"><div class="lbl">رقم اللوحة</div><div class="val"><span t-out="o.vehicle_id.license_plate"/></div></div>
-                                    <div class="srv-card"><div class="lbl">رقم الشاسيه</div><div class="val"><span t-out="o.vehicle_id.vin_sn"/></div></div>
-                                    <div class="srv-card"><div class="lbl">قراءة العداد</div><div class="val"><span t-out="o.odometer"/> كم</div></div>
-                                    <div class="srv-card"><div class="lbl">السائق</div><div class="val"><span t-out="o.purchaser_id.name"/></div></div>
-                                </div>
+                                <table class="srv-grid">
+                                    <tr>
+                                        <td class="srv-card"><div class="lbl">الماركة / الموديل</div><div class="val"><span t-out="o.vehicle_id.brand_id.name"/> / <span t-out="o.vehicle_id.model_id.name"/></div></td>
+                                        <td class="srv-card"><div class="lbl">سنة الصنع</div><div class="val"><span t-out="o.vehicle_id.model_year"/></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="srv-card"><div class="lbl">رقم اللوحة</div><div class="val"><span t-out="o.vehicle_id.license_plate"/></div></td>
+                                        <td class="srv-card"><div class="lbl">رقم الشاسيه</div><div class="val"><span t-out="o.vehicle_id.vin_sn"/></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="srv-card"><div class="lbl">قراءة العداد</div><div class="val"><span t-out="o.odometer"/> كم</div></td>
+                                        <td class="srv-card"><div class="lbl">السائق</div><div class="val"><span t-out="o.purchaser_id.name"/></div></td>
+                                    </tr>
+                                </table>
                             </div>
 
                             <!-- Service Info -->
@@ -76,10 +94,12 @@
                                     </span>
                                     <span class="badge2" style="background:#e8f5e9; color:#2e7d32;">التاريخ: <span t-out="o.date" t-options="{'widget': 'date'}"/></span>
                                 </div>
-                                <div class="srv-grid">
-                                    <div class="srv-card"><div class="lbl">الوصف</div><div class="val"><span t-out="o.description"/></div></div>
-                                    <div class="srv-card"><div class="lbl">المورّد / الورشة</div><div class="val"><span t-out="o.vendor_id.name"/></div></div>
-                                </div>
+                                <table class="srv-grid">
+                                    <tr>
+                                        <td class="srv-card"><div class="lbl">الوصف</div><div class="val"><span t-out="o.description"/></div></td>
+                                        <td class="srv-card"><div class="lbl">المورّد / الورشة</div><div class="val"><span t-out="o.vendor_id.name"/></div></td>
+                                    </tr>
+                                </table>
                             </div>
 
                             <!-- Lines -->

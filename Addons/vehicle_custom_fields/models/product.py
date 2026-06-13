@@ -21,10 +21,17 @@ class ProductTemplate(models.Model):
     @api.depends('image_1920')
     def _compute_image_for_report(self):
         for product in self:
-            product.image_for_report = product.image_1920  # افتراضي
+            product.image_for_report = product.image_1920
             if product.image_1920 and Image:
                 try:
-                    img_data = base64.b64decode(product.image_1920)
+                    raw = product.image_1920
+                    # التعامل مع أنواع البيانات المختلفة
+                    if isinstance(raw, str):
+                        img_data = base64.b64decode(raw)
+                    elif isinstance(raw, (bytes, memoryview)):
+                        img_data = base64.b64decode(bytes(raw))
+                    else:
+                        img_data = base64.b64decode(raw)
                     img = Image.open(BytesIO(img_data))
                     if img.mode in ('RGBA', 'LA', 'P'):
                         background = Image.new('RGB', img.size, (255, 255, 255))

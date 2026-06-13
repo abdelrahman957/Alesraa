@@ -18,8 +18,6 @@
             <!-- إضافة Service Category و Responsibility بعد Description -->
             <xpath expr="//field[@name='description']" position="after">
                 <field name="service_category"/>
-                <field name="responsibility"
-                       invisible="service_category != 'periodic'"/>
             </xpath>
 
             <!-- إضافة الـ Lines قبل الـ Notes -->
@@ -27,7 +25,10 @@
                 <separator string="Service Details"/>
                 <field name="service_line_ids">
                     <list editable="bottom">
+                        <field name="service_category" column_invisible="1"/>
                         <field name="service_type_id"/>
+                        <field name="responsibility"
+                            column_invisible="parent.service_category != 'periodic'"/>
                         <field name="description"/>
                         <field name="amount" widget="monetary"/>
                         <field name="currency_id" column_invisible="1"/>

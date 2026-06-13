@@ -14,13 +14,7 @@ class FleetVehicleLogServices(models.Model):
     service_type_id = fields.Many2one(
         required=False,
     )
-    responsibility = fields.Selection(
-        selection=[
-            ('owner', 'Owner'),
-            ('company', 'Company'),
-        ],
-        string='Responsibility',
-    )
+    
     service_line_ids = fields.One2many(
         'fleet.service.line',
         'service_id',
@@ -65,11 +59,20 @@ class FleetServiceLine(models.Model):
     service_type_id = fields.Many2one(
         'fleet.service.type',
         string='Service Type',
-        required=True,
     )
     description = fields.Char(string='Description')
+    responsibility = fields.Selection(
+        selection=[
+            ('owner', 'Owner'),
+            ('company', 'Company'),
+        ],
+        string='Responsibility',
+    )
     amount = fields.Monetary(string='Amount')
     currency_id = fields.Many2one(
         'res.currency',
         related='service_id.currency_id',
+    )
+    service_category = fields.Selection(
+        related='service_id.service_category',
     )

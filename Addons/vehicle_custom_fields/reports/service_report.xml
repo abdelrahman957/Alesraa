@@ -101,15 +101,16 @@
                             <!-- Service Info -->
                             <div class="srv-section">
                                 <div class="srv-title">تفاصيل الصيانة</div>
-                                <div class="srv-title">تفاصيل الصيانة</div>
-                                <div style="margin-bottom:15px;">
-                                    <div style="display:inline-block; background:#e1f0ff; color:#1565c0; padding:6px 16px; border-radius:20px; font-size:13px; font-weight:600;">
-                                        النوع: <t t-if="o.service_category == 'periodic'">صيانة دورية</t><t t-if="o.service_category == 'accident'">حادث</t>
-                                    </div>
-                                    <div style="display:inline-block; background:#e8f5e9; color:#2e7d32; padding:6px 16px; border-radius:20px; font-size:13px; font-weight:600; margin-right:10px;">
-                                        التاريخ: <span t-out="o.date" t-options="{'widget': 'date'}"/>
-                                    </div>
-                                </div>
+                                <table style="border:none; border-collapse:collapse; margin-bottom:15px; width:auto;">
+                                    <tr>
+                                        <td style="border:none; padding:0; white-space:nowrap;">
+                                            <span style="background:#e1f0ff; color:#1565c0; padding:6px 16px; border-radius:20px; font-size:13px; font-weight:600;">النوع: <t t-if="o.service_category == 'periodic'">صيانة دورية</t><t t-if="o.service_category == 'accident'">حادث</t></span>
+                                        </td>
+                                        <td style="border:none; padding:0 12px; white-space:nowrap;">
+                                            <span style="background:#e8f5e9; color:#2e7d32; padding:6px 16px; border-radius:20px; font-size:13px; font-weight:600;">التاريخ: <span t-out="o.date" t-options="{'widget': 'date'}"/></span>
+                                        </td>
+                                    </tr>
+                                </table>
                                 <table class="srv-grid">
                                     <tr>
                                         <td class="srv-card"><div class="lbl">الوصف</div><div class="val"><span t-out="o.description"/></div></td>

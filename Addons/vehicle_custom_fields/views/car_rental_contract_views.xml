@@ -46,7 +46,8 @@
             <!-- تغيير اسم Total (Accessories/Tools) لـ Total -->
             <xpath expr="//field[@name='total']" position="attributes">
                 <attribute name="string">Total</attribute>
-                <attribute name="style">font-size:18px; font-weight:bold; color:#000000; border-top:none;</attribute>
+                <attribute name="style">font-size:18px; font-weight:bold; color:#000000;</attribute>
+                <attribute name="class">oe_subtotal_footer_separator</attribute>
             </xpath>
         </field>
     </record>

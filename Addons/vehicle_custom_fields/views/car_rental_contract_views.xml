@@ -51,9 +51,9 @@
 
             <!-- Total بسيط زي الـ SO -->
             <xpath expr="//field[@name='total']" position="after">
-                <div class="oe_subtotal_footer oe_right">
+                <div class="oe_right" style="text-align:right;">
                     <span style="font-weight:bold;">Total: </span>
-                    <field name="total" nolabel="1" readonly="1" class="oe_subtotal_footer_separator" style="font-weight:bold;"/>
+                    <field name="total" nolabel="1" readonly="1" class="oe_inline" style="font-weight:bold;"/>
                 </div>
             </xpath>
 

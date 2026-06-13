@@ -20,7 +20,7 @@
                        invisible="service_category != 'accident'"/>
             </xpath>
             <!-- إضافة الـ Lines قبل الـ Notes -->
-            <xpath expr="//field[@name='notes']" position="before">
+            <xpath expr="//field[@name='notes']/preceding-sibling::separator[1]" position="before">
                 <separator string="Service Details"/>
                 <field name="service_line_ids">
                     <list editable="bottom">

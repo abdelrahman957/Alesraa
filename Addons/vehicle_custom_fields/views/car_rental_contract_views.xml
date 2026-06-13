@@ -38,15 +38,17 @@
                 <attribute name="invisible">1</attribute>
             </xpath>
 
-            <!-- إخفاء Total الأخير -->
-            <xpath expr="//field[@name='total_cost']" position="attributes">
+                    <!-- إخفاء الـ total الأصلي -->
+            <xpath expr="//field[@name='total']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
 
-            <!-- تغيير اسم Total (Accessories/Tools) لـ Total -->
-           <!-- إخفاء الـ total الأصلي بالـ label بتاعه -->
-            <xpath expr="//field[@name='total']" position="attributes">
-                <attribute name="invisible">1</attribute>
+            <!-- Total بسيط زي الـ SO -->
+            <xpath expr="//field[@name='total']" position="after">
+                <div class="oe_right" style="text-align:right;">
+                    <span style="font-weight:bold;">Total: </span>
+                    <span style="font-weight:bold;"><field name="total" nolabel="1" readonly="1" class="oe_inline"/></span>
+                </div>
             </xpath>
 
             <!-- إضافة Total مخصص بـ div -->

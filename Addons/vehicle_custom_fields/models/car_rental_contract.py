@@ -109,17 +109,6 @@ class CarRentalContract(models.Model):
                     )
                     if matching:
                         line.price = matching[0].price_subtotal
-
-            total = fields.Float(
-                    string="Total",
-                    compute='_compute_checklist_total',
-                    readonly=True,
-                )
-
-            @api.depends('checklist_line.price')
-            def _compute_checklist_total(self):
-                    for contract in self:
-                        contract.total = sum(contract.checklist_line.mapped('price'))
                         
 class CarTools(models.Model):
     _inherit = 'car.tools'

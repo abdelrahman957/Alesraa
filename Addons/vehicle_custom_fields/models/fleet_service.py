@@ -1,5 +1,5 @@
 from odoo import fields, models, api
-
+from odoo.exceptions import ValidationError
 
 class FleetVehicleLogServices(models.Model):
     _inherit = 'fleet.vehicle.log.services'
@@ -38,6 +38,19 @@ class FleetVehicleLogServices(models.Model):
         for service in self:
             service.amount = sum(service.service_line_ids.mapped('amount'))
 
+    @api.constrains('service_line_ids')
+    def _check_service_lines(self):
+        for service in self:
+            if not service.service_line_ids:
+                raise ValidationError(
+                    "You must add at least one service line."
+                )
+            for line in service.service_line_ids:
+                if not line.service_type_id:
+                    raise ValidationError(
+                        "Service Type is required for each service line."
+                    )
+
 
 class FleetServiceLine(models.Model):
     _name = 'fleet.service.line'
@@ -52,6 +65,7 @@ class FleetServiceLine(models.Model):
     service_type_id = fields.Many2one(
         'fleet.service.type',
         string='Service Type',
+        required=True,
     )
     description = fields.Char(string='Description')
     amount = fields.Monetary(string='Amount')

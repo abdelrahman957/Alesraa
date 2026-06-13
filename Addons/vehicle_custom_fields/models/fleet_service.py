@@ -48,6 +48,11 @@ class FleetVehicleLogServices(models.Model):
                     raise ValidationError(
                         "Service Type is required for each service line."
                     )
+                
+    @api.depends('description')
+    def _compute_display_name(self):
+        for service in self:
+            service.display_name = service.description or 'Service'
 
 
 class FleetServiceLine(models.Model):

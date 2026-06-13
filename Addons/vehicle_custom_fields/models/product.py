@@ -21,21 +21,23 @@ class ProductTemplate(models.Model):
     @api.depends('image_1920')
     def _compute_image_for_report(self):
         for product in self:
+            product.image_for_report = product.image_1920  # افتراضي
             if product.image_1920 and Image:
-                img_data = base64.b64decode(product.image_1920)
-                img = Image.open(BytesIO(img_data))
-                if img.mode in ('RGBA', 'LA', 'P'):
-                    background = Image.new('RGB', img.size, (255, 255, 255))
-                    img = img.convert('RGBA')
-                    background.paste(img, mask=img.split()[-1])
-                    img = background
-                else:
-                    img = img.convert('RGB')
-                buffer = BytesIO()
-                img.save(buffer, format='JPEG', quality=90)
-                product.image_for_report = base64.b64encode(buffer.getvalue())
-            else:
-                product.image_for_report = product.image_1920
+                try:
+                    img_data = base64.b64decode(product.image_1920)
+                    img = Image.open(BytesIO(img_data))
+                    if img.mode in ('RGBA', 'LA', 'P'):
+                        background = Image.new('RGB', img.size, (255, 255, 255))
+                        img = img.convert('RGBA')
+                        background.paste(img, mask=img.split()[-1])
+                        img = background
+                    else:
+                        img = img.convert('RGB')
+                    buffer = BytesIO()
+                    img.save(buffer, format='JPEG', quality=90)
+                    product.image_for_report = base64.b64encode(buffer.getvalue())
+                except Exception:
+                    product.image_for_report = product.image_1920
 
 
 class ProductProduct(models.Model):

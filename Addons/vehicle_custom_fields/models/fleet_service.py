@@ -26,6 +26,10 @@ class FleetVehicleLogServices(models.Model):
         store=True,
         readonly=True,
     )
+    customer_charge = fields.Monetary(
+        string='Customer Charge',
+        currency_field='currency_id',
+    )
 
     @api.depends('service_line_ids', 'service_line_ids.amount')
     def _compute_amount_from_lines(self):

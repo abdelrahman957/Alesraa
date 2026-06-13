@@ -18,6 +18,8 @@
             <!-- إضافة Service Category و Responsibility بعد Description -->
             <xpath expr="//field[@name='description']" position="after">
                 <field name="service_category"/>
+                <field name="customer_charge" widget="monetary"
+                invisible="service_category != 'accident'"/>
             </xpath>
 
             <!-- إضافة الـ Lines قبل الـ Notes -->

@@ -101,20 +101,15 @@
                             <!-- Service Info -->
                             <div class="srv-section">
                                 <div class="srv-title">تفاصيل الصيانة</div>
-                                <table style="border:none; margin-bottom:15px;">
-                                    <tr>
-                                        <td style="border:none; padding:0 0 0 12px;">
-                                            <span class="badge2" style="background:#e1f0ff; color:#1565c0; margin:0;">النوع:
-                                                <span t-if="o.service_category == 'periodic'">صيانة دورية</span>
-                                                <span t-if="o.service_category == 'accident'">حادث</span>
-                                            </span>
-                                        </td>
-                                        <td style="border:none; padding:0;">
-                                            <span class="badge2" style="background:#e8f5e9; color:#2e7d32; margin:0;">التاريخ: <span t-out="o.date" t-options="{'widget': 'date'}"/></span>
-                                        </td>
-                                        <td style="border:none; width:100%;"></td>
-                                    </tr>
-                                </table>
+                                <div class="srv-title">تفاصيل الصيانة</div>
+                                <div style="margin-bottom:15px;">
+                                    <div style="display:inline-block; background:#e1f0ff; color:#1565c0; padding:6px 16px; border-radius:20px; font-size:13px; font-weight:600;">
+                                        النوع: <t t-if="o.service_category == 'periodic'">صيانة دورية</t><t t-if="o.service_category == 'accident'">حادث</t>
+                                    </div>
+                                    <div style="display:inline-block; background:#e8f5e9; color:#2e7d32; padding:6px 16px; border-radius:20px; font-size:13px; font-weight:600; margin-right:10px;">
+                                        التاريخ: <span t-out="o.date" t-options="{'widget': 'date'}"/>
+                                    </div>
+                                </div>
                                 <table class="srv-grid">
                                     <tr>
                                         <td class="srv-card"><div class="lbl">الوصف</div><div class="val"><span t-out="o.description"/></div></td>

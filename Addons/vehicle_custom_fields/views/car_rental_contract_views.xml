@@ -51,12 +51,10 @@
 
             <!-- Total بسيط زي الـ SO -->
             <xpath expr="//field[@name='total']" position="after">
-                <group class="oe_subtotal_footer oe_right">
-                    <field name="total" nolabel="1" readonly="1"
-                        string="Total"
-                        class="oe_subtotal_footer_separator"
-                        style="font-weight:bold;"/>
-                </group>
+                <div class="oe_subtotal_footer oe_right">
+                    <span style="font-weight:bold;">Total: </span>
+                    <field name="total" nolabel="1" readonly="1" class="oe_subtotal_footer_separator" style="font-weight:bold;"/>
+                </div>
             </xpath>
 
             <!-- شيل الخط الفاصل من الـ group -->

@@ -113,7 +113,6 @@ class CarRentalContract(models.Model):
             total = fields.Float(
                     string="Total",
                     compute='_compute_checklist_total',
-                    store=True,
                     readonly=True,
                 )
 
@@ -121,7 +120,7 @@ class CarRentalContract(models.Model):
             def _compute_checklist_total(self):
                     for contract in self:
                         contract.total = sum(contract.checklist_line.mapped('price'))
-
+                        
 class CarTools(models.Model):
     _inherit = 'car.tools'
 

@@ -53,6 +53,7 @@
             <xpath expr="//field[@name='total']" position="after">
                 <div class="oe_right" style="text-align:right;font-size:18px;">
                     <span>Total: </span>
+                    <span style="width:10px;"></span>
                     <field name="total" nolabel="1" readonly="1" class="oe_inline" style="font-weight:bold;"/>
                 </div>
             </xpath>

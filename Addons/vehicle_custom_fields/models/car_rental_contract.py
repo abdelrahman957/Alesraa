@@ -14,8 +14,16 @@ class CarRentalContract(models.Model):
     pickup_location = fields.Char(string='Pick Up Location')
     dropoff_location = fields.Char(string='Drop Off Location')
 
-    image = fields.Binary(related='vehicle_id.vehicle_image')
+    image = fields.Binary(
+            string='Vehicle Image',
+            compute='_compute_contract_image',
+            store=True,
+        )
 
+    @api.depends('vehicle_id', 'vehicle_id.vehicle_image')
+    def _compute_contract_image(self):
+        for contract in self:
+            contract.image = contract.vehicle_id.vehicle_image if contract.vehicle_id else False
     exit_fuel = fields.Float(string='Exit Fuel (%)')
 
     rental_period_days = fields.Integer(

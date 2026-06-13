@@ -30,7 +30,6 @@
 
     <!-- Fleet Management List View -->
     <record id="fleet_management_view_list" model="ir.ui.view">
-        <record id="fleet_management_view_list" model="ir.ui.view">
             <field name="name">fleet.management.view.list</field>
             <field name="model">fleet.vehicle</field>
             <field name="mode">primary</field>

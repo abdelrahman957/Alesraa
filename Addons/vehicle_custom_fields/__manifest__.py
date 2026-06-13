@@ -16,6 +16,7 @@
     'views/res_partner_views.xml',
     'views/crm_lead_views.xml',
     'views/fleet_management_views.xml',
+    'views/fleet_service_views.xml',
 ],
     'installable': True,
     'auto_install': False,

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="fleet_service_form_inherit" model="ir.ui.view">
+        <field name="name">fleet.vehicle.log.services.form.inherit</field>
+        <field name="model">fleet.vehicle.log.services</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_log_services_view_form"/>
+        <field name="arch" type="xml">
+            <!-- إخفاء Service Type من مكانه الأصلي (هننقله للـ lines) -->
+            <xpath expr="//field[@name='service_type_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!-- إخفاء Amount الأصلي (بقى computed من الـ lines) -->
+            <xpath expr="//field[@name='amount']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+
+            <!-- إضافة Service Category و Responsibility بعد Description -->
+            <xpath expr="//field[@name='description']" position="after">
+                <field name="service_category"/>
+                <field name="responsibility"
+                       invisible="service_category != 'periodic'"/>
+            </xpath>
+
+            <!-- إضافة الـ Lines قبل الـ Notes separator -->
+            <xpath expr="//separator[@string='Notes']" position="before">
+                <separator string="Service Details"/>
+                <field name="service_line_ids">
+                    <list editable="bottom">
+                        <field name="service_type_id"/>
+                        <field name="description"/>
+                        <field name="amount" widget="monetary"/>
+                        <field name="currency_id" column_invisible="1"/>
+                    </list>
+                </field>
+                <group class="oe_subtotal_footer oe_right">
+                    <field name="amount" widget="monetary"
+                           string="Total"
+                           class="oe_subtotal_footer_separator"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

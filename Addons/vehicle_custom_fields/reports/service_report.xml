@@ -131,7 +131,7 @@
                                     <tbody>
                                         <tr t-foreach="o.service_line_ids" t-as="line">
                                             <td><span t-out="line.service_type_id.name"/></td>
-                                            <td><span t-out="line.description"/></td>
+                                            <td><span t-out="line.description" style="unicode-bidi:isolate; direction:rtl;"/></td>
                                             <td t-if="o.service_category == 'periodic'">
                                                 <span t-if="line.responsibility == 'owner'" style="color:#c62828; font-weight:600;">المالك</span>
                                                 <span t-if="line.responsibility == 'company'" style="color:#2e7d32; font-weight:600;">الشركة</span>

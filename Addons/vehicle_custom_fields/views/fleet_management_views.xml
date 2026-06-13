@@ -32,6 +32,7 @@
     <record id="fleet_management_view_list" model="ir.ui.view">
         <field name="name">fleet.management.view.list</field>
         <field name="model">fleet.vehicle</field>
+        <field name="priority">99</field>
         <field name="arch" type="xml">
             <list string="Fleet Management" create="false">
                 <field name="display_name" string="Vehicle"/>

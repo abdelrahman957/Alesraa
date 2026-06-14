@@ -135,14 +135,13 @@ class CarRentalContract(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        for vals in vals_list:
-            ctype = vals.get('contract_type')
-            # نولّد رقم جديد فقط للعقود الجديدة من النوعين، والقديم يفضل زي ما هو
-            if ctype == 'corporate' and not vals.get('name'):
-                vals['name'] = self.env['ir.sequence'].next_by_code('car.rental.contract.corporate')
-            elif ctype == 'retail' and not vals.get('name'):
-                vals['name'] = self.env['ir.sequence'].next_by_code('car.rental.contract.retail')
-        return super().create(vals_list)
+        records = super().create(vals_list)
+        for record in records:
+            if record.contract_type == 'corporate':
+                record.name = self.env['ir.sequence'].next_by_code('car.rental.contract.corporate')
+            elif record.contract_type == 'retail':
+                record.name = self.env['ir.sequence'].next_by_code('car.rental.contract.retail')
+        return records
 
     @api.model
     def action_create_corporate(self):

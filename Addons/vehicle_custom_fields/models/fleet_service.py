@@ -54,17 +54,19 @@ class FleetVehicleLogServices(models.Model):
         for service in self:
             service.amount = sum(service.service_line_ids.mapped('amount'))
 
-    @api.constrains('service_line_ids')
+    @api.constrains('service_line_ids', 'state')
     def _check_service_lines(self):
         for service in self:
+            if service.state == 'cancelled':
+                continue
             if not service.service_line_ids:
                 raise ValidationError(
-                    "You must add at least one service line."
+                    "لازم تضيف بند واحد على الأقل."
                 )
             for line in service.service_line_ids:
                 if not line.service_type_id:
                     raise ValidationError(
-                        "Service Type is required for each service line."
+                        "لازم تحدد Service Type لكل بند."
                     )
                 
     @api.depends('description')

@@ -62,14 +62,12 @@
 
                         <!-- Header -->
                         <div class="srv-header">
-                            <table style="border:0 !important;">
-                                <tr>
-                                    <td style="text-align:right; border:0 !important;"><h1>تقرير صيانة</h1></td>
-                                    <td style="text-align:left; border:0 !important;">
-                                        <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height:80px; max-width:180px;"/>
-                                    </td>
-                                </tr>
-                            </table>
+                            <div style="display:table; width:100%;">
+                                <div style="display:table-cell; text-align:right; vertical-align:middle;"><h1>تقرير صيانة</h1></div>
+                                <div style="display:table-cell; text-align:left; vertical-align:middle; width:180px;">
+                                    <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height:80px; max-width:180px;"/>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Meta -->

@@ -62,10 +62,10 @@
 
                         <!-- Header -->
                         <div class="srv-header">
-                            <table>
+                            <table style="border:0 !important;">
                                 <tr>
-                                    <td style="text-align:right;"><h1>تقرير صيانة</h1></td>
-                                    <td style="text-align:left;">
+                                    <td style="text-align:right; border:0 !important;"><h1>تقرير صيانة</h1></td>
+                                    <td style="text-align:left; border:0 !important;">
                                         <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height:80px; max-width:180px;"/>
                                     </td>
                                 </tr>
@@ -74,11 +74,7 @@
 
                         <!-- Meta -->
                         <div class="srv-meta">
-                            <table>
-                                <tr>
-                                    <td style="text-align:right;">تاريخ الطباعة: <span dir="ltr" t-out="datetime.date.today().strftime('%d/%m/%Y')"/></td>
-                                </tr>
-                            </table>
+                            <div style="text-align:right;">تاريخ الطباعة: <span dir="ltr" t-out="datetime.date.today().strftime('%d/%m/%Y')"/></div>
                         </div>
 
                         <div class="srv-content">

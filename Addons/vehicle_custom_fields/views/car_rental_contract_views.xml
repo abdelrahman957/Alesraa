@@ -68,32 +68,35 @@
         </field>
     </record>
 
-    <record id="action_new_corporate_contract" model="ir.actions.act_window">
-        <field name="name">New Corporate Contract</field>
+<!-- Corporate Contracts -->
+    <record id="action_corporate_contracts" model="ir.actions.act_window">
+        <field name="name">Corporate Contracts</field>
         <field name="res_model">car.rental.contract</field>
-        <field name="view_mode">form</field>
-        <field name="target">current</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('contract_type', '=', 'corporate')]</field>
         <field name="context">{'default_contract_type': 'corporate'}</field>
     </record>
 
-    <record id="action_new_retail_contract" model="ir.actions.act_window">
-        <field name="name">New Retail Contract</field>
+    <!-- Retail Contracts -->
+    <record id="action_retail_contracts" model="ir.actions.act_window">
+        <field name="name">Retail Contracts</field>
         <field name="res_model">car.rental.contract</field>
-        <field name="view_mode">form</field>
-        <field name="target">current</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('contract_type', '=', 'retail')]</field>
         <field name="context">{'default_contract_type': 'retail'}</field>
     </record>
 
-    <menuitem id="menu_new_corporate_contract"
-              name="New Corporate Contract"
-              parent="fleet.menu_root"
-              action="action_new_corporate_contract"
+    <!-- Menu items تحت Rental Management -->
+    <menuitem id="menu_corporate_contracts"
+              name="Corporate Contracts"
+              parent="fleet_rental.menu_car_parent"
+              action="action_corporate_contracts"
               sequence="1"/>
 
-    <menuitem id="menu_new_retail_contract"
-              name="New Retail Contract"
-              parent="fleet.menu_root"
-              action="action_new_retail_contract"
+    <menuitem id="menu_retail_contracts"
+              name="Retail Contracts"
+              parent="fleet_rental.menu_car_parent"
+              action="action_retail_contracts"
               sequence="2"/>
 
     <!-- Search view with Group By -->

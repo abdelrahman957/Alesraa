@@ -43,8 +43,11 @@ class FleetVehicleLogServices(models.Model):
         self.write({'state': 'cancelled'})
 
     def unlink(self):
-        # نسمح بحذف التقرير نفسه من غير ما الـ guard بتاع البنود يمنعه
-        return super(type(self), self.with_context(removing_service=True)).unlink()
+        # ممنوع حذف التقرير وهو في حالة Done
+        if any(s.state == 'done' for s in self):
+            raise UserError("لا يمكن حذف التقرير وهو في حالة Done.")
+        # نسمح بحذف باقي التقارير من غير ما الـ guard بتاع البنود يمنعه
+        return super(FleetVehicleLogServices, self.with_context(removing_service=True)).unlink()
 
     @api.depends('service_line_ids', 'service_line_ids.amount')
     def _compute_amount_from_lines(self):

@@ -34,9 +34,9 @@
                 <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id">
                     <div class="page" style="font-family:'Noto Sans Arabic', sans-serif; color:#2c3e50; direction:rtl;"> 
                        <style>
-                            .srv-content table, .srv-content td, .srv-content th,
-                            .srv-header table, .srv-header td,
-                            .srv-meta table, .srv-meta td { border:0; }
+                            table, td, th { border:0 !important; }
+                            .srv-grid td { border:1px solid #e3e9ef !important; }
+                            .srv-table tbody td { border-bottom:1px solid #eef1f4 !important; }
                             .srv-header { background:#ffffff; color:#1a3a4a; padding:15px 35px 20px; border-bottom:4px solid #1a3a4a; }
                             .srv-header table { width:100%; border:none; }
                             .srv-header td { border:none; vertical-align:middle; }

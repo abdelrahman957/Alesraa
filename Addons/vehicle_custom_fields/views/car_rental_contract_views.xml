@@ -6,6 +6,7 @@
         <field name="inherit_id" ref="fleet_rental.car_rental_contract_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='customer_id']" position="before">
+                <field name="contract_type" readonly="1"/>
                 <field name="sale_order_id"/>
             </xpath>
             <xpath expr="//field[@name='customer_id']" position="after">
@@ -63,6 +64,23 @@
             </xpath>
             <xpath expr="//field[@name='image']" position="replace">
                 <field name="vehicle_image_display" widget="image" class="oe_avatar"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- record الجديد بتاع الزرارين -->
+    <record id="car_rental_contract_list_inherit" model="ir.ui.view">
+        <field name="name">car.rental.contract.list.buttons</field>
+        <field name="model">car.rental.contract</field>
+        <field name="inherit_id" ref="fleet_rental.car_rental_contract_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="inside">
+                <header>
+                    <button name="action_create_corporate" type="object"
+                            string="New Corporate" class="btn-primary"/>
+                    <button name="action_create_retail" type="object"
+                            string="New Retail" class="btn-secondary"/>
+                </header>
             </xpath>
         </field>
     </record>

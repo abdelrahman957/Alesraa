@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="seq_rental_contract_corporate" model="ir.sequence">
+        <field name="name">Rental Contract - Corporate</field>
+        <field name="code">car.rental.contract.corporate</field>
+        <field name="prefix">CORP/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="use_date_range">True</field>
+    </record>
+
+    <record id="seq_rental_contract_retail" model="ir.sequence">
+        <field name="name">Rental Contract - Retail</field>
+        <field name="code">car.rental.contract.retail</field>
+        <field name="prefix">RET/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="use_date_range">True</field>
+    </record>
+</odoo>

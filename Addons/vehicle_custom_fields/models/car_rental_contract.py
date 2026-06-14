@@ -122,6 +122,47 @@ class CarRentalContract(models.Model):
                     )
                     if matching:
                         line.price = matching[0].price_subtotal
+
+    contract_type = fields.Selection(
+        selection=[
+            ('corporate', 'Corporate'),
+            ('retail', 'Retail'),
+        ],
+        string='Contract Type',
+        readonly=True,
+        copy=False,
+    )
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            ctype = vals.get('contract_type')
+            # نولّد رقم جديد فقط للعقود الجديدة من النوعين، والقديم يفضل زي ما هو
+            if ctype == 'corporate' and not vals.get('name'):
+                vals['name'] = self.env['ir.sequence'].next_by_code('car.rental.contract.corporate')
+            elif ctype == 'retail' and not vals.get('name'):
+                vals['name'] = self.env['ir.sequence'].next_by_code('car.rental.contract.retail')
+        return super().create(vals_list)
+
+    @api.model
+    def action_create_corporate(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'car.rental.contract',
+            'view_mode': 'form',
+            'target': 'current',
+            'context': {'default_contract_type': 'corporate'},
+        }
+
+    @api.model
+    def action_create_retail(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'car.rental.contract',
+            'view_mode': 'form',
+            'target': 'current',
+            'context': {'default_contract_type': 'retail'},
+        }
                         
 class CarTools(models.Model):
     _inherit = 'car.tools'

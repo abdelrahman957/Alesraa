@@ -31,6 +31,19 @@ class FleetVehicleLogServices(models.Model):
         currency_field='currency_id',
     )
 
+    def action_service_run(self):
+        self.write({'state': 'running'})
+
+    def action_service_done(self):
+        self.write({'state': 'done'})
+
+    def action_service_cancel(self):
+        self.write({'state': 'cancelled'})
+
+    def unlink(self):
+        # نسمح بحذف التقرير نفسه من غير ما الـ guard بتاع البنود يمنعه
+        return super(type(self), self.with_context(removing_service=True)).unlink()
+
     @api.depends('service_line_ids', 'service_line_ids.amount')
     def _compute_amount_from_lines(self):
         for service in self:
@@ -53,6 +66,8 @@ class FleetVehicleLogServices(models.Model):
     def _compute_display_name(self):
         for service in self:
             service.display_name = service.description or 'Service'
+
+    
 
 
 class FleetServiceLine(models.Model):
@@ -85,3 +100,18 @@ class FleetServiceLine(models.Model):
     service_category = fields.Selection(
         related='service_id.service_category',
     )
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            sid = vals.get('service_id')
+            if sid and self.env['fleet.vehicle.log.services'].browse(sid).state in ('done', 'cancelled'):
+                raise UserError("لا يمكن إضافة بنود والتقرير في حالة Done أو Cancelled.")
+        return super().create(vals_list)
+
+    def unlink(self):
+        if not self.env.context.get('removing_service'):
+            for line in self:
+                if line.service_id.state in ('done', 'cancelled'):
+                    raise UserError("لا يمكن حذف بنود والتقرير في حالة Done أو Cancelled.")
+        return super().unlink()

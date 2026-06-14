@@ -5,44 +5,91 @@
         <field name="model">fleet.vehicle.log.services</field>
         <field name="inherit_id" ref="fleet.fleet_vehicle_log_services_view_form"/>
         <field name="arch" type="xml">
-            <!-- إخفاء Service Type من مكانه الأصلي (هننقله للـ lines) -->
+
+            <!-- أزرار الـ Workflow في الـ header -->
+            <xpath expr="//header" position="inside">
+                <button name="action_service_run" string="Run" type="object"
+                        class="btn-primary" invisible="state != 'new'"/>
+                <button name="action_service_done" string="Done" type="object"
+                        class="btn-primary" invisible="state != 'running'"/>
+                <button name="action_service_cancel" string="Cancel" type="object"
+                        invisible="state != 'done'"/>
+            </xpath>
+
+            <!-- الـ statusbar: مش clickable + إظهار الحالات -->
+            <xpath expr="//field[@name='state']" position="attributes">
+                <attribute name="statusbar_visible">new,running,done</attribute>
+                <attribute name="options">{'clickable': False}</attribute>
+            </xpath>
+
+            <!-- قفل الحقول العلوية في done/cancelled -->
+            <xpath expr="//field[@name='vehicle_id']" position="attributes">
+                <attribute name="readonly">state in ('done','cancelled')</attribute>
+            </xpath>
+            <xpath expr="//field[@name='date']" position="attributes">
+                <attribute name="readonly">state in ('done','cancelled')</attribute>
+            </xpath>
+            <xpath expr="//field[@name='vendor_id']" position="attributes">
+                <attribute name="readonly">state in ('done','cancelled')</attribute>
+            </xpath>
+            <xpath expr="//field[@name='purchaser_id']" position="attributes">
+                <attribute name="readonly">state in ('done','cancelled')</attribute>
+            </xpath>
+            <xpath expr="//field[@name='odometer']" position="attributes">
+                <attribute name="readonly">state in ('done','cancelled')</attribute>
+            </xpath>
+            <xpath expr="//field[@name='description']" position="attributes">
+                <attribute name="readonly">state in ('done','cancelled')</attribute>
+            </xpath>
+            <xpath expr="//field[@name='notes']" position="attributes">
+                <attribute name="readonly">state in ('done','cancelled')</attribute>
+            </xpath>
+
+            <!-- Service Type مخفي -->
             <xpath expr="//field[@name='service_type_id']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
-            <!-- إخفاء Amount الأصلي (بقى computed من الـ lines) -->
+
+            <!-- Amount الأصلي readonly -->
             <xpath expr="//field[@name='amount']" position="attributes">
                 <attribute name="readonly">1</attribute>
             </xpath>
-            <!-- إضافة Service Category و Customer Charge بعد Description -->
+
+            <!-- Service Category و Customer Charge بعد Description -->
             <xpath expr="//field[@name='description']" position="after">
-                <field name="service_category"/>
+                <field name="service_category" readonly="state in ('done','cancelled')"/>
                 <field name="customer_charge" widget="monetary"
-                       invisible="service_category != 'accident'"/>
+                       invisible="service_category != 'accident'"
+                       readonly="state in ('done','cancelled')"/>
             </xpath>
-            <!-- إضافة الـ Lines قبل الـ Notes -->
+
+            <!-- بنود الصيانة قبل الـ Notes -->
             <xpath expr="//field[@name='notes']/preceding-sibling::separator[1]" position="before">
                 <separator string="Service Details"/>
                 <field name="service_line_ids">
                     <list editable="bottom">
                         <field name="service_category" column_invisible="1"/>
-                        <field name="service_type_id"/>
+                        <field name="service_type_id"
+                               readonly="parent.state in ('done','cancelled')"/>
                         <field name="responsibility"
-                               column_invisible="parent.service_category != 'periodic'"/>
-                        <field name="description"/>
-                        <field name="amount" widget="monetary"/>
+                               column_invisible="parent.service_category != 'periodic'"
+                               readonly="parent.state == 'cancelled'"/>
+                        <field name="description"
+                               readonly="parent.state == 'cancelled'"/>
+                        <field name="amount" widget="monetary"
+                               readonly="parent.state in ('done','cancelled')"/>
                         <field name="currency_id" column_invisible="1"/>
                     </list>
                 </field>
                 <group class="oe_subtotal_footer oe_right">
-                    <field name="amount" widget="monetary"
-                           string="Total"
+                    <field name="amount" widget="monetary" string="Total"
                            class="oe_subtotal_footer_separator"/>
                 </group>
             </xpath>
         </field>
     </record>
 
-    <!-- List view: شيل صورة العربية (avatar) -->
+    <!-- List view: شيل صورة العربية -->
     <record id="fleet_service_list_inherit" model="ir.ui.view">
         <field name="name">fleet.vehicle.log.services.list.inherit</field>
         <field name="model">fleet.vehicle.log.services</field>
@@ -53,5 +100,4 @@
             </xpath>
         </field>
     </record>
-
 </odoo>

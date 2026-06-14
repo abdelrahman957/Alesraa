@@ -130,4 +130,10 @@
         <field name="name">Financial Details</field>
     </record>
 
+
+    <!-- إخفاء منيو Rental Contract الأصلية (قابل للرجوع) -->
+    <record id="fleet_rental.menu_car_rental_contract" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+    
 </odoo>

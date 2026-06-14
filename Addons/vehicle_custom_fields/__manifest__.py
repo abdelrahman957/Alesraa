@@ -18,7 +18,7 @@
     'views/fleet_management_views.xml',
     'views/fleet_service_views.xml',
     'reports/service_report.xml',
-    'data/contract_sequences.xml',
+    'views/contract_sequences.xml',
 ],
     'installable': True,
     'auto_install': False,

@@ -68,22 +68,33 @@
         </field>
     </record>
 
-    <!-- record الجديد بتاع الزرارين -->
-    <record id="car_rental_contract_list_inherit" model="ir.ui.view">
-        <field name="name">car.rental.contract.list.buttons</field>
-        <field name="model">car.rental.contract</field>
-        <field name="inherit_id" ref="fleet_rental.car_rental_contract_view_tree"/>
-        <field name="arch" type="xml">
-            <xpath expr="//list" position="inside">
-                <header>
-                    <button name="action_create_corporate" type="object"
-                            string="New Corporate" class="btn-primary"/>
-                    <button name="action_create_retail" type="object"
-                            string="New Retail" class="btn-secondary"/>
-                </header>
-            </xpath>
-        </field>
+    <record id="action_new_corporate_contract" model="ir.actions.act_window">
+        <field name="name">New Corporate Contract</field>
+        <field name="res_model">car.rental.contract</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="context">{'default_contract_type': 'corporate'}</field>
     </record>
+
+    <record id="action_new_retail_contract" model="ir.actions.act_window">
+        <field name="name">New Retail Contract</field>
+        <field name="res_model">car.rental.contract</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="context">{'default_contract_type': 'retail'}</field>
+    </record>
+
+    <menuitem id="menu_new_corporate_contract"
+              name="New Corporate Contract"
+              parent="fleet.menu_root"
+              action="action_new_corporate_contract"
+              sequence="1"/>
+
+    <menuitem id="menu_new_retail_contract"
+              name="New Retail Contract"
+              parent="fleet.menu_root"
+              action="action_new_retail_contract"
+              sequence="2"/>
 
     <!-- Search view with Group By -->
     <record id="car_rental_contract_view_search" model="ir.ui.view">

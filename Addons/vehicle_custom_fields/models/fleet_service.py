@@ -1,5 +1,7 @@
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError
+
 
 class FleetVehicleLogServices(models.Model):
     _inherit = 'fleet.vehicle.log.services'

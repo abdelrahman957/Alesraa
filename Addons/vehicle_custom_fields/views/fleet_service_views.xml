@@ -66,7 +66,7 @@
             <!-- بنود الصيانة قبل الـ Notes -->
             <xpath expr="//field[@name='notes']/preceding-sibling::separator[1]" position="before">
                 <separator string="Service Details"/>
-                <field name="service_line_ids">
+                <field name="service_line_ids" class="no_bottom_border">
                     <list editable="bottom">
                         <field name="service_category" column_invisible="1"/>
                         <field name="service_type_id"

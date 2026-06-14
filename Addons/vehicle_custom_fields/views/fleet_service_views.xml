@@ -82,8 +82,7 @@
                     </list>
                 </field>
                 <group class="oe_subtotal_footer oe_right">
-                    <field name="amount" widget="monetary" string="Total"
-                           class="oe_subtotal_footer_separator"/>
+                    <field name="amount" widget="monetary" string="Total"/>
                 </group>
             </xpath>
         </field>

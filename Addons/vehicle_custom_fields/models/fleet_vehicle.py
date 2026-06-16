@@ -1,5 +1,5 @@
 from odoo import fields, models, api
-
+from odoo.fields import Constraint
 
 class FleetVehicle(models.Model):
     _inherit = 'fleet.vehicle'
@@ -42,14 +42,14 @@ class FleetVehicle(models.Model):
     vin_sn = fields.Char(required=True)
     license_plate = fields.Char(required=True)
 
-    _sql_constraints = [
-        ('unique_vin_sn',
-         'unique(vin_sn)',
-         'A vehicle with this Chassis Number already exists.'),
-        ('unique_license_plate',
-         'unique(license_plate)',
-         'A vehicle with this License Plate already exists.'),
-    ]
+    _unique_vin_sn = models.Constraint(
+        'unique(vin_sn)',
+        'A vehicle with this Chassis Number already exists.',
+    )
+    _unique_license_plate = models.Constraint(
+        'unique(license_plate)',
+        'A vehicle with this License Plate already exists.',
+    )
 
     @api.depends('model_id')
     def _compute_vehicle_image(self):

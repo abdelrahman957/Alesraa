@@ -117,7 +117,7 @@ class FleetVehicle(models.Model):
                 vehicle.rental_status = 'Available'
                 vehicle.rental_return_date = False
         
-        reservation_id = fields.Many2one(
+    reservation_id = fields.Many2one(
         'vehicle.reservation',
         string='Reservation',
         compute='_compute_reservation',
@@ -126,6 +126,25 @@ class FleetVehicle(models.Model):
         string='Has Reservation',
         compute='_compute_reservation',
     )
+
+    reservation_source = fields.Char(
+        string='Source',
+        compute='_compute_reservation',
+    )
+    reservation_customer_id = fields.Many2one(
+        'res.partner',
+        string='Customer',
+        compute='_compute_reservation',
+    )
+    reservation_date_from = fields.Date(
+        string='Reserved From',
+        compute='_compute_reservation',
+    )
+    reservation_date_to = fields.Date(
+        string='Reserved Till',
+        compute='_compute_reservation',
+    )
+
 
     def _compute_reservation(self):
         for vehicle in self:
@@ -174,24 +193,6 @@ class FleetVehicle(models.Model):
             'target': 'new',
         }
     
-    reservation_source = fields.Char(
-        string='Source',
-        compute='_compute_reservation',
-    )
-    reservation_customer_id = fields.Many2one(
-        'res.partner',
-        string='Customer',
-        compute='_compute_reservation',
-    )
-    reservation_date_from = fields.Date(
-        string='Reserved From',
-        compute='_compute_reservation',
-    )
-    reservation_date_to = fields.Date(
-        string='Reserved Till',
-        compute='_compute_reservation',
-    )
-
     def action_convert_reservation(self):
         """ يحوّل الحجز لعقد جديد (draft) ويمسح الحجز """
         self.ensure_one()

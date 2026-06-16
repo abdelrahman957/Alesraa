@@ -20,6 +20,17 @@ class CarRentalContract(models.Model):
         store=True,
     )
 
+    def action_confirm(self):
+        res = super().action_confirm()
+        for contract in self:
+            already_set = contract.name and (contract.name.startswith('CORP/') or contract.name.startswith('RET/'))
+            if not already_set:
+                if contract.contract_type == 'corporate':
+                    contract.name = self.env['ir.sequence'].next_by_code('car.rental.contract.corporate')
+                elif contract.contract_type == 'retail':
+                    contract.name = self.env['ir.sequence'].next_by_code('car.rental.contract.retail')
+        return res
+
     @api.depends('vehicle_id', 'vehicle_id.vehicle_image')
     def _compute_vehicle_image_display(self):
         for contract in self:

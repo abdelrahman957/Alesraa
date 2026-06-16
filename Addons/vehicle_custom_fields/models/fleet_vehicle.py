@@ -1,5 +1,4 @@
 from odoo import fields, models, api
-from odoo.fields import Constraint
 
 class FleetVehicle(models.Model):
     _inherit = 'fleet.vehicle'

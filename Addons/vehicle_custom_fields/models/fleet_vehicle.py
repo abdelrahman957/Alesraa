@@ -39,6 +39,18 @@ class FleetVehicle(models.Model):
         readonly=False,
     )
 
+    vin_sn = fields.Char(required=True)
+    license_plate = fields.Char(required=True)
+
+    _sql_constraints = [
+        ('unique_vin_sn',
+         'unique(vin_sn)',
+         'A vehicle with this Chassis Number already exists.'),
+        ('unique_license_plate',
+         'unique(license_plate)',
+         'A vehicle with this License Plate already exists.'),
+    ]
+
     @api.depends('model_id')
     def _compute_vehicle_image(self):
         for vehicle in self:

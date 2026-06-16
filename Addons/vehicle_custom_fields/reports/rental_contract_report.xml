@@ -134,7 +134,7 @@
                         </table>
 
                         <!-- ===== Charge Summary header ===== -->
-                        <table style="width:100%; border-collapse:collapse; background-color:#1a3a4a; color:white; margin-top:0px;">
+                        <table style="width:100%; border-collapse:collapse; background-color:#1a3a4a; color:white; margin-top:4px;">
                             <tr><td style="padding:6px 8px;"><strong>Charge Summary:</strong></td></tr>
                         </table>
 
@@ -188,7 +188,7 @@
                                 </table>
 
                                 <!-- جدول Summary -->
-                                <table style="width:100%; border-collapse:collapse; border:1px solid #ccc; table-layout:fixed; margin-top:60px;">
+                                <table style="width:100%; border-collapse:collapse; border:1px solid #ccc; table-layout:fixed; margin-top:20px;">
                                     <tr style="background-color:#eef3f5;">
                                         <td colspan="2" style="padding:5px; border:1px solid #ccc; text-align:center; vertical-align:middle;"><strong>Summary</strong></td>
                                     </tr>

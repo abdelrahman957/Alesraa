@@ -94,12 +94,15 @@ class FleetVehicle(models.Model):
     rental_status = fields.Char(
         string='Status',
         compute='_compute_rental_status',
+        store=True,
     )
     rental_return_date = fields.Date(
         string='Return Date',
         compute='_compute_rental_status',
+        store=True,
     )
 
+    @api.depends('log_contracts.state')
     def _compute_rental_status(self):
         for vehicle in self:
             running_contract = self.env['car.rental.contract'].search([

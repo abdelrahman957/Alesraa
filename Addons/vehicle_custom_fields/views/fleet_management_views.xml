@@ -62,12 +62,38 @@
         </field>
     </record>
 
+    <record id="fleet_management_view_search" model="ir.ui.view">
+        <field name="name">fleet.management.view.search</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="arch" type="xml">
+            <search string="Fleet Management">
+                <field name="display_name" string="Vehicle"/>
+                <field name="rental_return_date"/>
+                <filter string="In Rent" name="in_rent"
+                        domain="[('rental_status', '=', 'In Rent')]"/>
+                <filter string="Available" name="available"
+                        domain="[('rental_status', '=', 'Available')]"/>
+                <separator/>
+                <filter string="Has Return Date" name="has_return"
+                        domain="[('rental_return_date', '!=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Return Date" name="group_return_date"
+                            context="{'group_by': 'rental_return_date'}"/>
+                    <filter string="Status" name="group_status"
+                            context="{'group_by': 'rental_status'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
     <!-- Fleet Management Action -->
     <record id="action_fleet_management" model="ir.actions.act_window">
         <field name="name">Fleet Management</field>
         <field name="res_model">fleet.vehicle</field>
         <field name="view_mode">list</field>
         <field name="view_id" ref="fleet_management_view_list"/>
+        <field name="search_view_id" ref="fleet_management_view_search"/>
+
     </record>
 
     <!-- Rebind the Checklist menu to Fleet Management -->

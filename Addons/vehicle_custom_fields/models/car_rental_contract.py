@@ -20,6 +20,13 @@ class CarRentalContract(models.Model):
         store=True,
     )
 
+    def write(self, vals):
+        res = super().write(vals)
+        # لو اتغيّر تاريخ النهاية أو الحالة، حدّث الـ Return Date على العربية
+        if 'rent_end_date' in vals or 'state' in vals:
+            self.mapped('vehicle_id')._compute_rental_status()
+        return res
+
     def action_confirm(self):
         res = super().action_confirm()
         for contract in self:

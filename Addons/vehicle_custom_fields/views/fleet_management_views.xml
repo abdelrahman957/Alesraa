@@ -40,7 +40,6 @@
                 <field name="rental_status" string="Status"
                        decoration-success="rental_status == 'Available'"
                        decoration-bf="rental_status == 'In Rent'"/>
-                <field name="rental_start_date" string="Delivery Date"/>
                 <field name="rental_return_date" string="Return Date"/>
                 <field name="has_reservation" column_invisible="1"/>
                 <field name="rental_status" column_invisible="1"/>

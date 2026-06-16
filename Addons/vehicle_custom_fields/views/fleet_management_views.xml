@@ -68,19 +68,12 @@
         <field name="arch" type="xml">
             <search string="Fleet Management">
                 <field name="rental_return_date"/>
-                <filter string="In Rent" name="in_rent"
-                        domain="[('rental_status', '=', 'In Rent')]"/>
-                <filter string="Available" name="available"
-                        domain="[('rental_status', '=', 'Available')]"/>
+                <filter string="In Rent" name="in_rent" domain="[('rental_status', '=', 'In Rent')]"/>
+                <filter string="Available" name="available" domain="[('rental_status', '=', 'Available')]"/>
                 <separator/>
-                <filter string="Has Return Date" name="has_return"
-                        domain="[('rental_return_date', '!=', False)]"/>
-                <group string="Group By">
-                    <filter string="Return Date" name="group_return_date"
-                            context="{'group_by': 'rental_return_date'}"/>
-                    <filter string="Status" name="group_status"
-                            context="{'group_by': 'rental_status'}"/>
-                </group>
+                <filter string="Has Return Date" name="has_return" domain="[('rental_return_date', '!=', False)]"/>
+                <filter string="Group by Return Date" name="group_return_date" context="{'group_by': 'rental_return_date'}"/>
+                <filter string="Group by Status" name="group_status" context="{'group_by': 'rental_status'}"/>
             </search>
         </field>
     </record>

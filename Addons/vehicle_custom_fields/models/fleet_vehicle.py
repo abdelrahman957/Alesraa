@@ -102,6 +102,12 @@ class FleetVehicle(models.Model):
         store=True,
     )
 
+    rental_start_date = fields.Date(
+        string='Delivery Date',
+        compute='_compute_rental_status',
+        store=True,
+    )
+
     @api.depends('log_contracts.state')
     def _compute_rental_status(self):
         for vehicle in self:
@@ -112,11 +118,13 @@ class FleetVehicle(models.Model):
             if running_contract:
                 vehicle.rental_status = 'In Rent'
                 vehicle.rental_return_date = running_contract.rent_end_date
+                vehicle.rental_start_date = running_contract.rent_start_date
             else:
                 vehicle.rental_status = 'Available'
                 vehicle.rental_return_date = False
-
-    reservation_id = fields.Many2one(
+                vehicle.rental_start_date = False
+        
+        reservation_id = fields.Many2one(
         'vehicle.reservation',
         string='Reservation',
         compute='_compute_reservation',

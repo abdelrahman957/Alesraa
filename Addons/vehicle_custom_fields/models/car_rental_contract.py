@@ -57,7 +57,10 @@ class CarRentalContract(models.Model):
     def _compute_contract_image(self):
         for contract in self:
             contract.image = contract.vehicle_id.vehicle_image if contract.vehicle_id else False
+            
     exit_fuel = fields.Float(string='Exit Fuel (%)')
+
+    exit_km = fields.Float(string='Exit KM')
 
     rental_period_days = fields.Integer(
         string='Rental Period (Days)',

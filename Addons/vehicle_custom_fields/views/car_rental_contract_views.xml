@@ -13,6 +13,7 @@
                 <field name="pickup_location"/>
                 <field name="dropoff_location"/>
                 <field name="exit_fuel"/>
+                <field name="exit_km"/>
             </xpath>
             <xpath expr="//field[@name='attachment_ids']/ancestor::page[1]" position="after">
                 <xpath expr="//field[@name='recurring_line']/ancestor::page[1]" position="move"/>
@@ -135,5 +136,5 @@
     <record id="fleet_rental.menu_car_rental_contract" model="ir.ui.menu">
         <field name="active" eval="False"/>
     </record>
-    
+
 </odoo>

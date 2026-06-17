@@ -18,6 +18,13 @@
             <xpath expr="//field[@name='attachment_ids']/ancestor::page[1]" position="after">
                 <xpath expr="//field[@name='recurring_line']/ancestor::page[1]" position="move"/>
             </xpath>
+             <xpath expr="//field[@name='recurring_line']" position="after">
+                <group string="Return Details" invisible="state not in ('checking', 'invoice', 'done')">
+                    <field name="return_km" readonly="state == 'done'"/>
+                    <field name="actual_return_date" readonly="state == 'done'"/>
+                    <field name="has_damages" readonly="state == 'done'"/>
+                </group>
+            </xpath>
             <xpath expr="//field[@name='attachment_ids']/ancestor::page[1]" position="attributes">
                 <attribute name="string">Financial Details</attribute>
             </xpath>
@@ -65,6 +72,10 @@
             </xpath>
             <xpath expr="//field[@name='image']" position="replace">
                 <field name="vehicle_image_display" widget="image" class="oe_avatar"/>
+            </xpath>
+            <xpath expr="//button[@name='force_checking']" position="attributes">
+                <attribute name="name">action_open_return_wizard</attribute>
+                <attribute name="type">object</attribute>
             </xpath>
         </field>
     </record>

@@ -62,6 +62,13 @@ class CarRentalContract(models.Model):
 
     exit_km = fields.Integer(string='Exit KM')
 
+    return_km = fields.Float(string='Return KM')
+    actual_return_date = fields.Date(string='Actual Return Date')
+    has_damages = fields.Selection([
+        ('yes', 'Yes'),
+        ('no', 'No'),
+    ], string='Has Damages')
+
     rental_period_days = fields.Integer(
         string='Rental Period (Days)',
         compute='_compute_rental_period_days',
@@ -87,6 +94,15 @@ class CarRentalContract(models.Model):
         string='Total Requested Charge',
         compute='_compute_charge_amounts',
     )
+
+    @api.constrains('state', 'return_km', 'actual_return_date', 'has_damages')
+    def _check_return_fields(self):
+        for contract in self:
+            if contract.state in ('checking', 'invoice', 'done'):
+                if not contract.return_km or not contract.actual_return_date or not contract.has_damages:
+                    raise ValidationError(
+                        "Return KM, Actual Return Date, and Has Damages are required."
+                    )
 
     def _default_checklist_line(self):
         tools = self.env['car.tools'].search([
@@ -192,6 +208,17 @@ class CarRentalContract(models.Model):
             'view_mode': 'form',
             'target': 'current',
             'context': {'default_contract_type': 'retail'},
+        }
+    
+    def action_open_return_wizard(self):
+        self.ensure_one()
+        return {
+            'name': 'Vehicle Return',
+            'type': 'ir.actions.act_window',
+            'res_model': 'car.rental.return.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {'default_contract_id': self.id},
         }
                         
 class CarTools(models.Model):

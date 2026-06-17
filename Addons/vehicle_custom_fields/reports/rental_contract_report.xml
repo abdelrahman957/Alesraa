@@ -124,7 +124,8 @@
                             <tr>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Model Year:</strong> <span t-field="o.vehicle_id.model_year"/></td>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Chassis:</strong> <span t-field="o.vehicle_id.vin_sn"/></td>
-                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Exit Km:</strong> <span t-field="o.exit_km"/></td>                            </tr>
+                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Exit Km:</strong> <span t-field="o.exit_km"/></td>
+                            </tr>
                             <tr>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Plate No:</strong> <span t-field="o.vehicle_id.license_plate"/></td>
                                 <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Engine:</strong> <span t-field="o.vehicle_id.motor_number"/></td>

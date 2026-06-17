@@ -19,7 +19,7 @@
     'views/fleet_service_views.xml',
     'reports/service_report.xml',
     'views/contract_sequences.xml',
-    'wizards/return_wizard_views.xml',
+    'views/return_wizard_views.xml',
 ],
     'installable': True,
     'auto_install': False,

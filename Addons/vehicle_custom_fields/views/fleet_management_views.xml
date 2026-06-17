@@ -73,7 +73,9 @@
                 <filter string="Available" name="available" domain="[('rental_status', '=', 'Available')]"/>
                 <separator/>
                 <filter string="Has Return Date" name="has_return" domain="[('rental_return_date', '!=', False)]"/>
+                <filter string="Has Delivery Date" name="has_delivery" domain="[('rental_start_date', '!=', False)]"/>
                 <filter string="Group by Return Date" name="group_return_date" context="{'group_by': 'rental_return_date'}"/>
+                <filter string="Group by Delivery Date" name="group_delivery_date" context="{'group_by': 'rental_start_date'}"/>
                 <filter string="Group by Status" name="group_status" context="{'group_by': 'rental_status'}"/>
             </search>
         </field>

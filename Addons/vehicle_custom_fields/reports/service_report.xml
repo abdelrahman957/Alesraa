@@ -48,11 +48,14 @@
                             .srv-section { margin-bottom:28px; }
                             .srv-title { font-size:16px; font-weight:700; color:#1a3a4a; margin-bottom:12px; padding-right:12px; border-right:4px solid #f5b800; }
                             .srv-grid { width:100%; border:none; border-collapse:separate; border-spacing:8px; table-layout:fixed; }
-                            .srv-grid td { background:#f7f9fb; border:1px solid #e3e9ef; border-radius:6px; padding:12px 15px; width:50%; vertical-align:top; }
+                            .srv-grid td { background:#eef2f6; border:1px solid #e3e9ef; border-radius:6px; padding:12px 15px; width:50%; vertical-align:top; }                            
                             .srv-card .lbl { font-size:12px; color:#7a8a99; margin-bottom:3px; }
                             .srv-card .val { font-size:15px; font-weight:600; color:#1a3a4a; direction:rtl; text-align:right; overflow-wrap:break-word; }
                             .srv-table { width:100%; border-collapse:collapse; }
-                            .srv-table thead th { background:#1a3a4a; color:#fff; padding:12px 15px; font-size:13px; text-align:right; }
+                            .srv-table, .srv-table tr, .srv-table td, .srv-table th { border:0 !important; }
+                            .srv-table * { border-color:transparent !important; }
+                            .srv-table tbody td { border-bottom:1px solid #eef1f4 !important; }
+                            .srv-table thead th { background:#1a3a4a; color:#fff; padding:12px 15px; font-size:13px; text-align:right; font-weight:700; }                            
                             .srv-table tbody td { padding:12px 15px; font-size:13px; border-bottom:1px solid #eef1f4; direction:rtl; text-align:right; overflow-wrap:break-word; }
                             .srv-total { background:#1a3a4a; color:#fff; padding:14px 30px; border-radius:6px; display:inline-block; margin-top:18px; }
                             .srv-total .tl { font-size:15px; font-weight:600; }

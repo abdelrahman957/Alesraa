@@ -1,5 +1,6 @@
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError
 
 
 class CarRentalContract(models.Model):
@@ -19,6 +20,15 @@ class CarRentalContract(models.Model):
         compute='_compute_vehicle_image_display',
         store=True,
     )
+
+    def unlink(self):
+        for contract in self:
+            if contract.state not in ('draft', 'cancel'):
+                raise UserError(
+                    "You cannot delete a confirmed contract. "
+                    "Please cancel it instead."
+                )
+        return super().unlink()
 
     def write(self, vals):
         res = super().write(vals)

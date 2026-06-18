@@ -14,7 +14,7 @@ class CarRentalReturnWizard(models.TransientModel):
         ('no', 'No'),
     ], string='Has Damages')
 
-def action_confirm(self):
+    def action_confirm(self):
         self.ensure_one()
         # احفظ أي قيم مدخلة (حتى لو ناقصة)
         self.contract_id.write({

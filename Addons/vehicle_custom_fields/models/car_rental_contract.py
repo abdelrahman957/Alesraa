@@ -218,9 +218,14 @@ class CarRentalContract(models.Model):
             'res_model': 'car.rental.return.wizard',
             'view_mode': 'form',
             'target': 'new',
-            'context': {'default_contract_id': self.id},
-        }
-                        
+            'context': {
+                'default_contract_id': self.id,
+                'default_return_km': self.return_km,
+                'default_actual_return_date': self.actual_return_date,
+                'default_has_damages': self.has_damages,
+            },
+        }       
+                     
 class CarTools(models.Model):
     _inherit = 'car.tools'
 

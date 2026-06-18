@@ -14,15 +14,16 @@ class CarRentalReturnWizard(models.TransientModel):
         ('no', 'No'),
     ], string='Has Damages')
 
-    def action_confirm(self):
+def action_confirm(self):
         self.ensure_one()
-        if not self.return_km or not self.actual_return_date or not self.has_damages:
-            raise ValidationError(
-                "Please fill Return KM, Actual Return Date, and Has Damages."
-            )
+        # احفظ أي قيم مدخلة (حتى لو ناقصة)
         self.contract_id.write({
             'return_km': self.return_km,
             'actual_return_date': self.actual_return_date,
             'has_damages': self.has_damages,
         })
-        return self.contract_id.force_checking()
+        # انقل الحالة لـ checking فقط لو الثلاثة كلهم متملّيين
+        if self.return_km and self.actual_return_date and self.has_damages:
+            return self.contract_id.force_checking()
+        # غير كده اقفل الـ Wizard من غير ما يحصل حاجة
+        return True

@@ -95,7 +95,7 @@ class CarRentalContract(models.Model):
         compute='_compute_charge_amounts',
     )
 
-    @api.constrains('state', 'return_km', 'actual_return_date', 'has_damages')
+    @api.constrains('state', 'return_km', 'actual_return_date', 'has_damages', 'damage_description')
     def _check_return_fields(self):
         for contract in self:
             if contract.state in ('checking', 'invoice', 'done'):
@@ -103,7 +103,11 @@ class CarRentalContract(models.Model):
                     raise ValidationError(
                         "Return KM, Actual Return Date, and Has Damages are required."
                     )
-
+                if contract.has_damages == 'yes' and not contract.damage_description:
+                    raise ValidationError(
+                        "Damage Description is required when there are damages."
+                    )
+                
     def _default_checklist_line(self):
         tools = self.env['car.tools'].search([
             ('name', 'in', ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges'])

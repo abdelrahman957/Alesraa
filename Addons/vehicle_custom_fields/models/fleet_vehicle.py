@@ -96,6 +96,11 @@ class FleetVehicle(models.Model):
         compute='_compute_rental_status',
         store=True,
     )
+    can_force_checking = fields.Boolean(
+        string='Can Force Checking',
+        compute='_compute_rental_status',
+        store=True,
+    )
     rental_return_date = fields.Date(
         string='Return Date',
         compute='_compute_rental_status',
@@ -127,11 +132,13 @@ class FleetVehicle(models.Model):
                 vehicle.rental_return_date = running_contract.rent_end_date
                 vehicle.rental_start_date = running_contract.rent_start_date
                 vehicle.rental_customer_id = running_contract.customer_id
+                vehicle.can_force_checking = running_contract.first_invoice_created
             else:
                 vehicle.rental_status = 'Available'
                 vehicle.rental_return_date = False
                 vehicle.rental_start_date = False
                 vehicle.rental_customer_id = False
+                vehicle.can_force_checking = False
 
     reservation_id = fields.Many2one(
         'vehicle.reservation',
@@ -209,3 +216,27 @@ class FleetVehicle(models.Model):
             'target': 'new',
         }
     
+    def action_fleet_force_checking(self):
+        self.ensure_one()
+        contract = self.env['car.rental.contract'].search([
+            ('vehicle_id', '=', self.id),
+            ('state', '=', 'running'),
+        ], order='rent_end_date desc', limit=1)
+        if not contract:
+            return
+        return {
+            'name': 'Vehicle Return',
+            'type': 'ir.actions.act_window',
+            'res_model': 'car.rental.return.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {
+                'default_contract_id': contract.id,
+                'default_return_km': contract.return_km,
+                'default_actual_return_date': contract.actual_return_date,
+                'default_has_damages': contract.has_damages,
+                'default_estimated_cost': contract.estimated_cost,
+                'default_damage_description': contract.damage_description,
+                'default_from_fleet': True,
+            },
+        }

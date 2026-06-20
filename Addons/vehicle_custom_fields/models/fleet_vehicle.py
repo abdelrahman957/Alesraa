@@ -209,36 +209,3 @@ class FleetVehicle(models.Model):
             'target': 'new',
         }
     
-    def action_convert_reservation(self):
-        """ يحوّل الحجز لعقد جديد (draft) ويمسح الحجز """
-        self.ensure_one()
-        reservation = self.env['vehicle.reservation'].search([
-            ('vehicle_id', '=', self.id),
-        ], limit=1)
-        if not reservation:
-            return
-
-        # إنشاء العقد من بيانات الحجز والـ SO
-        contract = self.env['car.rental.contract'].create({
-            'vehicle_id': reservation.vehicle_id.id,
-            'customer_id': reservation.customer_id.id,
-            'sale_order_id': reservation.sale_order_id.id,
-            'rent_start_date': reservation.date_from,
-            'rent_end_date': reservation.date_to,
-            'cost': reservation.sale_order_id.amount_total,
-            'cost_frequency': 'no',
-            'first_payment': 0.0,
-            'state': 'draft',
-        })
-
-        # مسح الحجز بعد التحويل
-        reservation.unlink()
-
-        # فتح العقد الجديد
-        return {
-            'name': 'Rental Contract',
-            'type': 'ir.actions.act_window',
-            'res_model': 'car.rental.contract',
-            'view_mode': 'form',
-            'res_id': contract.id,
-        }

@@ -14,6 +14,9 @@ class CarRentalReturnWizard(models.TransientModel):
         ('no', 'No'),
     ], string='Has Damages')
 
+    estimated_cost = fields.Float(string='Estimated Cost')
+    damage_description = fields.Text(string='Damage Description')
+
     def action_confirm(self):
         self.ensure_one()
         # احفظ أي قيم مدخلة (حتى لو ناقصة)
@@ -21,6 +24,8 @@ class CarRentalReturnWizard(models.TransientModel):
             'return_km': self.return_km,
             'actual_return_date': self.actual_return_date,
             'has_damages': self.has_damages,
+            'estimated_cost': self.estimated_cost,
+            'damage_description': self.damage_description,
         })
         # انقل الحالة لـ checking فقط لو الثلاثة كلهم متملّيين
         if self.return_km and self.actual_return_date and self.has_damages:

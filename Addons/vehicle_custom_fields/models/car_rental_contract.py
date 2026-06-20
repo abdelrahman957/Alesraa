@@ -224,6 +224,8 @@ class CarRentalContract(models.Model):
                 'default_return_km': self.return_km,
                 'default_actual_return_date': self.actual_return_date,
                 'default_has_damages': self.has_damages,
+                'default_estimated_cost': self.estimated_cost,
+                'default_damage_description': self.damage_description,
             },
         }       
                      

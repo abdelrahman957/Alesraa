@@ -16,6 +16,7 @@ class CarRentalReturnWizard(models.TransientModel):
 
     estimated_cost = fields.Float(string='Estimated Cost')
     damage_description = fields.Text(string='Damage Description')
+    from_fleet = fields.Boolean(string='From Fleet', default=False)
 
     def action_confirm(self):
         self.ensure_one()

@@ -43,6 +43,10 @@
                 <field name="rental_customer_id" string="Customer"/>
                 <field name="rental_start_date" string="Delivery Date"/>
                 <field name="rental_return_date" string="Return Date"/>
+                 <button name="action_fleet_force_checking" type="object" string="Force Checking"
+                        class="btn-warning"
+                        invisible="not can_force_checking"/>
+                <field name="can_force_checking" column_invisible="1"/>
                 <field name="has_reservation" column_invisible="1"/>
                 <field name="rental_status" column_invisible="1"/>
                 <field name="reservation_source" string="Source"/>

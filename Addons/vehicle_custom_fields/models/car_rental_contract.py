@@ -68,7 +68,8 @@ class CarRentalContract(models.Model):
         ('yes', 'Yes'),
         ('no', 'No'),
     ], string='Has Damages')
-
+    estimated_cost = fields.Float(string='Estimated Cost')
+    damage_description = fields.Text(string='Damage Description')
     rental_period_days = fields.Integer(
         string='Rental Period (Days)',
         compute='_compute_rental_period_days',

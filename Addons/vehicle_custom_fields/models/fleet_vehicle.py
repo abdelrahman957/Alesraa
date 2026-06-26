@@ -125,7 +125,7 @@ class FleetVehicle(models.Model):
         for vehicle in self:
             running_contract = self.env['car.rental.contract'].search([
                 ('vehicle_id', '=', vehicle.id),
-                ('state', '=', 'running'),
+                ('state', 'in', ['running', 'checking']),
             ], order='rent_end_date desc', limit=1)
             if running_contract:
                 vehicle.rental_status = 'In Rent'

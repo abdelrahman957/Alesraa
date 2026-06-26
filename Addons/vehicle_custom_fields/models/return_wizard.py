@@ -70,8 +70,9 @@ class CarRentalReturnWizard(models.TransientModel):
         for wizard in self:
             contract = wizard.contract_id
             exit_km = contract.exit_km if contract else 0
-            # Consumed KM = Return KM - Exit KM
+            # Consumed KM = Return KM - Exit KM, لو سالب يبقى 0
             consumed = (wizard.return_km or 0) - exit_km
+            consumed = consumed if consumed > 0 else 0
             wizard.consumed_km = consumed
 
             # Rent Days = Actual Return Date - Rent Start Date

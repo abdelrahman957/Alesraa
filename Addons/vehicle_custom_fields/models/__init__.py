@@ -10,3 +10,4 @@ from . import crm_lead
 from . import vehicle_reservation
 from . import fleet_service
 from . import return_wizard
+from . import extra_km

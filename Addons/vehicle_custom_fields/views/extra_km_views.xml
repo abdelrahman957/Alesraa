@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- List View (editable) -->
+    <record id="fleet_extra_km_view_list" model="ir.ui.view">
+        <field name="name">fleet.extra.km.view.list</field>
+        <field name="model">fleet.extra.km</field>
+        <field name="arch" type="xml">
+            <list string="Extra KM" editable="bottom">
+                <field name="model_ids" widget="many2many_tags" string="Model"/>
+                <field name="km_per_day" string="KM Per Day"/>
+                <field name="extra_km_price" string="Extra KM Price"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_fleet_extra_km" model="ir.actions.act_window">
+        <field name="name">Extra KM</field>
+        <field name="res_model">fleet.extra.km</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <!-- Menu under Fleet > Configuration -->
+    <menuitem id="menu_fleet_extra_km"
+              name="Extra KM"
+              parent="fleet.fleet_configuration"
+              action="action_fleet_extra_km"
+              sequence="50"/>
+</odoo>

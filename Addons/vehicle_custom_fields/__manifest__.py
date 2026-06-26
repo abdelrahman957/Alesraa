@@ -20,6 +20,7 @@
     'reports/service_report.xml',
     'views/contract_sequences.xml',
     'views/return_wizard_views.xml',
+    'views/extra_km_views.xml',
 ],
     'installable': True,
     'auto_install': False,

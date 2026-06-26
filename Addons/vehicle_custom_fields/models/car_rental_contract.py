@@ -106,6 +106,10 @@ class CarRentalContract(models.Model):
         string='Total Requested Charge',
         compute='_compute_charge_amounts',
     )
+    insurance_amount = fields.Float(
+        string='Insurance',
+        compute='_compute_charge_amounts',
+    )
 
     @api.constrains('state', 'return_km', 'actual_return_date', 'has_damages', 'damage_description')
     def _check_return_fields(self):
@@ -137,7 +141,7 @@ class CarRentalContract(models.Model):
     @api.depends('checklist_line', 'checklist_line.price', 'checklist_line.name')
     def _compute_charge_amounts(self):
         for contract in self:
-            rent = pickup = dropoff = 0.0
+            rent = pickup = dropoff = insurance = 0.0
             for line in contract.checklist_line:
                 name = line.name.name if line.name else ''
                 if name == 'Rent Fees':
@@ -146,10 +150,13 @@ class CarRentalContract(models.Model):
                     pickup += line.price
                 elif name == 'Drop Off Charges':
                     dropoff += line.price
+                elif name == 'Insurance':
+                    insurance += line.price
             contract.rent_fees_amount = rent
             contract.pickup_charge_amount = pickup
             contract.dropoff_charge_amount = dropoff
-            contract.total_requested_charge = rent + pickup + dropoff
+            contract.insurance_amount = insurance
+            contract.total_requested_charge = rent + pickup + dropoff + insurance
 
     @api.onchange('sale_order_id')
     def _onchange_sale_order_id(self):
@@ -161,7 +168,7 @@ class CarRentalContract(models.Model):
             self.dropoff_location = self.sale_order_id.dropoff_location
 
             # التأكد من وجود البنود الـ 3 الأساسية، وإضافة الناقص
-            required_names = ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges']
+            required_names = ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges', 'Insurance']
             existing_names = self.checklist_line.mapped('name.name')
             for tool_name in required_names:
                 if tool_name not in existing_names:
@@ -309,10 +316,10 @@ class CarTools(models.Model):
     _inherit = 'car.tools'
 
     def unlink(self):
-        protected_names = ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges']
+        protected_names = ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges', 'Insurance']
         for tool in self:
             if tool.name in protected_names:
                 raise ValidationError(
-                    "You cannot delete the default items (Rent Fees, Pick Up Charges, Drop Off Charges)."
+                    "You cannot delete the default items (Rent Fees, Pick Up Charges, Drop Off Charges, Insurance)."
                 )
         return super().unlink()

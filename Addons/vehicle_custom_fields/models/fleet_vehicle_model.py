@@ -5,6 +5,7 @@ class FleetVehicleModel(models.Model):
     _inherit = 'fleet.vehicle.model'
 
     vehicle_image = fields.Image(string='Vehicle Image')
+    model_year = fields.Selection(required=True)
 
     @api.depends('name', 'brand_id', 'model_year')
     def _compute_display_name(self):

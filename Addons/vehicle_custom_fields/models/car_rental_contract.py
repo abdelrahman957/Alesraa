@@ -32,6 +32,11 @@ class CarRentalContract(models.Model):
 
     def write(self, vals):
         res = super().write(vals)
+        # لما العقد يوصل لحالة invoice، خلي rent_end_date = actual_return_date
+        if vals.get('state') == 'invoice':
+            for contract in self:
+                if contract.actual_return_date:
+                    contract.rent_end_date = contract.actual_return_date
         if 'rent_end_date' in vals or 'state' in vals or 'first_invoice_created' in vals:
             self.mapped('vehicle_id')._compute_rental_status()
         return res

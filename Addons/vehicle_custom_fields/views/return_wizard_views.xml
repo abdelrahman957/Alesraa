@@ -10,6 +10,8 @@
                     <field name="from_fleet" invisible="1"/>
                     <group string="Return Details">
                         <field name="actual_return_date" invisible="from_fleet == True"/>
+                        <field name="extra_days" readonly="1" invisible="extra_days == 0"/>
+                        <field name="day_rate" invisible="extra_days == 0"/>
                         <field name="return_km" invisible="from_fleet == True"/>
                         <field name="consumed_km" readonly="1"/>
                         <field name="km_per_day"/>
@@ -24,11 +26,10 @@
                         <field name="insurance_amount" readonly="1"/>
                         <field name="ex_km_deduction" readonly="1"/>
                         <field name="estimated_cost_deduction" readonly="1"/>
-                        <field name="extra_days" readonly="1"/>
+                        <field name="extra_days_amount" readonly="1"/>
                         <field name="net_insurance" readonly="1"/>
                     </group>
-                </group>
-                <footer>
+                    <footer>
                     <button name="action_confirm" string="Confirm" type="object" class="btn-primary"/>
                     <button string="Cancel" special="cancel" class="btn-secondary"/>
                 </footer>

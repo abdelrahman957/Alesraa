@@ -93,18 +93,7 @@ class CarRentalReturnWizard(models.TransientModel):
         # لو فيه تلفيات لازم بيان التلفيات
         if self.has_damages == 'yes' and not self.damage_description:
             raise ValidationError("Damage Description is required when there are damages.")
-        # احفظ أي قيم مدخلة (حتى لو ناقصة)
-        self.contract_id.write({
-            'return_km': self.return_km,
-            'actual_return_date': self.actual_return_date,
-            'has_damages': self.has_damages,
-            'estimated_cost': self.estimated_cost,
-            'damage_description': self.damage_description,
-        })
-        # انقل الحالة لـ checking فقط لو الثلاثة كلهم متملّيين
-        if self.return_km and self.actual_return_date and self.has_damages:
-            return self.contract_id.force_checking()
-        return True
+        # احفظ كل القيم على العقد
         self.contract_id.write({
             'return_km': self.return_km,
             'actual_return_date': self.actual_return_date,
@@ -117,3 +106,7 @@ class CarRentalReturnWizard(models.TransientModel):
             'extra_km_price': self.extra_km_price,
             'total_ex_km_amount': self.total_ex_km_amount,
         })
+        # انقل الحالة لـ checking فقط لو الثلاثة كلهم متملّيين
+        if self.return_km and self.actual_return_date and self.has_damages:
+            return self.contract_id.force_checking()
+        return True

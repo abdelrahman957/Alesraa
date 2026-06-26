@@ -7,6 +7,9 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='type']" position="after">
                 <field name="is_vehicle" string="Is Vehicle"/>
+                <field name="fleet_model_id" string="Vehicle Model"
+                       invisible="not is_vehicle"
+                       required="is_vehicle"/>
             </xpath>
         </field>
     </record>

@@ -13,6 +13,16 @@ class ProductTemplate(models.Model):
 
     is_vehicle = fields.Boolean(string='Is Vehicle', default=False)
 
+    fleet_model_id = fields.Many2one(
+        'fleet.vehicle.model',
+        string='Vehicle Model',
+    )
+
+    @api.onchange('fleet_model_id')
+    def _onchange_fleet_model_id(self):
+        if self.fleet_model_id and self.fleet_model_id.vehicle_image:
+            self.image_1920 = self.fleet_model_id.vehicle_image
+
     image_for_report = fields.Binary(
         string='Image for Report',
         compute='_compute_image_for_report',

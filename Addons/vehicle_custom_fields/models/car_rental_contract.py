@@ -40,6 +40,13 @@ class CarRentalContract(models.Model):
         if 'rent_end_date' in vals or 'state' in vals or 'first_invoice_created' in vals:
             self.mapped('vehicle_id')._compute_rental_status()
         return res
+    
+    def action_verify(self):
+        res = super().action_verify()
+        for contract in self:
+            if contract.actual_return_date:
+                contract.rent_end_date = contract.actual_return_date
+        return res
 
     def action_confirm(self):
         res = super().action_confirm()

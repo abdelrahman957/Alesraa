@@ -43,6 +43,36 @@ class CarRentalReturnWizard(models.TransientModel):
         compute='_compute_extra_km_fields',
     )
 
+    insurance_amount = fields.Float(
+        string='Insurance',
+        related='contract_id.insurance_amount',
+    )
+    ex_km_deduction = fields.Float(
+        string='Total EX KM',
+        compute='_compute_insurance_calc',
+    )
+    estimated_cost_deduction = fields.Float(
+        string='Estimated Cost',
+        compute='_compute_insurance_calc',
+    )
+    net_insurance = fields.Float(
+        string='Net Insurance',
+        compute='_compute_insurance_calc',
+    )
+
+    @api.depends('insurance_amount', 'total_ex_km_amount', 'estimated_cost', 'has_damages')
+    def _compute_insurance_calc(self):
+        for wizard in self:
+            # Total EX KM بالسالب
+            wizard.ex_km_deduction = -(wizard.total_ex_km_amount or 0)
+            # Estimated Cost بالسالب لو فيه تلفيات، صفر لو لأ
+            if wizard.has_damages == 'yes':
+                wizard.estimated_cost_deduction = -(wizard.estimated_cost or 0)
+            else:
+                wizard.estimated_cost_deduction = 0.0
+            # Net = Insurance + (الخصومات السالبة)
+            wizard.net_insurance = (wizard.insurance_amount or 0) + wizard.ex_km_deduction + wizard.estimated_cost_deduction
+
     @api.depends('contract_id')
     def _compute_km_settings(self):
         for wizard in self:

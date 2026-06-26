@@ -8,16 +8,24 @@
                 <group>
                     <field name="contract_id" invisible="1"/>
                     <field name="from_fleet" invisible="1"/>
-                    <field name="actual_return_date" invisible="from_fleet == True"/>
-                    <field name="return_km" invisible="from_fleet == True"/>
-                    <field name="consumed_km" readonly="1"/>
-                    <field name="km_per_day"/>
-                    <field name="extra_km" readonly="1"/>
-                    <field name="extra_km_price"/>
-                    <field name="total_ex_km_amount" readonly="1"/>
-                    <field name="has_damages"/>
-                    <field name="estimated_cost" invisible="has_damages != 'yes'"/>
-                    <field name="damage_description" invisible="has_damages != 'yes'" required="has_damages == 'yes'"/>
+                    <group string="Return Details">
+                        <field name="actual_return_date" invisible="from_fleet == True"/>
+                        <field name="return_km" invisible="from_fleet == True"/>
+                        <field name="consumed_km" readonly="1"/>
+                        <field name="km_per_day"/>
+                        <field name="extra_km" readonly="1"/>
+                        <field name="extra_km_price"/>
+                        <field name="total_ex_km_amount" readonly="1"/>
+                        <field name="has_damages"/>
+                        <field name="estimated_cost" invisible="has_damages != 'yes'"/>
+                        <field name="damage_description" invisible="has_damages != 'yes'" required="has_damages == 'yes'"/>
+                    </group>
+                    <group string="Insurance Calculation">
+                        <field name="insurance_amount" readonly="1"/>
+                        <field name="ex_km_deduction" readonly="1"/>
+                        <field name="estimated_cost_deduction" readonly="1"/>
+                        <field name="net_insurance" readonly="1"/>
+                    </group>
                 </group>
                 <footer>
                     <button name="action_confirm" string="Confirm" type="object" class="btn-primary"/>

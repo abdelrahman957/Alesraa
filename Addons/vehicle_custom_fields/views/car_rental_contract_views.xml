@@ -13,7 +13,7 @@
                 <field name="pickup_location" readonly="state not in ('draft', 'reserved')"/>
                 <field name="dropoff_location" readonly="state not in ('draft', 'reserved', 'running')"/>
                 <field name="exit_fuel" readonly="state not in ('draft', 'reserved')"/>
-                <field name="exit_km" readonly="state not in ('draft', 'reserved')"/>
+                <field name="exit_km" readonly="state not in ('draft', 'reserved')" required="state not in ('draft', 'reserved')"/>
             </xpath> 
             <xpath expr="//field[@name='customer_id']" position="attributes">
                 <attribute name="readonly">sale_order_id != False</attribute>

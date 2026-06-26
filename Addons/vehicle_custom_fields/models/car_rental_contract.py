@@ -277,6 +277,15 @@ class CarRentalContract(models.Model):
                     raise ValidationError(
                         "This vehicle is already rented in another active contract."
                     )
+                
+    @api.constrains('exit_km', 'state')
+    def _check_exit_km(self):
+        for contract in self:
+            if contract.state in ('reserved', 'running', 'checking', 'invoice', 'done'):
+                if not contract.exit_km or contract.exit_km <= 0:
+                    raise ValidationError(
+                        "Exit KM is required and must be greater than zero."
+                    )
                      
 class CarTools(models.Model):
     _inherit = 'car.tools'

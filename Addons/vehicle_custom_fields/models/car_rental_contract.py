@@ -230,7 +230,20 @@ class CarRentalContract(models.Model):
                 'default_estimated_cost': self.estimated_cost,
                 'default_damage_description': self.damage_description,
             },
-        }       
+        }    
+
+    @api.constrains('sale_order_id')
+    def _check_unique_sale_order(self):
+        for contract in self:
+            if contract.sale_order_id:
+                other = self.search([
+                    ('sale_order_id', '=', contract.sale_order_id.id),
+                    ('id', '!=', contract.id),
+                ], limit=1)
+                if other:
+                    raise ValidationError(
+                        "This Sale Order is already linked to another contract."
+                    )   
                      
 class CarTools(models.Model):
     _inherit = 'car.tools'

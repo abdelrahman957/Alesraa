@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='customer_id']" position="before">
                 <field name="contract_type" readonly="1"/>
-                <field name="sale_order_id" readonly="state not in ('draft', 'reserved')"/>
+                <field name="sale_order_id" readonly="state not in ('draft', 'reserved')" domain="['|', ('has_rental_contract', '=', False), ('id', '=', sale_order_id)]"/>
             </xpath>            
             <xpath expr="//field[@name='customer_id']" position="after">
                 <field name="pickup_location" readonly="state not in ('draft', 'reserved')"/>

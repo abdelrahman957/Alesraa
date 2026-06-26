@@ -14,7 +14,10 @@
                 <field name="dropoff_location" readonly="state not in ('draft', 'reserved', 'running')"/>
                 <field name="exit_fuel" readonly="state not in ('draft', 'reserved')"/>
                 <field name="exit_km" readonly="state not in ('draft', 'reserved')"/>
-            </xpath>            
+            </xpath> 
+            <xpath expr="//field[@name='customer_id']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>           
             <xpath expr="//field[@name='attachment_ids']/ancestor::page[1]" position="after">
                 <xpath expr="//field[@name='recurring_line']/ancestor::page[1]" position="move"/>
             </xpath>
@@ -121,7 +124,7 @@
         <field name="model">car.rental.contract</field>
         <field name="arch" type="xml">
             <search string="Rental Contracts">
-                <field name="customer_id" readonly="1"/>
+                <field name="customer_id"/>
                 <field name="vehicle_id"/>
                 <filter string="Vehicle" name="group_vehicle"
                         context="{'group_by': 'vehicle_id'}"/>

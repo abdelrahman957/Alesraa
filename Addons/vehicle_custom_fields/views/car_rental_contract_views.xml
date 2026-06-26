@@ -16,8 +16,9 @@
                 <field name="exit_km" readonly="state not in ('draft', 'reserved')"/>
             </xpath> 
             <xpath expr="//field[@name='customer_id']" position="attributes">
-                <attribute name="readonly">1</attribute>
-            </xpath>           
+                <attribute name="readonly">sale_order_id != False</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
             <xpath expr="//field[@name='attachment_ids']/ancestor::page[1]" position="after">
                 <xpath expr="//field[@name='recurring_line']/ancestor::page[1]" position="move"/>
             </xpath>

@@ -244,6 +244,39 @@ class CarRentalContract(models.Model):
                     raise ValidationError(
                         "This Sale Order is already linked to another contract."
                     )   
+                
+    allowed_model_ids = fields.Many2many(
+        'fleet.vehicle.model',
+        string='Allowed Models',
+        compute='_compute_allowed_models',
+    )
+
+    @api.depends('sale_order_id', 'sale_order_id.order_line.product_id')
+    def _compute_allowed_models(self):
+        all_models = self.env['fleet.vehicle.model'].search([])
+        for contract in self:
+            if contract.sale_order_id:
+                vehicle_lines = contract.sale_order_id.order_line.filtered(
+                    lambda l: l.product_id.is_vehicle
+                )
+                models = vehicle_lines.mapped('product_id.product_tmpl_id.fleet_model_id')
+                contract.allowed_model_ids = models if models else all_models
+            else:
+                contract.allowed_model_ids = all_models
+
+    @api.constrains('vehicle_id', 'state')
+    def _check_vehicle_availability(self):
+        for contract in self:
+            if contract.state in ('running', 'checking') and contract.vehicle_id:
+                other = self.search([
+                    ('vehicle_id', '=', contract.vehicle_id.id),
+                    ('id', '!=', contract.id),
+                    ('state', 'in', ['running', 'checking']),
+                ], limit=1)
+                if other:
+                    raise ValidationError(
+                        "This vehicle is already rented in another active contract."
+                    )
                      
 class CarTools(models.Model):
     _inherit = 'car.tools'

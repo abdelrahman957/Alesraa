@@ -22,6 +22,12 @@
             <xpath expr="//field[@name='attachment_ids']/ancestor::page[1]" position="after">
                 <xpath expr="//field[@name='recurring_line']/ancestor::page[1]" position="move"/>
             </xpath>
+             <xpath expr="//field[@name='sale_order_id']" position="after">
+                <field name="allowed_model_ids" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='vehicle_id']" position="attributes">
+                <attribute name="domain">[('rental_status', '=', 'Available'), ('model_id', 'in', allowed_model_ids)]</attribute>
+            </xpath>
             <xpath expr="//field[@name='attachment_ids']/ancestor::page[1]" position="after">
                 <page string="Return Details" invisible="state not in ('running', 'checking', 'invoice', 'done')">                    
                     <group>

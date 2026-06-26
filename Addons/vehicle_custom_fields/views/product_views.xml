@@ -6,6 +6,10 @@
         <field name="inherit_id" ref="product.product_template_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='type']" position="after">
+                <div class="alert alert-info" role="alert" style="margin:8px 0; font-size:13px;">
+                    <span>💡 If this product is a vehicle, please check "Is Vehicle" below.</span><br/>
+                    <span dir="rtl">💡 لو المنتج ده عربية، من فضلك علّم على خانة "Is Vehicle" بالأسفل.</span>
+                </div>
                 <field name="is_vehicle" string="Is Vehicle"/>
                 <field name="fleet_model_id" string="Vehicle Model"
                        invisible="not is_vehicle"

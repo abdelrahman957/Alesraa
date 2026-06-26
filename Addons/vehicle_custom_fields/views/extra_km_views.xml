@@ -6,9 +6,9 @@
         <field name="model">fleet.extra.km</field>
         <field name="arch" type="xml">
             <list string="Extra KM" editable="bottom">
-                <field name="model_ids" widget="many2many_tags" string="Model"  style="Width: 150px;"/>
-                <field name="km_per_day" string="KM Per Day" style="Width: 150px;"/>
-                <field name="extra_km_price" string="Extra KM Price" style="Width: 150px;"/>
+                <field name="model_ids" widget="many2many_tags" string="Model"/>
+                <field name="km_per_day" string="KM Per Day" width="200px"/>
+                <field name="extra_km_price" string="Extra KM Price" width="200px"/>
             </list>
         </field>
     </record>

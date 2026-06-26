@@ -286,6 +286,12 @@ class CarRentalContract(models.Model):
                     raise ValidationError(
                         "Exit KM is required and must be greater than zero."
                     )
+    
+    consumed_km = fields.Integer(string='Consumed KM')
+    km_per_day = fields.Integer(string='KM Per Day')
+    extra_km = fields.Integer(string='Extra KM')
+    extra_km_price = fields.Float(string='Extra KM Price')
+    total_ex_km_amount = fields.Float(string='Total EX KM Amount')
                      
 class CarTools(models.Model):
     _inherit = 'car.tools'

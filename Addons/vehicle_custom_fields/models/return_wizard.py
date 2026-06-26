@@ -47,6 +47,10 @@ class CarRentalReturnWizard(models.TransientModel):
         string='Insurance',
         related='contract_id.insurance_amount',
     )
+    extra_days = fields.Integer(
+        string='Extra Days',
+        compute='_compute_insurance_calc',
+    )
     ex_km_deduction = fields.Float(
         string='Total EX KM',
         compute='_compute_insurance_calc',
@@ -60,7 +64,7 @@ class CarRentalReturnWizard(models.TransientModel):
         compute='_compute_insurance_calc',
     )
 
-    @api.depends('insurance_amount', 'total_ex_km_amount', 'estimated_cost', 'has_damages')
+    @api.depends('insurance_amount', 'total_ex_km_amount', 'estimated_cost', 'has_damages', 'actual_return_date')
     def _compute_insurance_calc(self):
         for wizard in self:
             # Total EX KM بالسالب
@@ -70,7 +74,16 @@ class CarRentalReturnWizard(models.TransientModel):
                 wizard.estimated_cost_deduction = -(wizard.estimated_cost or 0)
             else:
                 wizard.estimated_cost_deduction = 0.0
-            # Net = Insurance + (الخصومات السالبة)
+
+            # عدد الأيام الزيادة (حساب مبدئي - هنرجعله)
+            extra_days = 0
+            contract = wizard.contract_id
+            if wizard.actual_return_date and contract and contract.rent_end_date:
+                diff = (wizard.actual_return_date - contract.rent_end_date).days
+                extra_days = diff if diff > 0 else 0
+            wizard.extra_days = extra_days
+
+            # Net = Insurance + الخصومات السالبة
             wizard.net_insurance = (wizard.insurance_amount or 0) + wizard.ex_km_deduction + wizard.estimated_cost_deduction
 
     @api.depends('contract_id')

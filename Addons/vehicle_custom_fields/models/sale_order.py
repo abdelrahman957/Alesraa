@@ -11,8 +11,9 @@ class SaleOrder(models.Model):
         string='Duration',
         compute='_compute_rental_duration',
         store=True,
+        readonly=False,
     )
-
+    
     pickup_location = fields.Text(string='Pick Up Location')
     dropoff_location = fields.Text(string='Drop Off Location')
     

@@ -18,10 +18,17 @@ class ProductTemplate(models.Model):
         string='Vehicle Model',
     )
 
-    @api.onchange('fleet_model_id')
-    def _onchange_fleet_model_id(self):
-        if self.fleet_model_id and self.fleet_model_id.vehicle_image:
-            self.image_1920 = self.fleet_model_id.vehicle_image
+    image_1920 = fields.Image(
+        compute='_compute_vehicle_image_1920',
+        store=True,
+        readonly=False,
+    )
+
+    @api.depends('fleet_model_id', 'fleet_model_id.vehicle_image')
+    def _compute_vehicle_image_1920(self):
+        for product in self:
+            if product.fleet_model_id:
+                product.image_1920 = product.fleet_model_id.vehicle_image
 
     image_for_report = fields.Binary(
         string='Image for Report',

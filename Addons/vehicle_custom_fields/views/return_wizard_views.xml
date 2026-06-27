@@ -10,19 +10,19 @@
                     <field name="from_fleet" invisible="1"/>
                     <group string="Return Details">
                         <field name="actual_return_date" invisible="from_fleet == True"/>
-                        <field name="extra_days" readonly="1" invisible="extra_days == 0"/>
-                        <field name="day_rate" invisible="extra_days == 0"/>
+                        <field name="extra_days" readonly="1" invisible="extra_days == 0 or from_fleet == True"/>
+                        <field name="day_rate" invisible="extra_days == 0 or from_fleet == True"/>
                         <field name="return_km" invisible="from_fleet == True"/>
-                        <field name="consumed_km" readonly="1"/>
-                        <field name="km_per_day"/>
-                        <field name="extra_km" readonly="1"/>
-                        <field name="extra_km_price"/>
-                        <field name="total_ex_km_amount" readonly="1"/>
+                        <field name="consumed_km" readonly="1" invisible="from_fleet == True"/>
+                        <field name="km_per_day" invisible="from_fleet == True"/>
+                        <field name="extra_km" readonly="1" invisible="from_fleet == True"/>
+                        <field name="extra_km_price" invisible="from_fleet == True"/>
+                        <field name="total_ex_km_amount" readonly="1" invisible="from_fleet == True"/>
                         <field name="has_damages"/>
                         <field name="estimated_cost" invisible="has_damages != 'yes'"/>
                         <field name="damage_description" invisible="has_damages != 'yes'" required="has_damages == 'yes'"/>
                     </group>
-                    <group string="Insurance Calculation">
+                    <group string="Insurance Calculation" invisible="from_fleet == True">
                         <field name="insurance_amount" readonly="1"/>
                         <field name="extra_days_amount" readonly="1"/>
                         <field name="ex_km_deduction" readonly="1"/>

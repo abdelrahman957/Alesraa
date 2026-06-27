@@ -15,7 +15,7 @@
                         <field name="rental_date_to" string="To"/>
                     </group>
                     <group colspan="4">
-                        <field name="rental_duration" string="Duration" readonly="1"/>
+                        <field name="rental_duration" string="Duration"/>
                     </group>
                     <group colspan="4">
                         <field name="pickup_location" string="Pick Up Location"/>

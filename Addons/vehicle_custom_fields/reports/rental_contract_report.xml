@@ -32,7 +32,7 @@
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
                 <t t-call="web.basic_layout">
-                    <div class="page" style="font-family: Arial, sans-serif; font-size:14px; color:#000; padding:0 4px 24px; display:flex; flex-direction:column; min-height:250mm;">
+                    <div class="page" style="font-family: Arial, sans-serif; font-size:14px; color:#000; padding:0 4px 24px; display:flex; flex-direction:column; min-height:235mm;">
                         <style>
                             .page * { border-color: transparent !important; outline: 0 !important; }
                             .page table, .page tr, .page td, .page th { border: 0 !important; }
@@ -135,7 +135,7 @@
 
                         <!-- ===== Charge Summary header ===== -->
                         <table style="width:100%; border-collapse:collapse; background-color:#1a3a4a; color:white; margin-top:1px;">
-                            <tr><td style="padding:0px 0px;"><strong>Charge Summary:</strong></td></tr>
+                            <tr><td style="padding:6px 8px;"><strong>Charge Summary:</strong></td></tr>
                         </table>
 
                         <!-- ===== Body: left (image + notes) / right (tables) ===== -->

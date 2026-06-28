@@ -32,7 +32,7 @@
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
                 <t t-call="web.basic_layout">
-                    <div class="page" style="font-family: Arial, sans-serif; font-size:14px; color:#000; padding:0 4px 24px; display:flex; flex-direction:column; min-height:270mm;">
+                    <div class="page" style="font-family: Arial, sans-serif; font-size:14px; color:#000; padding:0 4px 24px; display:flex; flex-direction:column; min-height:255mm;">
                         <style>
                             .page * { border-color: transparent !important; outline: 0 !important; }
                             .page table, .page tr, .page td, .page th { border: 0 !important; }
@@ -262,7 +262,7 @@
                         </table>
 
                         <!-- ===== Page number at bottom ===== -->
-                        <div style="margin-top:auto; text-align:center; font-size:14px; padding-top:5px;">Page 1 / 1</div>
+                        <div style="margin-top:auto; text-align:center; font-size:14px; padding-top:10px;">Page 1 / 1</div>
 
                     </div>
                 </t>

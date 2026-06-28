@@ -262,7 +262,7 @@
                         </table>
 
                         <!-- ===== Page number at bottom ===== -->
-                        <div style="margin-top:auto; text-align:center; font-size:14px; padding-top:20px;">Page 1 / 1</div>
+                        <div style="margin-top:auto; text-align:center; font-size:14px; padding-top:0px;">Page 1 / 1</div>
 
                     </div>
                 </t>

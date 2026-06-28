@@ -11,3 +11,4 @@ from . import vehicle_reservation
 from . import fleet_service
 from . import return_wizard
 from . import extra_km
+from . import mail_mail

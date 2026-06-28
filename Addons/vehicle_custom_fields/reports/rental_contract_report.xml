@@ -237,7 +237,7 @@
 
                         
                         <!-- ===== Spacer pushes signatures to bottom ===== -->
-                        <div style="height:20px;"></div>
+                        <div style="flex-grow:1;"></div>
 
                         <!-- ===== Signatures ===== -->
                         <table style="width:100%; border-collapse:collapse; background-color:#1a3a4a; color:white;">

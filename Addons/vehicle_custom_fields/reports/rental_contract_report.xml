@@ -237,7 +237,7 @@
 
                         
                         <!-- ===== Spacer pushes signatures to bottom ===== -->
-                        <div style="flex-grow:1;"></div>
+                        <div style="height:20px;"></div>
 
                         <!-- ===== Signatures ===== -->
                         <table style="width:100%; border-collapse:collapse; background-color:#1a3a4a; color:white;">
@@ -262,7 +262,7 @@
                         </table>
 
                         <!-- ===== Page number at bottom ===== -->
-                        <div style="margin-top:auto; text-align:center; font-size:14px; padding-top:10px;">Page 1 / 1</div>
+                        <div style="margin-top:10px; text-align:center; font-size:14px; padding-top:10px;">Page 1 / 1</div>
 
                     </div>
                 </t>

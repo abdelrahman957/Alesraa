@@ -209,8 +209,8 @@
                                         <td style="padding:7px; border:1px solid #ccc; text-align:right;"><span t-field="o.dropoff_charge_amount"/> EGP</td>
                                     </tr>
                                     <tr>
-                                        <td style="padding:7px; border:1px solid #ccc;"><strong>Paid Deposit:</strong></td>
-                                        <td style="padding:7px; border:1px solid #ccc; text-align:right;">0 EGP</td>
+                                        <td style="padding:7px; border:1px solid #ccc;"><strong>Full Coverage Insurance:</strong></td>
+                                        <td style="padding:7px; border:1px solid #ccc; text-align:right;"><span t-field="o.full_coverage_amount"/> EGP</td>
                                     </tr>
                                     <tr>
                                         <td style="padding:7px; border:1px solid #ccc;"><strong>Contract Guarantee:</strong></td>
@@ -219,6 +219,14 @@
                                     <tr style="background-color:#1a3a4a; color:white;">
                                         <td style="padding:7px; border:1px solid #ccc;"><strong>Total Requested Charge:</strong></td>
                                         <td style="padding:7px; border:1px solid #ccc; text-align:right;"><strong><span t-field="o.total_requested_charge"/> EGP</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:7px; border:1px solid #ccc;"><strong>Paid Deposit:</strong></td>
+                                        <td style="padding:7px; border:1px solid #ccc; text-align:right;"><span t-field="o.paid_deposit_amount"/> EGP</td>
+                                    </tr>
+                                    <tr style="background-color:#1a3a4a; color:white;">
+                                        <td style="padding:7px; border:1px solid #ccc;"><strong>Net Requested Charge:</strong></td>
+                                        <td style="padding:7px; border:1px solid #ccc; text-align:right;"><strong><span t-field="o.net_requested_charge"/> EGP</strong></td>
                                     </tr>
                                 </table>
 

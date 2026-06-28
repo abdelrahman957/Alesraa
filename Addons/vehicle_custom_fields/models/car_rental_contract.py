@@ -110,6 +110,18 @@ class CarRentalContract(models.Model):
         string='Insurance',
         compute='_compute_charge_amounts',
     )
+    full_coverage_amount = fields.Float(
+        string='Full Coverage Insurance',
+        compute='_compute_charge_amounts',
+    )
+    paid_deposit_amount = fields.Float(
+        string='Paid Deposit',
+        compute='_compute_charge_amounts',
+    )
+    net_requested_charge = fields.Float(
+        string='Net Requested Charge',
+        compute='_compute_charge_amounts',
+    )
 
     @api.constrains('state', 'return_km', 'actual_return_date', 'has_damages', 'damage_description')
     def _check_return_fields(self):
@@ -141,7 +153,7 @@ class CarRentalContract(models.Model):
     @api.depends('checklist_line', 'checklist_line.price', 'checklist_line.name')
     def _compute_charge_amounts(self):
         for contract in self:
-            rent = pickup = dropoff = insurance = 0.0
+            rent = pickup = dropoff = insurance = full_cov = deposit = 0.0
             for line in contract.checklist_line:
                 name = line.name.name if line.name else ''
                 if name == 'Rent Fees':
@@ -152,11 +164,20 @@ class CarRentalContract(models.Model):
                     dropoff += line.price
                 elif name == 'Insurance':
                     insurance += line.price
+                elif name == 'Full Coverage Insurance':
+                    full_cov += line.price
+                elif name == 'Paid Deposit':
+                    deposit += line.price
             contract.rent_fees_amount = rent
             contract.pickup_charge_amount = pickup
             contract.dropoff_charge_amount = dropoff
             contract.insurance_amount = insurance
-            contract.total_requested_charge = rent + pickup + dropoff + insurance
+            contract.full_coverage_amount = full_cov
+            contract.paid_deposit_amount = deposit
+            # Total = Rent + Pick Up + Drop Off + Insurance + Full Coverage (مش شامل Paid Deposit)
+            contract.total_requested_charge = rent + pickup + dropoff + insurance + full_cov
+            # Net = Total - Paid Deposit
+            contract.net_requested_charge = contract.total_requested_charge - deposit
 
     @api.onchange('sale_order_id')
     def _onchange_sale_order_id(self):
@@ -202,6 +223,7 @@ class CarRentalContract(models.Model):
         readonly=True,
         copy=False,
     )
+    required_names = ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges', 'Insurance', 'Full Coverage Insurance', 'Paid Deposit']
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -316,7 +338,7 @@ class CarTools(models.Model):
     _inherit = 'car.tools'
 
     def unlink(self):
-        protected_names = ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges', 'Insurance']
+        protected_names = ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges', 'Insurance', 'Full Coverage Insurance', 'Paid Deposit']
         for tool in self:
             if tool.name in protected_names:
                 raise ValidationError(

@@ -118,13 +118,13 @@
               name="Corporate Contracts"
               parent="fleet_rental.menu_car_parent"
               action="action_corporate_contracts"
-              sequence="1"/>
+              sequence="2"/>
 
     <menuitem id="menu_retail_contracts"
               name="Retail Contracts"
               parent="fleet_rental.menu_car_parent"
               action="action_retail_contracts"
-              sequence="2"/>
+              sequence="1"/>
 
     <!-- Search view with Group By -->
     <record id="car_rental_contract_view_search" model="ir.ui.view">

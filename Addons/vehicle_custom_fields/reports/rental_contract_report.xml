@@ -268,13 +268,13 @@
                     <!-- ===== Terms & Conditions Page 1 (ثابتة) ===== -->
                     <div style="page-break-before:always;">
                         <img src="/vehicle_custom_fields/static/src/img/terms_page_1.png"
-                             style="width:100%; display:block;"/>
+                            style="height:100vh; width:100%; object-fit:fill; display:block;"/>
                     </div>
 
                     <!-- ===== Terms & Conditions Page 2 (ثابتة) ===== -->
                     <div style="page-break-before:always;">
                         <img src="/vehicle_custom_fields/static/src/img/terms_page_2.png"
-                             style="width:100%; display:block;"/>
+                             style="height:100vh; width:100%; object-fit:fill; display:block;"/>
                     </div>
                 </t>
             </t>

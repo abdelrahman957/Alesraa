@@ -116,8 +116,22 @@ class CarRentalContract(models.Model):
     )
     paid_deposit_amount = fields.Float(
         string='Paid Deposit',
-        compute='_compute_charge_amounts',
+        compute='_compute_paid_deposit',
     )
+
+    @api.depends('sale_order_id', 'sale_order_id.invoice_ids', 'sale_order_id.invoice_ids.payment_state')
+    def _compute_paid_deposit(self):
+        for contract in self:
+            total = 0.0
+            if contract.sale_order_id:
+                # فواتير الـ down payment المدفوعة بالكامل
+                downpayment_invoices = contract.sale_order_id.invoice_ids.filtered(
+                    lambda inv: inv.payment_state == 'paid'
+                    and any(line.is_downpayment for line in inv.invoice_line_ids)
+                )
+                total = sum(downpayment_invoices.mapped('amount_total'))
+            contract.paid_deposit_amount = total
+
     net_requested_charge = fields.Float(
         string='Net Requested Charge',
         compute='_compute_charge_amounts',
@@ -150,10 +164,10 @@ class CarRentalContract(models.Model):
             else:
                 contract.rental_period_days = 0
 
-    @api.depends('checklist_line', 'checklist_line.price', 'checklist_line.name')
+    @api.depends('checklist_line', 'checklist_line.price', 'checklist_line.name', 'paid_deposit_amount')
     def _compute_charge_amounts(self):
         for contract in self:
-            rent = pickup = dropoff = insurance = full_cov = deposit = 0.0
+            rent = pickup = dropoff = insurance = full_cov = 0.0
             for line in contract.checklist_line:
                 name = line.name.name if line.name else ''
                 if name == 'Rent Fees':
@@ -166,18 +180,13 @@ class CarRentalContract(models.Model):
                     insurance += line.price
                 elif name == 'Full Coverage Insurance':
                     full_cov += line.price
-                elif name == 'Paid Deposit':
-                    deposit += line.price
             contract.rent_fees_amount = rent
             contract.pickup_charge_amount = pickup
             contract.dropoff_charge_amount = dropoff
             contract.insurance_amount = insurance
             contract.full_coverage_amount = full_cov
-            contract.paid_deposit_amount = deposit
-            # Total = Rent + Pick Up + Drop Off + Insurance + Full Coverage (مش شامل Paid Deposit)
             contract.total_requested_charge = rent + pickup + dropoff + insurance + full_cov
-            # Net = Total - Paid Deposit
-            contract.net_requested_charge = contract.total_requested_charge - deposit
+            contract.net_requested_charge = contract.total_requested_charge - contract.paid_deposit_amount
 
     @api.onchange('sale_order_id')
     def _onchange_sale_order_id(self):
@@ -189,7 +198,7 @@ class CarRentalContract(models.Model):
             self.dropoff_location = self.sale_order_id.dropoff_location
 
             # التأكد من وجود البنود الـ 3 الأساسية، وإضافة الناقص
-            required_names = ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges', 'Insurance']
+            required_names = ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges', 'Insurance', 'Full Coverage Insurance']
             existing_names = self.checklist_line.mapped('name.name')
             for tool_name in required_names:
                 if tool_name not in existing_names:
@@ -338,7 +347,7 @@ class CarTools(models.Model):
     _inherit = 'car.tools'
 
     def unlink(self):
-        protected_names = ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges', 'Insurance', 'Full Coverage Insurance', 'Paid Deposit']
+        protected_names = ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges', 'Insurance', 'Full Coverage Insurance']
         for tool in self:
             if tool.name in protected_names:
                 raise ValidationError(

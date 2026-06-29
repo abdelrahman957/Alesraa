@@ -341,6 +341,63 @@ class CarRentalContract(models.Model):
     extra_km = fields.Integer(string='Extra KM')
     extra_km_price = fields.Float(string='Extra KM Price')
     total_ex_km_amount = fields.Float(string='Total EX KM Amount')
+
+
+    def action_invoice_create(self):
+        res = super().action_invoice_create()
+        for contract in self:
+            # هات الفاتورة اللي اتعملت
+            invoice = contract.first_payment_inv
+            if not invoice:
+                continue
+
+            # منتج الخدمة والحساب (نفس اللي بيستخدمه الأصلي)
+            product_id = self.env['product.product'].browse(
+                self.env.ref('fleet_rental.fleet_service_product').id)
+            if product_id.property_account_income_id.id:
+                income_account = product_id.property_account_income_id.id
+            elif product_id.categ_id.property_account_income_categ_id.id:
+                income_account = product_id.categ_id.property_account_income_categ_id.id
+            else:
+                continue
+
+            # امسح السطور القديمة (سطر الـ first_payment الفاضي)
+            invoice.invoice_line_ids.unlink()
+
+            # ابني السطور المنفصلة
+            lines = []
+            charge_items = [
+                ('Rent Fees', contract.rent_fees_amount),
+                ('Pick Up Charges', contract.pickup_charge_amount),
+                ('Drop Off Charges', contract.dropoff_charge_amount),
+                ('Full Coverage Insurance', contract.full_coverage_amount),
+            ]
+            for label, amount in charge_items:
+                if amount and amount > 0:
+                    lines.append((0, 0, {
+                        'name': label,
+                        'price_unit': amount,
+                        'quantity': 1.0,
+                        'account_id': income_account,
+                        'product_id': product_id.id,
+                        'move_id': invoice.id,
+                    }))
+
+            # سطر الـ Paid Deposit بالسالب (خصم)
+            if contract.paid_deposit_amount and contract.paid_deposit_amount > 0:
+                lines.append((0, 0, {
+                    'name': 'Paid Deposit (Down Payment)',
+                    'price_unit': -contract.paid_deposit_amount,
+                    'quantity': 1.0,
+                    'account_id': income_account,
+                    'product_id': product_id.id,
+                    'move_id': invoice.id,
+                }))
+
+            if lines:
+                invoice.write({'invoice_line_ids': lines})
+        return res
+    
                      
 class CarTools(models.Model):
     _inherit = 'car.tools'

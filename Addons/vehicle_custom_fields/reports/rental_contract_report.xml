@@ -265,6 +265,17 @@
                         <div style="margin-top:auto; text-align:center; font-size:14px; padding-top:10px;">Page 1 / 1</div>
 
                     </div>
+                    <!-- ===== Terms & Conditions Page 1 (ثابتة) ===== -->
+                    <div style="page-break-before:always;">
+                        <img src="/vehicle_custom_fields/static/src/img/terms_page_1.png"
+                             style="width:100%; display:block;"/>
+                    </div>
+
+                    <!-- ===== Terms & Conditions Page 2 (ثابتة) ===== -->
+                    <div style="page-break-before:always;">
+                        <img src="/vehicle_custom_fields/static/src/img/terms_page_2.png"
+                             style="width:100%; display:block;"/>
+                    </div>
                 </t>
             </t>
         </t>

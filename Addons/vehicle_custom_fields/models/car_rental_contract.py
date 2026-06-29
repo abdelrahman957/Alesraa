@@ -152,7 +152,7 @@ class CarRentalContract(models.Model):
                 
     def _default_checklist_line(self):
         tools = self.env['car.tools'].search([
-            ('name', 'in', ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges'])
+            ('name', 'in', ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges', 'Refundable Insurance', 'Full Coverage Insurance']),
         ])
         return [(0, 0, {'name': tool.id, 'price': 0.0}) for tool in tools]
 
@@ -232,7 +232,6 @@ class CarRentalContract(models.Model):
         readonly=True,
         copy=False,
     )
-    required_names = ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges', 'Insurance', 'Full Coverage Insurance', 'Paid Deposit']
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -352,5 +351,19 @@ class CarTools(models.Model):
             if tool.name in protected_names:
                 raise ValidationError(
                     "You cannot delete the default items (Rent Fees, Pick Up Charges, Drop Off Charges, Refundable Insurance, Full Coverage Insurance)."
+                )
+        return super().unlink()
+    
+class CarRentalChecklist(models.Model):
+    _inherit = 'car.rental.checklist'
+
+    def unlink(self):
+        protected_names = ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges',
+                           'Refundable Insurance', 'Full Coverage Insurance']
+        for line in self:
+            tool_name = line.name.name if line.name else ''
+            if tool_name in protected_names:
+                raise ValidationError(
+                    "You cannot delete the default charge items from the contract."
                 )
         return super().unlink()

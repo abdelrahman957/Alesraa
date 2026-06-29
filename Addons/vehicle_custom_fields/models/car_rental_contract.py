@@ -176,7 +176,7 @@ class CarRentalContract(models.Model):
                     pickup += line.price
                 elif name == 'Drop Off Charges':
                     dropoff += line.price
-                elif name == 'Insurance':
+                elif name == 'Refundable Insurance':
                     insurance += line.price
                 elif name == 'Full Coverage Insurance':
                     full_cov += line.price
@@ -198,7 +198,7 @@ class CarRentalContract(models.Model):
             self.dropoff_location = self.sale_order_id.dropoff_location
 
             # التأكد من وجود البنود الـ 3 الأساسية، وإضافة الناقص
-            required_names = ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges', 'Insurance', 'Full Coverage Insurance']
+            required_names = ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges', 'Refundable Insurance', 'Full Coverage Insurance']
             existing_names = self.checklist_line.mapped('name.name')
             for tool_name in required_names:
                 if tool_name not in existing_names:
@@ -347,10 +347,10 @@ class CarTools(models.Model):
     _inherit = 'car.tools'
 
     def unlink(self):
-        protected_names = ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges', 'Insurance', 'Full Coverage Insurance']
+        protected_names = ['Rent Fees', 'Pick Up Charges', 'Drop Off Charges', 'Refundable Insurance', 'Full Coverage Insurance']
         for tool in self:
             if tool.name in protected_names:
                 raise ValidationError(
-                    "You cannot delete the default items (Rent Fees, Pick Up Charges, Drop Off Charges, Insurance)."
+                    "You cannot delete the default items (Rent Fees, Pick Up Charges, Drop Off Charges, Refundable Insurance, Full Coverage Insurance)."
                 )
         return super().unlink()

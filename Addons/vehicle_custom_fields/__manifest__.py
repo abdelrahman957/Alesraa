@@ -13,6 +13,7 @@
     'views/car_rental_contract_views.xml',
     'reports/rental_contract_report.xml',
     'reports/insurance_policy_report.xml',
+    'reports/customer_settlement_report.xml',
     'views/fleet_vehicle_model_views.xml',
     'views/res_partner_views.xml',
     'views/crm_lead_views.xml',

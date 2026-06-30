@@ -163,6 +163,9 @@ class CarRentalReturnWizard(models.TransientModel):
             'extra_km': self.extra_km,
             'extra_km_price': self.extra_km_price,
             'total_ex_km_amount': self.total_ex_km_amount,
+            'extra_days': self.extra_days,
+            'extra_days_amount': self.extra_days_amount,
+            'day_rate': self.day_rate,
         })
         # انقل الحالة لـ checking فقط لو الثلاثة كلهم متملّيين
         if self.return_km and self.actual_return_date and self.has_damages:

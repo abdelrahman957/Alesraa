@@ -342,6 +342,63 @@ class CarRentalContract(models.Model):
     extra_km_price = fields.Float(string='Extra KM Price')
     total_ex_km_amount = fields.Float(string='Total EX KM Amount')
 
+    extra_days = fields.Integer(string='Extra Days')
+    extra_days_amount = fields.Float(string='Extra Days Amount')
+    day_rate = fields.Float(string='Day Rate')
+    net_insurance_refund = fields.Float(
+        string='Net Insurance Refund',
+        compute='_compute_net_insurance_refund',
+    )
+    total_paid_amount = fields.Float(
+        string='Total Paid',
+        compute='_compute_total_paid',
+    )
+    balance_due = fields.Float(
+        string='Balance Due',
+        compute='_compute_total_paid',
+    )
+    final_net_payable = fields.Float(
+        string='Net Payable by Customer',
+        compute='_compute_net_insurance_refund',
+    )
+
+    @api.depends('sale_order_id', 'sale_order_id.invoice_ids',
+                 'sale_order_id.invoice_ids.payment_state',
+                 'total_requested_charge')
+    def _compute_total_paid(self):
+        for contract in self:
+            paid = 0.0
+            # مدفوعات فواتير العقد
+            contract_invoices = self.env['account.move'].search([
+                ('fleet_rent_id', '=', contract.id),
+                ('move_type', '=', 'out_invoice'),
+                ('state', '=', 'posted'),
+            ])
+            for inv in contract_invoices:
+                paid += (inv.amount_total - inv.amount_residual)
+            # مدفوعات الـ down payment على الـ SO
+            if contract.sale_order_id:
+                dp_invoices = contract.sale_order_id.invoice_ids.filtered(
+                    lambda i: i.state == 'posted'
+                    and any(l.is_downpayment for l in i.invoice_line_ids)
+                )
+                for inv in dp_invoices:
+                    paid += (inv.amount_total - inv.amount_residual)
+            contract.total_paid_amount = paid
+            contract.balance_due = contract.total_requested_charge - paid
+
+    @api.depends('insurance_amount', 'total_ex_km_amount', 'estimated_cost',
+                 'has_damages', 'extra_days_amount', 'balance_due')
+    def _compute_net_insurance_refund(self):
+        for contract in self:
+            deductions = (contract.total_ex_km_amount or 0)
+            if contract.has_damages == 'yes':
+                deductions += (contract.estimated_cost or 0)
+            deductions += abs(contract.extra_days_amount or 0)
+            net_refund = (contract.insurance_amount or 0) - deductions
+            contract.net_insurance_refund = net_refund
+            contract.final_net_payable = contract.balance_due - net_refund
+
 
     def action_invoice_create(self):
         res = super().action_invoice_create()

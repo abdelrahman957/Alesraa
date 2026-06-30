@@ -81,62 +81,61 @@
 
 
                         <!-- Section: Deduction Details -->
-                        <div style="background-color:#1a3a4a; color:white; padding:6px 8px; font-weight:bold; margin-top:14px;">Deduction Details</div>
+                        <div style="background-color:#1a3a4a; color:white; padding:5px 8px; font-weight:bold; margin-top:10px;">Deduction Details</div>
                         <table style="width:100%; border-collapse:collapse; border:1px solid #ccc; table-layout:fixed;">
                             <!-- مجموعة Extra KM -->
                             <tr style="background-color:#dde8ec;">
-                                <td colspan="6" style="padding:6px 9px; border:1px solid #ccc;"><strong>Extra KM</strong></td>
+                                <td colspan="6" style="padding:3px 7px; border:1px solid #ccc;"><strong>Extra KM</strong></td>
                             </tr>
                             <tr>
-                                <td style="padding:6px 9px; border:1px solid #ccc; background-color:#eef3f5;">Exit KM</td>
-                                <td style="padding:6px 9px; border:1px solid #ccc; text-align:center;"><span t-field="o.exit_km"/></td>
-                                <td style="padding:6px 9px; border:1px solid #ccc; background-color:#eef3f5;">Return KM</td>
-                                <td style="padding:6px 9px; border:1px solid #ccc; text-align:center;"><span t-field="o.return_km"/></td>
-                                <td style="padding:6px 9px; border:1px solid #ccc; background-color:#eef3f5;">Consumed KM</td>
-                                <td style="padding:6px 9px; border:1px solid #ccc; text-align:center;"><span t-field="o.consumed_km"/></td>
+                                <td style="padding:3px 7px; border:1px solid #ccc; background-color:#eef3f5;">Exit KM</td>
+                                <td style="padding:3px 7px; border:1px solid #ccc; text-align:center;"><span t-field="o.exit_km"/></td>
+                                <td style="padding:3px 7px; border:1px solid #ccc; background-color:#eef3f5;">Return KM</td>
+                                <td style="padding:3px 7px; border:1px solid #ccc; text-align:center;"><span t-field="o.return_km"/></td>
+                                <td style="padding:3px 7px; border:1px solid #ccc; background-color:#eef3f5;">Consumed KM</td>
+                                <td style="padding:3px 7px; border:1px solid #ccc; text-align:center;"><span t-field="o.consumed_km"/></td>
                             </tr>
                             <tr>
-                                <td style="padding:6px 9px; border:1px solid #ccc; background-color:#eef3f5;">Allowed KM/Day</td>
-                                <td style="padding:6px 9px; border:1px solid #ccc; text-align:center;"><span t-field="o.km_per_day"/></td>
-                                <td style="padding:6px 9px; border:1px solid #ccc; background-color:#eef3f5;">Extra KM</td>
-                                <td style="padding:6px 9px; border:1px solid #ccc; text-align:center;"><span t-field="o.extra_km"/></td>
-                                <td style="padding:6px 9px; border:1px solid #ccc; background-color:#eef3f5;">Extra KM Price</td>
-                                <td style="padding:6px 9px; border:1px solid #ccc; text-align:center;"><span t-field="o.extra_km_price"/></td>
+                                <td style="padding:3px 7px; border:1px solid #ccc; background-color:#eef3f5;">Allowed KM/Day</td>
+                                <td style="padding:3px 7px; border:1px solid #ccc; text-align:center;"><span t-field="o.km_per_day"/></td>
+                                <td style="padding:3px 7px; border:1px solid #ccc; background-color:#eef3f5;">Extra KM</td>
+                                <td style="padding:3px 7px; border:1px solid #ccc; text-align:center;"><span t-field="o.extra_km"/></td>
+                                <td style="padding:3px 7px; border:1px solid #ccc; background-color:#eef3f5;">Extra KM Price</td>
+                                <td style="padding:3px 7px; border:1px solid #ccc; text-align:center;"><span t-field="o.extra_km_price"/></td>
                             </tr>
-                            <tr style="background-color:#1a3a4a; color:white;">
-                                <td colspan="4" style="padding:6px 9px; border:1px solid #ccc;"><strong>Total Extra KM Charges</strong></td>
-                                <td colspan="2" style="padding:6px 9px; border:1px solid #ccc; text-align:right;"><strong><span t-field="o.total_ex_km_amount"/> EGP</strong></td>
+                            <tr style="background-color:#2e5d3b; color:white;">
+                                <td colspan="4" style="padding:3px 7px; border:1px solid #ccc;"><strong>Total Extra KM Charges</strong></td>
+                                <td colspan="2" style="padding:3px 7px; border:1px solid #ccc; text-align:right;"><strong><span t-field="o.total_ex_km_amount"/> EGP</strong></td>
                             </tr>
 
                             <!-- مجموعة Extra Days -->
                             <tr style="background-color:#dde8ec;">
-                                <td colspan="6" style="padding:6px 9px; border:1px solid #ccc;"><strong>Extra Days</strong></td>
+                                <td colspan="6" style="padding:3px 7px; border:1px solid #ccc;"><strong>Extra Days</strong></td>
                             </tr>
                             <tr>
-                                <td style="padding:6px 9px; border:1px solid #ccc; background-color:#eef3f5;">Extra Days</td>
-                                <td colspan="2" style="padding:6px 9px; border:1px solid #ccc; text-align:center;"><span t-field="o.extra_days"/></td>
-                                <td style="padding:6px 9px; border:1px solid #ccc; background-color:#eef3f5;">Day Rate</td>
-                                <td colspan="2" style="padding:6px 9px; border:1px solid #ccc; text-align:center;"><span t-field="o.day_rate"/></td>
+                                <td style="padding:3px 7px; border:1px solid #ccc; background-color:#eef3f5;">Extra Days</td>
+                                <td colspan="2" style="padding:3px 7px; border:1px solid #ccc; text-align:center;"><span t-field="o.extra_days"/></td>
+                                <td style="padding:3px 7px; border:1px solid #ccc; background-color:#eef3f5;">Day Rate</td>
+                                <td colspan="2" style="padding:3px 7px; border:1px solid #ccc; text-align:center;"><span t-field="o.day_rate"/></td>
                             </tr>
-                            <tr style="background-color:#1a3a4a; color:white;">
-                                <td colspan="4" style="padding:6px 9px; border:1px solid #ccc;"><strong>Total Extra Days Charges</strong></td>
-                                <td colspan="2" style="padding:6px 9px; border:1px solid #ccc; text-align:right;"><strong><span t-out="abs(o.extra_days_amount)"/> EGP</strong></td>
+                            <tr style="background-color:#2e5d3b; color:white;">
+                                <td colspan="4" style="padding:3px 7px; border:1px solid #ccc;"><strong>Total Extra Days Charges</strong></td>
+                                <td colspan="2" style="padding:3px 7px; border:1px solid #ccc; text-align:right;"><strong><span t-out="abs(o.extra_days_amount)"/> EGP</strong></td>
                             </tr>
 
                             <!-- مجموعة Damages -->
                             <tr t-if="o.has_damages == 'yes'" style="background-color:#dde8ec;">
-                                <td colspan="6" style="padding:6px 9px; border:1px solid #ccc;"><strong>Damages</strong></td>
+                                <td colspan="6" style="padding:3px 7px; border:1px solid #ccc;"><strong>Damages</strong></td>
                             </tr>
                             <tr t-if="o.has_damages == 'yes'">
-                                <td style="padding:6px 9px; border:1px solid #ccc; background-color:#eef3f5;">Description</td>
-                                <td colspan="5" style="padding:6px 9px; border:1px solid #ccc;"><span t-field="o.damage_description"/></td>
+                                <td style="padding:3px 7px; border:1px solid #ccc; background-color:#eef3f5;">Description</td>
+                                <td colspan="5" style="padding:3px 7px; border:1px solid #ccc;"><span t-field="o.damage_description"/></td>
                             </tr>
-                            <tr t-if="o.has_damages == 'yes'" style="background-color:#1a3a4a; color:white;">
-                                <td colspan="4" style="padding:6px 9px; border:1px solid #ccc;"><strong>Estimated Damage Cost</strong></td>
-                                <td colspan="2" style="padding:6px 9px; border:1px solid #ccc; text-align:right;"><strong><span t-field="o.estimated_cost"/> EGP</strong></td>
+                            <tr t-if="o.has_damages == 'yes'" style="background-color:#2e5d3b; color:white;">
+                                <td colspan="4" style="padding:3px 7px; border:1px solid #ccc;"><strong>Estimated Damage Cost</strong></td>
+                                <td colspan="2" style="padding:3px 7px; border:1px solid #ccc; text-align:right;"><strong><span t-field="o.estimated_cost"/> EGP</strong></td>
                             </tr>
                         </table>
-
 
                         <!-- Section 2 -->
                         <div style="background-color:#1a3a4a; color:white; padding:6px 8px; font-weight:bold; margin-top:14px;">2 - Insurance Settlement</div>

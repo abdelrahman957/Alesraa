@@ -79,6 +79,23 @@
                             <tr style="background-color:#1a3a4a; color:white;"><td style="padding:7px 9px; border:1px solid #ccc;"><strong>Balance Due</strong></td><td style="padding:7px 9px; border:1px solid #ccc; text-align:right;"><strong><span t-field="o.balance_due"/></strong></td></tr>
                         </table>
 
+                        <!-- Section: Deduction Details -->
+                        <div style="background-color:#1a3a4a; color:white; padding:6px 8px; font-weight:bold; margin-top:14px;">Deduction Details</div>
+                        <table style="width:100%; border-collapse:collapse; border:1px solid #ccc; table-layout:fixed;">
+                            <tr style="background-color:#eef3f5;">
+                                <td style="padding:7px 9px; border:1px solid #ccc;"><strong>Description</strong></td>
+                                <td style="padding:7px 9px; border:1px solid #ccc; text-align:right;"><strong>Value</strong></td>
+                            </tr>
+                            <tr><td style="padding:7px 9px; border:1px solid #ccc;">Exit KM</td><td style="padding:7px 9px; border:1px solid #ccc; text-align:right;"><span t-field="o.exit_km"/></td></tr>
+                            <tr><td style="padding:7px 9px; border:1px solid #ccc;">Return KM</td><td style="padding:7px 9px; border:1px solid #ccc; text-align:right;"><span t-field="o.return_km"/></td></tr>
+                            <tr><td style="padding:7px 9px; border:1px solid #ccc;">Consumed KM</td><td style="padding:7px 9px; border:1px solid #ccc; text-align:right;"><span t-field="o.consumed_km"/></td></tr>
+                            <tr><td style="padding:7px 9px; border:1px solid #ccc;">Allowed KM / Day</td><td style="padding:7px 9px; border:1px solid #ccc; text-align:right;"><span t-field="o.km_per_day"/></td></tr>
+                            <tr><td style="padding:7px 9px; border:1px solid #ccc;">Extra KM</td><td style="padding:7px 9px; border:1px solid #ccc; text-align:right;"><span t-field="o.extra_km"/></td></tr>
+                            <tr><td style="padding:7px 9px; border:1px solid #ccc;">Extra KM Price</td><td style="padding:7px 9px; border:1px solid #ccc; text-align:right;"><span t-field="o.extra_km_price"/></td></tr>
+                            <tr style="background-color:#eef3f5;"><td style="padding:7px 9px; border:1px solid #ccc;"><strong>Total Extra KM Charges</strong></td><td style="padding:7px 9px; border:1px solid #ccc; text-align:right;"><strong><span t-field="o.total_ex_km_amount"/></strong></td></tr>
+                            <tr><td style="padding:7px 9px; border:1px solid #ccc;">Extra Days</td><td style="padding:7px 9px; border:1px solid #ccc; text-align:right;"><span t-field="o.extra_days"/></td></tr>
+                            <tr><td style="padding:7px 9px; border:1px solid #ccc;">Day Rate</td><td
+
                         <!-- Section 2 -->
                         <div style="background-color:#1a3a4a; color:white; padding:6px 8px; font-weight:bold; margin-top:14px;">2 - Insurance Settlement</div>
                         <table style="width:100%; border-collapse:collapse; border:1px solid #ccc; table-layout:fixed;">

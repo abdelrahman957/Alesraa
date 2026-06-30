@@ -9,13 +9,13 @@
                 <field name="contract_type" readonly="1"/>
                 <field name="sale_order_id" readonly="state not in ('draft', 'reserved')" domain="['&amp;', ('state', '=', 'sale'), '|', ('has_rental_contract', '=', False), ('id', '=', sale_order_id)]"/>
             </xpath>   
-            <xpath expr="//button[@name='action_open_return_wizard']" position="after">
+            <xpath expr="//button[@name='force_checking']" position="after">
                 <button name="action_print_settlement"
                         string="Print Settlement"
                         type="object"
                         class="btn-primary"
                         invisible="state not in ('checking', 'invoice', 'done')"/>
-            </xpath>         
+            </xpath>
             <xpath expr="//field[@name='customer_id']" position="after">
                 <field name="pickup_location" readonly="state not in ('draft', 'reserved')"/>
                 <field name="dropoff_location" readonly="state not in ('draft', 'reserved', 'running')"/>

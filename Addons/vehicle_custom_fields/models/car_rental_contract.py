@@ -399,6 +399,11 @@ class CarRentalContract(models.Model):
             contract.net_insurance_refund = net_refund
             contract.final_net_payable = contract.balance_due - net_refund
 
+    def action_print_settlement(self):
+        self.ensure_one()
+        return self.env.ref(
+            'vehicle_custom_fields.action_report_customer_settlement'
+        ).report_action(self)
 
     def action_invoice_create(self):
         res = super().action_invoice_create()

@@ -445,6 +445,21 @@ class CarRentalContract(models.Model):
                         'move_id': invoice.id,
                     }))
 
+            # سطر Refundable Insurance على حساب الـ Liability (مش الإيراد)
+            if contract.insurance_amount and contract.insurance_amount > 0:
+                liability_account = self.env['account.account'].search([
+                    ('code', '=', '212001'),
+                ], limit=1)
+                if liability_account:
+                    lines.append((0, 0, {
+                        'name': 'Refundable Insurance',
+                        'price_unit': contract.insurance_amount,
+                        'quantity': 1.0,
+                        'account_id': liability_account.id,
+                        'product_id': product_id.id,
+                        'move_id': invoice.id,
+                    }))
+
             # سطر الـ Paid Deposit بالسالب (خصم)
             if contract.paid_deposit_amount and contract.paid_deposit_amount > 0:
                 lines.append((0, 0, {

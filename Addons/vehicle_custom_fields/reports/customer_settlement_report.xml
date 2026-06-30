@@ -156,18 +156,9 @@
                         <table style="width:100%; border-collapse:collapse; border:1px solid #ccc; table-layout:fixed;">
                             <tr><td style="padding:5px 8px; border:1px solid #ccc; width:60%;">Balance Due (from customer)</td><td style="padding:5px 8px; border:1px solid #ccc; text-align:right;"><span t-field="o.balance_due"/></td></tr>
                             <tr><td style="padding:5px 8px; border:1px solid #ccc;">Net Insurance Refund (to customer)</td><td style="padding:5px 8px; border:1px solid #ccc; text-align:right; color:#b00020;">- <span t-field="o.net_insurance_refund"/></td></tr>
-                            <tr style="background-color:#1a3a4a; color:white;"><td style="padding:5px 8px; border:1px solid #ccc; font-size:15px;"><strong>Net Payable by Customer</strong></td><td style="padding:5px 8px; border:1px solid #ccc; text-align:right; font-size:15px;"><strong><span t-field="o.final_net_payable"/></strong></td></tr>
+                            <tr t-if="o.final_net_payable &lt;= 0" style="background-color:#1a3a4a; color:white;"><td style="padding:5px 8px; border:1px solid #ccc; font-size:15px;"><strong>Net Payable by Customer</strong></td><td style="padding:5px 8px; border:1px solid #ccc; text-align:right; font-size:15px;"><strong><span t-field="o.final_net_payable"/></strong></td></tr>
+                            <tr t-if="o.final_net_payable &gt; 0" style="background-color:#b00020; color:white;"><td style="padding:5px 8px; border:1px solid #ccc; font-size:15px;"><strong>Net Payable by Customer</strong></td><td style="padding:5px 8px; border:1px solid #ccc; text-align:right; font-size:15px;"><strong><span t-field="o.final_net_payable"/></strong></td></tr>
                         </table>
-                         <!-- توضيح اتجاه المبلغ -->
-                        <div t-if="o.final_net_payable &gt; 0" style="margin-top:8px; padding:5px 8px; background-color:#fce8e6; border:1px solid #d9534f; font-size:14px; text-align:center;">
-                            <strong>Amount Due from Customer: <span t-out="abs(o.final_net_payable)"/> EGP</strong> &#8212; The customer must pay this amount.
-                        </div>
-                        <div t-if="o.final_net_payable &lt; 0" style="margin-top:8px; padding:5px 8px; background-color:#e6f4ea; border:1px solid #2e7d32; font-size:14px; text-align:center;">
-                            <strong>Amount Refundable to Customer: <span t-out="abs(o.final_net_payable)"/> EGP</strong> &#8212; This amount must be refunded to the customer.
-                        </div>
-                        <div t-if="o.final_net_payable == 0" style="margin-top:8px; padding:5px 8px; background-color:#eef3f5; border:1px solid #ccc; font-size:14px; text-align:center;">
-                            <strong>Account Settled</strong> &#8212; No further payment or refund is due.
-                        </div>
                     </div>
                 </t>
             </t>

@@ -45,38 +45,38 @@
                         <!-- Info -->
                         <table style="width:100%; margin-top:2px;">
                             <tr>
-                                <td style="padding:6px 8px; border-bottom:1px solid #ddd; width:50%;"><strong>Customer:</strong> <span t-field="o.customer_id.name"/></td>
-                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Contract No:</strong> <span t-field="o.name"/></td>
+                                <td style="padding:4px 8px; border-bottom:1px solid #ddd; width:50%;"><strong>Customer:</strong> <span t-field="o.customer_id.name"/></td>
+                                <td style="padding:4px 8px; border-bottom:1px solid #ddd;"><strong>Contract No:</strong> <span t-field="o.name"/></td>
                             </tr>
                             <tr>
-                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Vehicle:</strong> <span t-field="o.vehicle_id.model_id.name"/></td>
-                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Plate No:</strong> <span t-field="o.vehicle_id.license_plate"/></td>
+                                <td style="padding:4px 8px; border-bottom:1px solid #ddd;"><strong>Vehicle:</strong> <span t-field="o.vehicle_id.model_id.name"/></td>
+                                <td style="padding:4px 8px; border-bottom:1px solid #ddd;"><strong>Plate No:</strong> <span t-field="o.vehicle_id.license_plate"/></td>
                             </tr>
                             <tr>
-                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Rent Start:</strong> <span t-field="o.rent_start_date"/></td>
-                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Rent End:</strong> <span t-field="o.rent_end_date"/></td>
+                                <td style="padding:4px 8px; border-bottom:1px solid #ddd;"><strong>Rent Start:</strong> <span t-field="o.rent_start_date"/></td>
+                                <td style="padding:4px 8px; border-bottom:1px solid #ddd;"><strong>Rent End:</strong> <span t-field="o.rent_end_date"/></td>
                             </tr>
                             <tr>
-                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Actual Return:</strong> <span t-field="o.actual_return_date"/></td>
-                                <td style="padding:6px 8px; border-bottom:1px solid #ddd;"><strong>Issue Date:</strong> <span t-out="datetime.date.today().strftime('%d-%m-%Y')"/></td>
+                                <td style="padding:4px 8px; border-bottom:1px solid #ddd;"><strong>Actual Return:</strong> <span t-field="o.actual_return_date"/></td>
+                                <td style="padding:4px 8px; border-bottom:1px solid #ddd;"><strong>Issue Date:</strong> <span t-out="datetime.date.today().strftime('%d-%m-%Y')"/></td>
                             </tr>
                         </table>
 
                         <!-- Section 1 -->
-                        <div style="background-color:#1a3a4a; color:white; padding:6px 8px; font-weight:bold; margin-top:14px;">1 - Contract Charges</div>
+                        <div style="background-color:#1a3a4a; color:white; padding:4px 8px; font-weight:bold; margin-top:8px;">1 - Contract Charges</div>
                         <table style="width:100%; border-collapse:collapse; border:1px solid #ccc; table-layout:fixed;">
                             <tr style="background-color:#eef3f5;">
-                                <td style="padding:7px 9px; border:1px solid #ccc;"><strong>Description</strong></td>
-                                <td style="padding:7px 9px; border:1px solid #ccc; text-align:right;"><strong>Amount (EGP)</strong></td>
+                                <td style="padding:4px 8px; border:1px solid #ccc;"><strong>Description</strong></td>
+                                <td style="padding:4px 8px; border:1px solid #ccc; text-align:right;"><strong>Amount (EGP)</strong></td>
                             </tr>
-                            <tr><td style="padding:7px 9px; border:1px solid #ccc;">Rent Fees</td><td style="padding:7px 9px; border:1px solid #ccc; text-align:right;"><span t-field="o.rent_fees_amount"/></td></tr>
-                            <tr><td style="padding:7px 9px; border:1px solid #ccc;">Pick Up Charges</td><td style="padding:7px 9px; border:1px solid #ccc; text-align:right;"><span t-field="o.pickup_charge_amount"/></td></tr>
-                            <tr><td style="padding:7px 9px; border:1px solid #ccc;">Drop Off Charges</td><td style="padding:7px 9px; border:1px solid #ccc; text-align:right;"><span t-field="o.dropoff_charge_amount"/></td></tr>
-                            <tr><td style="padding:7px 9px; border:1px solid #ccc;">Full Coverage Insurance</td><td style="padding:7px 9px; border:1px solid #ccc; text-align:right;"><span t-field="o.full_coverage_amount"/></td></tr>
-                            <tr><td style="padding:7px 9px; border:1px solid #ccc;">Refundable Insurance <span style="font-size:11px; color:#555;">(Refundable)</span></td><td style="padding:7px 9px; border:1px solid #ccc; text-align:right;"><span t-field="o.insurance_amount"/></td></tr>
-                            <tr style="background-color:#1a3a4a; color:white;"><td style="padding:7px 9px; border:1px solid #ccc;"><strong>Total Requested Charge</strong></td><td style="padding:7px 9px; border:1px solid #ccc; text-align:right;"><strong><span t-field="o.total_requested_charge"/></strong></td></tr>
-                            <tr><td style="padding:7px 9px; border:1px solid #ccc;">Paid</td><td style="padding:7px 9px; border:1px solid #ccc; text-align:right; color:#b00020;">- <span t-field="o.total_paid_amount"/></td></tr>
-                            <tr style="background-color:#1a3a4a; color:white;"><td style="padding:7px 9px; border:1px solid #ccc;"><strong>Balance Due</strong></td><td style="padding:7px 9px; border:1px solid #ccc; text-align:right;"><strong><span t-field="o.balance_due"/></strong></td></tr>
+                            <tr><td style="padding:4px 8px; border:1px solid #ccc;">Rent Fees</td><td style="padding:4px 8px; border:1px solid #ccc; text-align:right;"><span t-field="o.rent_fees_amount"/></td></tr>
+                            <tr><td style="padding:4px 8px; border:1px solid #ccc;">Pick Up Charges</td><td style="padding:4px 8px; border:1px solid #ccc; text-align:right;"><span t-field="o.pickup_charge_amount"/></td></tr>
+                            <tr><td style="padding:4px 8px; border:1px solid #ccc;">Drop Off Charges</td><td style="padding:4px 8px; border:1px solid #ccc; text-align:right;"><span t-field="o.dropoff_charge_amount"/></td></tr>
+                            <tr><td style="padding:4px 8px; border:1px solid #ccc;">Full Coverage Insurance</td><td style="padding:4px 8px; border:1px solid #ccc; text-align:right;"><span t-field="o.full_coverage_amount"/></td></tr>
+                            <tr><td style="padding:4px 8px; border:1px solid #ccc;">Refundable Insurance <span style="font-size:11px; color:#555;">(Refundable)</span></td><td style="padding:4px 8px; border:1px solid #ccc; text-align:right;"><span t-field="o.insurance_amount"/></td></tr>
+                            <tr style="background-color:#1a3a4a; color:white;"><td style="padding:4px 8px; border:1px solid #ccc;"><strong>Total Requested Charge</strong></td><td style="padding:4px 8px; border:1px solid #ccc; text-align:right;"><strong><span t-field="o.total_requested_charge"/></strong></td></tr>
+                            <tr><td style="padding:4px 8px; border:1px solid #ccc;">Paid</td><td style="padding:4px 8px; border:1px solid #ccc; text-align:right; color:#b00020;">- <span t-field="o.total_paid_amount"/></td></tr>
+                            <tr style="background-color:#1a3a4a; color:white;"><td style="padding:4px 8px; border:1px solid #ccc;"><strong>Balance Due</strong></td><td style="padding:4px 8px; border:1px solid #ccc; text-align:right;"><strong><span t-field="o.balance_due"/></strong></td></tr>
                         </table>
 
 
@@ -103,7 +103,7 @@
                                 <td style="padding:3px 7px; border:1px solid #ccc; background-color:#eef3f5;">Extra KM Price</td>
                                 <td style="padding:3px 7px; border:1px solid #ccc; text-align:center;"><span t-field="o.extra_km_price"/></td>
                             </tr>
-                            <tr style="background-color:#2e5d3b; color:white;">
+                            <tr style="background-color:#5a7a8a; color:white;">
                                 <td colspan="4" style="padding:3px 7px; border:1px solid #ccc;"><strong>Total Extra KM Charges</strong></td>
                                 <td colspan="2" style="padding:3px 7px; border:1px solid #ccc; text-align:right;"><strong><span t-field="o.total_ex_km_amount"/> EGP</strong></td>
                             </tr>
@@ -118,7 +118,7 @@
                                 <td style="padding:3px 7px; border:1px solid #ccc; background-color:#eef3f5;">Day Rate</td>
                                 <td colspan="2" style="padding:3px 7px; border:1px solid #ccc; text-align:center;"><span t-field="o.day_rate"/></td>
                             </tr>
-                            <tr style="background-color:#2e5d3b; color:white;">
+                            <tr style="background-color:#5a7a8a; color:white;">
                                 <td colspan="4" style="padding:3px 7px; border:1px solid #ccc;"><strong>Total Extra Days Charges</strong></td>
                                 <td colspan="2" style="padding:3px 7px; border:1px solid #ccc; text-align:right;"><strong><span t-out="abs(o.extra_days_amount)"/> EGP</strong></td>
                             </tr>
@@ -131,41 +131,41 @@
                                 <td style="padding:3px 7px; border:1px solid #ccc; background-color:#eef3f5;">Description</td>
                                 <td colspan="5" style="padding:3px 7px; border:1px solid #ccc;"><span t-field="o.damage_description"/></td>
                             </tr>
-                            <tr t-if="o.has_damages == 'yes'" style="background-color:#2e5d3b; color:white;">
+                            <tr t-if="o.has_damages == 'yes'" style="background-color:#5a7a8a; color:white;">
                                 <td colspan="4" style="padding:3px 7px; border:1px solid #ccc;"><strong>Estimated Damage Cost</strong></td>
                                 <td colspan="2" style="padding:3px 7px; border:1px solid #ccc; text-align:right;"><strong><span t-field="o.estimated_cost"/> EGP</strong></td>
                             </tr>
                         </table>
 
                         <!-- Section 2 -->
-                        <div style="background-color:#1a3a4a; color:white; padding:6px 8px; font-weight:bold; margin-top:14px;">2 - Insurance Settlement</div>
+                        <div style="background-color:#1a3a4a; color:white; padding:4px 8px; font-weight:bold; margin-top:8px;">2 - Insurance Settlement</div>
                         <table style="width:100%; border-collapse:collapse; border:1px solid #ccc; table-layout:fixed;">
                             <tr style="background-color:#eef3f5;">
-                                <td style="padding:7px 9px; border:1px solid #ccc;"><strong>Description</strong></td>
-                                <td style="padding:7px 9px; border:1px solid #ccc; text-align:right;"><strong>Amount (EGP)</strong></td>
+                                <td style="padding:4px 8px; border:1px solid #ccc;"><strong>Description</strong></td>
+                                <td style="padding:4px 8px; border:1px solid #ccc; text-align:right;"><strong>Amount (EGP)</strong></td>
                             </tr>
-                            <tr><td style="padding:7px 9px; border:1px solid #ccc;">Refundable Insurance <span style="font-size:11px; color:#1a3a4a;">(Paid by Customer)</span></td><td style="padding:7px 9px; border:1px solid #ccc; text-align:right;"><span t-field="o.insurance_amount"/></td></tr>
-                            <tr><td style="padding:7px 9px; border:1px solid #ccc;">Less: Extra KM Charges</td><td style="padding:7px 9px; border:1px solid #ccc; text-align:right; color:#b00020;">- <span t-field="o.total_ex_km_amount"/></td></tr>
-                            <tr t-if="o.has_damages == 'yes'"><td style="padding:7px 9px; border:1px solid #ccc;">Less: Estimated Damage Cost</td><td style="padding:7px 9px; border:1px solid #ccc; text-align:right; color:#b00020;">- <span t-field="o.estimated_cost"/></td></tr>
-                            <tr><td style="padding:7px 9px; border:1px solid #ccc;">Less: Extra Days Charges</td><td style="padding:7px 9px; border:1px solid #ccc; text-align:right; color:#b00020;">- <span t-out="abs(o.extra_days_amount)"/></td></tr>
-                            <tr style="background-color:#1a3a4a; color:white;"><td style="padding:7px 9px; border:1px solid #ccc;"><strong>Net Insurance Refund</strong></td><td style="padding:7px 9px; border:1px solid #ccc; text-align:right;"><strong><span t-field="o.net_insurance_refund"/></strong></td></tr>
+                            <tr><td style="padding:4px 8px; border:1px solid #ccc;">Refundable Insurance <span style="font-size:11px; color:#1a3a4a;">(Paid by Customer)</span></td><td style="padding:4px 8px; border:1px solid #ccc; text-align:right;"><span t-field="o.insurance_amount"/></td></tr>
+                            <tr><td style="padding:4px 8px; border:1px solid #ccc;">Less: Extra KM Charges</td><td style="padding:4px 8px; border:1px solid #ccc; text-align:right; color:#b00020;">- <span t-field="o.total_ex_km_amount"/></td></tr>
+                            <tr t-if="o.has_damages == 'yes'"><td style="padding:4px 8px; border:1px solid #ccc;">Less: Estimated Damage Cost</td><td style="padding:4px 8px; border:1px solid #ccc; text-align:right; color:#b00020;">- <span t-field="o.estimated_cost"/></td></tr>
+                            <tr><td style="padding:4px 8px; border:1px solid #ccc;">Less: Extra Days Charges</td><td style="padding:4px 8px; border:1px solid #ccc; text-align:right; color:#b00020;">- <span t-out="abs(o.extra_days_amount)"/></td></tr>
+                            <tr style="background-color:#1a3a4a; color:white;"><td style="padding:4px 8px; border:1px solid #ccc;"><strong>Net Insurance Refund</strong></td><td style="padding:4px 8px; border:1px solid #ccc; text-align:right;"><strong><span t-field="o.net_insurance_refund"/></strong></td></tr>
                         </table>
 
                         <!-- Final -->
-                        <div style="background-color:#1a3a4a; color:white; padding:6px 8px; font-weight:bold; margin-top:14px;">Final Settlement</div>
+                        <div style="background-color:#1a3a4a; color:white; padding:4px 8px; font-weight:bold; margin-top:8px;">Final Settlement</div>
                         <table style="width:100%; border-collapse:collapse; border:1px solid #ccc; table-layout:fixed;">
-                            <tr><td style="padding:8px 10px; border:1px solid #ccc; width:60%;">Balance Due (from customer)</td><td style="padding:8px 10px; border:1px solid #ccc; text-align:right;"><span t-field="o.balance_due"/></td></tr>
-                            <tr><td style="padding:8px 10px; border:1px solid #ccc;">Net Insurance Refund (to customer)</td><td style="padding:8px 10px; border:1px solid #ccc; text-align:right; color:#b00020;">- <span t-field="o.net_insurance_refund"/></td></tr>
+                            <tr><td style="padding:5px 8px; border:1px solid #ccc; width:60%;">Balance Due (from customer)</td><td style="padding:5px 8px; border:1px solid #ccc; text-align:right;"><span t-field="o.balance_due"/></td></tr>
+                            <tr><td style="padding:5px 8px; border:1px solid #ccc;">Net Insurance Refund (to customer)</td><td style="padding:5px 8px; border:1px solid #ccc; text-align:right; color:#b00020;">- <span t-field="o.net_insurance_refund"/></td></tr>
                             <tr style="background-color:#1a3a4a; color:white;"><td style="padding:5px 8px; border:1px solid #ccc; font-size:15px;"><strong>Net Payable by Customer</strong></td><td style="padding:5px 8px; border:1px solid #ccc; text-align:right; font-size:15px;"><strong><span t-field="o.final_net_payable"/></strong></td></tr>
                         </table>
                          <!-- توضيح اتجاه المبلغ -->
-                        <div t-if="o.final_net_payable &gt; 0" style="margin-top:8px; padding:8px 10px; background-color:#fce8e6; border:1px solid #d9534f; font-size:14px; text-align:center;">
+                        <div t-if="o.final_net_payable &gt; 0" style="margin-top:8px; padding:5px 8px; background-color:#fce8e6; border:1px solid #d9534f; font-size:14px; text-align:center;">
                             <strong>Amount Due from Customer: <span t-out="abs(o.final_net_payable)"/> EGP</strong> &#8212; The customer must pay this amount.
                         </div>
-                        <div t-if="o.final_net_payable &lt; 0" style="margin-top:8px; padding:8px 10px; background-color:#e6f4ea; border:1px solid #2e7d32; font-size:14px; text-align:center;">
+                        <div t-if="o.final_net_payable &lt; 0" style="margin-top:8px; padding:5px 8px; background-color:#e6f4ea; border:1px solid #2e7d32; font-size:14px; text-align:center;">
                             <strong>Amount Refundable to Customer: <span t-out="abs(o.final_net_payable)"/> EGP</strong> &#8212; This amount must be refunded to the customer.
                         </div>
-                        <div t-if="o.final_net_payable == 0" style="margin-top:8px; padding:8px 10px; background-color:#eef3f5; border:1px solid #ccc; font-size:14px; text-align:center;">
+                        <div t-if="o.final_net_payable == 0" style="margin-top:8px; padding:5px 8px; background-color:#eef3f5; border:1px solid #ccc; font-size:14px; text-align:center;">
                             <strong>Account Settled</strong> &#8212; No further payment or refund is due.
                         </div>
                     </div>

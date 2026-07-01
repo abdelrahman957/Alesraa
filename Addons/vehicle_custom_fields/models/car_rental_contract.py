@@ -361,6 +361,31 @@ class CarRentalContract(models.Model):
         string='Net Payable by Customer',
         compute='_compute_net_insurance_refund',
     )
+    insurance_refund_done = fields.Boolean(
+        string='Insurance Refund Done',
+        default=False,
+        copy=False,
+    )
+
+    def action_open_insurance_refund(self):
+        self.ensure_one()
+        direction = 'Refund to Customer' if self.net_insurance_refund > 0 else ('Collect from Customer' if self.net_insurance_refund < 0 else 'Settled')
+        return {
+            'name': 'Refund Insurance',
+            'type': 'ir.actions.act_window',
+            'res_model': 'insurance.refund.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {
+                'default_contract_id': self.id,
+                'default_insurance_amount': self.insurance_amount,
+                'default_extra_km_amount': self.total_ex_km_amount,
+                'default_extra_days_amount': abs(self.extra_days_amount or 0),
+                'default_damages_amount': self.estimated_cost if self.has_damages == 'yes' else 0.0,
+                'default_net_amount': self.net_insurance_refund,
+                'default_direction': direction,
+            },
+        }
 
     @api.depends('sale_order_id', 'sale_order_id.invoice_ids',
                  'sale_order_id.invoice_ids.payment_state',

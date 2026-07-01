@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="insurance_refund_wizard_form" model="ir.ui.view">
+        <field name="name">insurance.refund.wizard.form</field>
+        <field name="model">insurance.refund.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Refund Insurance">
+                <group>
+                    <group>
+                        <field name="insurance_amount"/>
+                        <field name="extra_km_amount"/>
+                        <field name="extra_days_amount"/>
+                        <field name="damages_amount"/>
+                    </group>
+                    <group>
+                        <field name="net_amount"/>
+                        <field name="direction"/>
+                        <field name="journal_id"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_confirm_refund" string="Confirm" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

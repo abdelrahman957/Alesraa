@@ -15,6 +15,14 @@
                         type="object"
                         class="btn-primary"
                         invisible="state not in ('checking', 'invoice', 'done')"/>
+                <button name="action_open_insurance_refund"
+                        string="Refund Insurance"
+                        type="object"
+                        class="btn-primary"
+                        invisible="state != 'done' or insurance_refund_done == True"/>
+            </xpath>
+             <xpath expr="//sheet" position="inside">
+                <widget name="web_ribbon" title="Insurance Paid" bg_color="text-bg-success" invisible="insurance_refund_done == False"/>
             </xpath>
             <xpath expr="//field[@name='customer_id']" position="after">
                 <field name="pickup_location" readonly="state not in ('draft', 'reserved')"/>

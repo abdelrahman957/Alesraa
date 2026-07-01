@@ -12,3 +12,4 @@ from . import fleet_service
 from . import return_wizard
 from . import extra_km
 from . import mail_mail
+from . import insurance_refund_wizard

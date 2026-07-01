@@ -23,6 +23,7 @@
     'views/contract_sequences.xml',
     'views/return_wizard_views.xml',
     'views/extra_km_views.xml',
+    'views/insurance_refund_wizard_views.xml',
 ],
     'installable': True,
     'auto_install': False,

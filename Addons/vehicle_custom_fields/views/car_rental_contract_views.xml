@@ -191,7 +191,7 @@
                 <field name="total_deductions" string="Total Deductions"/>
                 <field name="net_insurance_refund" string="Net Refund"/>
                 <field name="insurance_refund_date" string="Refund Date"/>
-                <field name="insurance_refund_done" string="Refunded" widget="boolean_toggle"/>
+                <field name="insurance_refund_done" string="Refunded" widget="boolean_toggle" readonly="1"/>
                 <field name="insurance_overdue" column_invisible="1"/>
             </list>
         </field>

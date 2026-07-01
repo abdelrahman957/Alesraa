@@ -49,6 +49,7 @@
                         <field name="return_km" readonly="state not in ('draft', 'running')"/>
                         <field name="actual_return_date" readonly="state not in ('draft', 'running')"/>
                         <field name="total_ex_km_amount" readonly="1"/>
+                        <field name="extra_days_amount" readonly="1"/>
                         <field name="has_damages" readonly="state not in ('draft', 'running')"/>
                         <field name="estimated_cost" invisible="has_damages != 'yes'" readonly="state not in ('draft', 'running')"/>
                         <field name="damage_description" invisible="has_damages != 'yes'" required="has_damages == 'yes'" readonly="state not in ('draft', 'running')"/>

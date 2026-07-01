@@ -414,9 +414,10 @@ class CarRentalContract(models.Model):
         # حدد إذا كان المطلوب المتأخرات أو غير المتأخرات
         want_overdue = (operator in ('=', '==') and value) or (operator in ('!=', '<>') and not value)
         overdue_domain = [
-            ('insurance_refund_date', '!=', False),
             ('insurance_refund_date', '<', today),
+            ('insurance_refund_date', '>', '2000-01-01'),
             ('insurance_refund_done', '=', False),
+            ('insurance_amount', '>', 0),
         ]
         if want_overdue:
             return overdue_domain

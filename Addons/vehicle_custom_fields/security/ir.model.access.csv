@@ -4,3 +4,4 @@ access_vehicle_reservation,access_vehicle_reservation,model_vehicle_reservation,
 access_fleet_service_line,access_fleet_service_line,model_fleet_service_line,base.group_user,1,1,1,1
 access_car_rental_return_wizard,car.rental.return.wizard,model_car_rental_return_wizard,base.group_user,1,1,1,1
 access_fleet_extra_km,fleet.extra.km,model_fleet_extra_km,base.group_user,1,1,1,1
+access_insurance_refund_wizard,access.insurance.refund.wizard,model_insurance_refund_wizard,base.group_user,1,1,1,1

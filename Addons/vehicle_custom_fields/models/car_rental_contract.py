@@ -411,23 +411,25 @@ class CarRentalContract(models.Model):
 
     def _search_insurance_overdue(self, operator, value):
         today = fields.Date.context_today(self)
-        # حدد إذا كان المطلوب المتأخرات أو غير المتأخرات
-        want_overdue = (operator in ('=', '==') and value) or (operator in ('!=', '<>') and not value)
         overdue_domain = [
             ('insurance_refund_date', '<', today),
             ('insurance_refund_date', '>', '2000-01-01'),
             ('insurance_refund_done', '=', False),
             ('insurance_amount', '>', 0),
         ]
-        if want_overdue:
-            return overdue_domain
+        not_overdue_domain = ['|', '|',
+            ('insurance_refund_done', '=', True),
+            ('insurance_refund_date', '>=', today),
+            ('insurance_refund_date', '=', False),
+        ]
+        # normalize: هل المستخدم عايز overdue=True؟
+        if operator in ('=', '=='):
+            want = bool(value)
+        elif operator in ('!=', '<>'):
+            want = not bool(value)
         else:
-            # عكس المتأخرات: مردود، أو تاريخه لسه مجاش، أو مفيش تاريخ
-            return ['|', '|',
-                ('insurance_refund_done', '=', True),
-                ('insurance_refund_date', '>=', today),
-                ('insurance_refund_date', '=', False),
-            ]
+            want = bool(value)
+        return overdue_domain if want else not_overdue_domain
 
     def action_open_insurance_refund(self):
         self.ensure_one()

@@ -37,6 +37,10 @@ class CarRentalContract(models.Model):
             for contract in self:
                 if contract.actual_return_date:
                     contract.rent_end_date = contract.actual_return_date
+                # سجّل تاريخ رد التأمين (دخول invoice + يومين) لو لسه متسجّلش
+                if not contract.insurance_refund_date:
+                    from datetime import timedelta
+                    contract.insurance_refund_date = fields.Date.context_today(self) + timedelta(days=2)
         if 'rent_end_date' in vals or 'state' in vals or 'first_invoice_created' in vals:
             self.mapped('vehicle_id')._compute_rental_status()
         return res
@@ -366,6 +370,48 @@ class CarRentalContract(models.Model):
         default=False,
         copy=False,
     )
+    total_deductions = fields.Float(
+        string='Total Deductions',
+        compute='_compute_total_deductions',
+    )
+    insurance_refund_date = fields.Date(
+        string='Insurance Refund Date',
+        copy=False,
+    )
+    insurance_overdue = fields.Boolean(
+        string='Insurance Overdue',
+        compute='_compute_insurance_overdue',
+        search='_search_insurance_overdue',
+    )
+
+    @api.depends('insurance_amount', 'net_insurance_refund')
+    def _compute_total_deductions(self):
+        for contract in self:
+            contract.total_deductions = (contract.insurance_amount or 0) - (contract.net_insurance_refund or 0)
+
+    @api.depends('insurance_refund_date', 'insurance_refund_done')
+    def _compute_insurance_overdue(self):
+        today = fields.Date.context_today(self)
+        for contract in self:
+            contract.insurance_overdue = bool(
+                contract.insurance_refund_date
+                and not contract.insurance_refund_done
+                and contract.insurance_refund_date < today
+            )
+
+    def _search_insurance_overdue(self, operator, value):
+        today = fields.Date.context_today(self)
+        # نرجّع domain للعقود المتأخرة
+        if (operator == '=' and value) or (operator == '!=' and not value):
+            return [
+                ('insurance_refund_date', '<', today),
+                ('insurance_refund_done', '=', False),
+            ]
+        else:
+            return ['|',
+                ('insurance_refund_date', '>=', today),
+                ('insurance_refund_done', '=', True),
+            ]
 
     def action_open_insurance_refund(self):
         self.ensure_one()

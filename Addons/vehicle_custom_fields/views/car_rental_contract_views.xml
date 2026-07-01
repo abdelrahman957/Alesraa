@@ -179,4 +179,56 @@
         <field name="active" eval="False"/>
     </record>
 
+    <!-- Insurance Tracking: List View -->
+    <record id="view_insurance_tracking_list" model="ir.ui.view">
+        <field name="name">insurance.tracking.list</field>
+        <field name="model">car.rental.contract</field>
+        <field name="arch" type="xml">
+            <list string="Insurances" create="false" decoration-danger="insurance_overdue == True">
+                <field name="name" string="Contract No"/>
+                <field name="customer_id" string="Customer"/>
+                <field name="insurance_amount" string="Original Insurance"/>
+                <field name="total_deductions" string="Total Deductions"/>
+                <field name="net_insurance_refund" string="Net Refund"/>
+                <field name="insurance_refund_date" string="Refund Date"/>
+                <field name="insurance_refund_done" string="Refunded" widget="boolean_toggle"/>
+                <field name="insurance_overdue" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Insurance Tracking: Search View -->
+    <record id="view_insurance_tracking_search" model="ir.ui.view">
+        <field name="name">insurance.tracking.search</field>
+        <field name="model">car.rental.contract</field>
+        <field name="arch" type="xml">
+            <search string="Insurances">
+                <field name="name"/>
+                <field name="customer_id"/>
+                <filter string="Not Refunded" name="not_refunded" domain="[('insurance_refund_done', '=', False)]"/>
+                <filter string="Refunded" name="refunded" domain="[('insurance_refund_done', '=', True)]"/>
+                <filter string="Overdue" name="overdue" domain="[('insurance_overdue', '=', True)]"/>
+                <filter string="Customer" name="group_customer" context="{'group_by': 'customer_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Insurance Tracking: Action -->
+    <record id="action_insurance_tracking" model="ir.actions.act_window">
+        <field name="name">Insurances</field>
+        <field name="res_model">car.rental.contract</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('insurance_amount', '>', 0)]</field>
+        <field name="context">{'search_default_not_refunded': 1}</field>
+        <field name="view_id" ref="view_insurance_tracking_list"/>
+        <field name="search_view_id" ref="view_insurance_tracking_search"/>
+    </record>
+
+    <!-- Insurance Tracking: Menu -->
+    <menuitem id="menu_insurance_tracking"
+              name="Insurances"
+              parent="fleet_rental.menu_car_parent"
+              action="action_insurance_tracking"
+              sequence="3"/>
+
 </odoo>

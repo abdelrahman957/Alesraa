@@ -311,7 +311,35 @@ class CarRentalContract(models.Model):
                         rent_line[0].price += extra_amount
 
         # نفّذ التمديد الأصلي (بيكتب التاريخ الجديد)
-        return super().action_confirm_extend_rent()   
+        return super().action_confirm_extend_rent()
+
+    total = fields.Float(
+        compute='_compute_total_auto',
+        store=True,
+        readonly=True,
+    )
+    tools_missing_cost = fields.Float(
+        compute='_compute_total_auto',
+        store=True,
+    )
+    total_cost = fields.Float(
+        compute='_compute_total_auto',
+        store=True,
+    )
+
+    @api.depends('checklist_line', 'checklist_line.price',
+                 'checklist_line.checklist_active', 'damage_cost')
+    def _compute_total_auto(self):
+        for contract in self:
+            total = 0.0
+            tools_missing_cost = 0.0
+            for records in contract.checklist_line:
+                total += records.price
+                if not records.checklist_active:
+                    tools_missing_cost += records.price
+            contract.total = total
+            contract.tools_missing_cost = tools_missing_cost
+            contract.total_cost = tools_missing_cost + contract.damage_cost   
 
     @api.constrains('sale_order_id')
     def _check_unique_sale_order(self):

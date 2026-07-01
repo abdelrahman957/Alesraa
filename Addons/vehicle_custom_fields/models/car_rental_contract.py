@@ -113,6 +113,7 @@ class CarRentalContract(models.Model):
     insurance_amount = fields.Float(
         string='Insurance',
         compute='_compute_charge_amounts',
+        store=True,
     )
     full_coverage_amount = fields.Float(
         string='Full Coverage Insurance',
@@ -352,6 +353,7 @@ class CarRentalContract(models.Model):
     net_insurance_refund = fields.Float(
         string='Net Insurance Refund',
         compute='_compute_net_insurance_refund',
+        store=True,
     )
     total_paid_amount = fields.Float(
         string='Total Paid',
@@ -373,6 +375,7 @@ class CarRentalContract(models.Model):
     total_deductions = fields.Float(
         string='Total Deductions',
         compute='_compute_total_deductions',
+        store=True,
     )
     insurance_refund_date = fields.Date(
         string='Insurance Refund Date',

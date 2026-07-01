@@ -309,6 +309,8 @@ class CarRentalContract(models.Model):
                     )
                     if rent_line:
                         rent_line[0].price += extra_amount
+                    # خزّن الفرق عشان الفاتورة (نجمعه لو فيه تمديد سابق متفوترش)
+                    contract.pending_extension_amount += extra_amount
 
         # نفّذ التمديد الأصلي (بيكتب التاريخ الجديد)
         return super().action_confirm_extend_rent()
@@ -326,6 +328,48 @@ class CarRentalContract(models.Model):
         compute='_compute_total_auto',
         store=True,
     )
+    
+    def action_create_extension_invoice(self):
+        self.ensure_one()
+        if self.pending_extension_amount <= 0:
+            raise UserError("There is no pending extension amount to invoice.")
+
+        # منتج الخدمة وحساب الإيراد
+        product_id = self.env['product.product'].browse(
+            self.env.ref('fleet_rental.fleet_service_product').id)
+        if product_id.property_account_income_id.id:
+            income_account = product_id.property_account_income_id.id
+        elif product_id.categ_id.property_account_income_categ_id.id:
+            income_account = product_id.categ_id.property_account_income_categ_id.id
+        else:
+            raise UserError("No income account configured for the service product.")
+
+        invoice = self.env['account.move'].create({
+            'move_type': 'out_invoice',
+            'partner_id': self.customer_id.id,
+            'fleet_rent_id': self.id,
+            'invoice_date': fields.Date.context_today(self),
+            'invoice_line_ids': [(0, 0, {
+                'name': 'Rent Extension - %s' % self.name,
+                'price_unit': self.pending_extension_amount,
+                'quantity': 1.0,
+                'account_id': income_account,
+                'product_id': product_id.id,
+            })],
+        })
+
+        # صفّر المبلغ المعلّق بعد الفاتورة
+        self.pending_extension_amount = 0.0
+
+        # افتح الفاتورة
+        return {
+            'name': 'Extension Invoice',
+            'type': 'ir.actions.act_window',
+            'res_model': 'account.move',
+            'res_id': invoice.id,
+            'view_mode': 'form',
+            'target': 'current',
+        }
 
     @api.depends('checklist_line', 'checklist_line.price',
                  'checklist_line.checklist_active', 'damage_cost')
@@ -438,6 +482,13 @@ class CarRentalContract(models.Model):
         store=True,
         copy=False,
     )
+    pending_extension_amount = fields.Float(
+        string='Pending Extension Amount',
+        default=0.0,
+        copy=False,
+    )
+
+
 
     @api.depends('actual_return_date')
     def _compute_insurance_refund_date(self):

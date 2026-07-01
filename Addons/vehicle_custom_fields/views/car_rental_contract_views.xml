@@ -20,6 +20,11 @@
                         type="object"
                         class="btn-primary"
                         invisible="state != 'done' or insurance_refund_done == True"/>
+                <button name="action_create_extension_invoice"
+                        string="Create Invoice"
+                        type="object"
+                        class="btn-primary"
+                        invisible="pending_extension_amount &lt;= 0"/>
             </xpath>
              <xpath expr="//sheet" position="inside">
                 <widget name="web_ribbon" title="Insurance Paid" bg_color="text-bg-success" invisible="insurance_refund_done == False"/>
@@ -107,6 +112,10 @@
             <xpath expr="//button[@name='force_checking']" position="attributes">
                 <attribute name="name">action_open_return_wizard</attribute>
                 <attribute name="type">object</attribute>
+                <attribute name="invisible">pending_extension_amount &gt; 0</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_extend_rent']" position="attributes">
+                <attribute name="invisible">pending_extension_amount &gt; 0</attribute>
             </xpath>
         </field>
     </record>

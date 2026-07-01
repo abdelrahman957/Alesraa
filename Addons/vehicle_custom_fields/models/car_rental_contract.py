@@ -37,10 +37,6 @@ class CarRentalContract(models.Model):
             for contract in self:
                 if contract.actual_return_date:
                     contract.rent_end_date = contract.actual_return_date
-                # سجّل تاريخ رد التأمين (دخول invoice + يومين) لو لسه متسجّلش
-                if not contract.insurance_refund_date:
-                    from datetime import timedelta
-                    contract.insurance_refund_date = fields.Date.context_today(self) + timedelta(days=2)
         if 'rent_end_date' in vals or 'state' in vals or 'first_invoice_created' in vals:
             self.mapped('vehicle_id')._compute_rental_status()
         return res
@@ -379,8 +375,19 @@ class CarRentalContract(models.Model):
     )
     insurance_refund_date = fields.Date(
         string='Insurance Refund Date',
+        compute='_compute_insurance_refund_date',
+        store=True,
         copy=False,
     )
+
+    @api.depends('actual_return_date')
+    def _compute_insurance_refund_date(self):
+        from datetime import timedelta
+        for contract in self:
+            if contract.actual_return_date:
+                contract.insurance_refund_date = contract.actual_return_date + timedelta(days=2)
+            else:
+                contract.insurance_refund_date = False
     insurance_overdue = fields.Boolean(
         string='Insurance Overdue',
         compute='_compute_insurance_overdue',
@@ -404,16 +411,21 @@ class CarRentalContract(models.Model):
 
     def _search_insurance_overdue(self, operator, value):
         today = fields.Date.context_today(self)
-        # نرجّع domain للعقود المتأخرة
-        if (operator == '=' and value) or (operator == '!=' and not value):
-            return [
-                ('insurance_refund_date', '<', today),
-                ('insurance_refund_done', '=', False),
-            ]
+        # حدد إذا كان المطلوب المتأخرات أو غير المتأخرات
+        want_overdue = (operator in ('=', '==') and value) or (operator in ('!=', '<>') and not value)
+        overdue_domain = [
+            ('insurance_refund_date', '!=', False),
+            ('insurance_refund_date', '<', today),
+            ('insurance_refund_done', '=', False),
+        ]
+        if want_overdue:
+            return overdue_domain
         else:
-            return ['|',
-                ('insurance_refund_date', '>=', today),
+            # عكس المتأخرات: مردود، أو تاريخه لسه مجاش، أو مفيش تاريخ
+            return ['|', '|',
                 ('insurance_refund_done', '=', True),
+                ('insurance_refund_date', '>=', today),
+                ('insurance_refund_date', '=', False),
             ]
 
     def action_open_insurance_refund(self):

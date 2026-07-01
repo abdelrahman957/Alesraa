@@ -280,7 +280,38 @@ class CarRentalContract(models.Model):
                 'default_estimated_cost': self.estimated_cost,
                 'default_damage_description': self.damage_description,
             },
-        }    
+        } 
+
+    def action_confirm_extend_rent(self):
+        for contract in self:
+            # امسك التاريخ القديم قبل ما super يكتب الجديد
+            old_date = contract.vehicle_id.rental_reserved_time.date_to
+            new_date = contract.rent_end_date
+
+            if old_date and new_date and new_date > old_date:
+                extra_days = (new_date - old_date).days
+
+                # سعر اليوم من سطر العربية في الـ SO (السعر يومي)
+                day_price = 0.0
+                if contract.sale_order_id:
+                    vehicle_lines = contract.sale_order_id.order_line.filtered(
+                        lambda l: l.product_id.is_vehicle
+                    )
+                    if vehicle_lines:
+                        day_price = vehicle_lines[0].price_unit
+
+                extra_amount = extra_days * day_price
+
+                # زوّد الـ Rent Fees في سطر الـ checklist
+                if extra_amount > 0:
+                    rent_line = contract.checklist_line.filtered(
+                        lambda l: l.name.name == 'Rent Fees'
+                    )
+                    if rent_line:
+                        rent_line[0].price += extra_amount
+
+        # نفّذ التمديد الأصلي (بيكتب التاريخ الجديد)
+        return super().action_confirm_extend_rent()   
 
     @api.constrains('sale_order_id')
     def _check_unique_sale_order(self):
@@ -450,6 +481,8 @@ class CarRentalContract(models.Model):
                 'default_direction': direction,
             },
         }
+    
+
 
     @api.depends('sale_order_id', 'sale_order_id.invoice_ids',
                  'sale_order_id.invoice_ids.payment_state',

@@ -397,7 +397,7 @@ class CarRentalContract(models.Model):
             deductions += abs(contract.extra_days_amount or 0)
             net_refund = (contract.insurance_amount or 0) - deductions
             contract.net_insurance_refund = net_refund
-            contract.final_net_payable = contract.balance_due - net_refund
+            contract.final_net_payable = net_refund - contract.balance_due
 
     def action_print_settlement(self):
         self.ensure_one()

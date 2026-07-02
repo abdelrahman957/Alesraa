@@ -112,7 +112,7 @@
             <xpath expr="//button[@name='force_checking']" position="attributes">
                 <attribute name="name">action_open_return_wizard</attribute>
                 <attribute name="type">object</attribute>
-                <attribute name="invisible">pending_extension_amount &gt; 0</attribute>
+                <attribute name="invisible">(state != 'running') or (first_invoice_created == False) or (pending_extension_amount &gt; 0)</attribute>
             </xpath>
         </field>
     </record>

@@ -159,6 +159,11 @@
                             <tr t-if="o.final_net_payable &gt;= 0" style="background-color:#1a3a4a; color:white;"><td style="padding:5px 8px; border:1px solid #ccc; font-size:15px;"><strong>Net Payable by Customer</strong></td><td style="padding:5px 8px; border:1px solid #ccc; text-align:right; font-size:15px;"><strong><span t-field="o.final_net_payable"/></strong></td></tr>
                             <tr t-if="o.final_net_payable &lt; 0" style="background-color:#b00020; color:white;"><td style="padding:5px 8px; border:1px solid #ccc; font-size:15px;"><strong>Net Payable by Customer</strong></td><td style="padding:5px 8px; border:1px solid #ccc; text-align:right; font-size:15px;"><strong><span t-field="o.final_net_payable"/></strong></td></tr>
                         </table>
+                        <!-- بعد رد/دفع التأمين -->
+                        <table t-if="o.insurance_refund_done" style="width:100%; border-collapse:collapse; border:1px solid #ccc; table-layout:fixed; margin-top:8px;">
+                            <tr><td style="padding:5px 8px; border:1px solid #ccc; width:60%;">Insurance Settled (Paid)</td><td style="padding:5px 8px; border:1px solid #ccc; text-align:right;"><span t-field="o.net_insurance_refund"/></td></tr>
+                            <tr style="background-color:#5a7a8a; color:white;"><td style="padding:5px 8px; border:1px solid #ccc; font-size:15px;"><strong>Final Balance</strong></td><td style="padding:5px 8px; border:1px solid #ccc; text-align:right; font-size:15px;"><strong>0.00 &#8212; Fully Settled</strong></td></tr>
+                        </table>
                     </div>
                 </t>
             </t>

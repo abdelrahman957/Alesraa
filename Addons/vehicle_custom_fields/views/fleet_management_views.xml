@@ -104,4 +104,15 @@
         <field name="name">Service Reports</field>
         <field name="parent_id" ref="fleet_rental.menu_car_parent"/>
     </record>
+    <!-- إضافة عمود Model Year في list الموديلات -->
+    <record id="fleet_vehicle_model_list_year_inherit" model="ir.ui.view">
+        <field name="name">fleet.vehicle.model.list.year.inherit</field>
+        <field name="model">fleet.vehicle.model</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_model_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="model_year"/>
+            </xpath>
+        </field>
+    </record>
 </odoo>

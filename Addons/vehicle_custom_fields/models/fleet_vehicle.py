@@ -50,7 +50,7 @@ class FleetVehicle(models.Model):
         'A vehicle with this License Plate already exists.',
     )
 
-    @api.depends('model_id')
+    @api.depends('model_id', 'model_id.vehicle_image')
     def _compute_vehicle_image(self):
         for vehicle in self:
             if vehicle.model_id:

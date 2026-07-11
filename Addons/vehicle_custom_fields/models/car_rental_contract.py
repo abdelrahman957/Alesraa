@@ -120,17 +120,24 @@ class CarRentalContract(models.Model):
         compute='_compute_paid_deposit',
     )
 
-    @api.depends('sale_order_id', 'sale_order_id.invoice_ids', 'sale_order_id.invoice_ids.payment_state')
+    @api.depends('sale_order_id', 'sale_order_id.invoice_ids',
+                 'sale_order_id.invoice_ids.payment_state',
+                 'sale_order_id.invoice_ids.amount_residual')
     def _compute_paid_deposit(self):
         for contract in self:
             total = 0.0
             if contract.sale_order_id:
-                # فواتير الـ down payment المدفوعة بالكامل
+                # فواتير الـ down payment المدفوعة كلياً أو جزئياً
                 downpayment_invoices = contract.sale_order_id.invoice_ids.filtered(
-                    lambda inv: inv.payment_state == 'paid'
+                    lambda inv: inv.state == 'posted'
+                    and inv.payment_state in ('paid', 'partial', 'in_payment')
                     and any(line.is_downpayment for line in inv.invoice_line_ids)
                 )
-                total = sum(downpayment_invoices.mapped('amount_total'))
+                # المبلغ المدفوع فعلاً = الإجمالي - المتبقي
+                total = sum(
+                    (inv.amount_total - inv.amount_residual)
+                    for inv in downpayment_invoices
+                )
             contract.paid_deposit_amount = total
 
     net_requested_charge = fields.Float(

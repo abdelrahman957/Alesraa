@@ -104,15 +104,20 @@ class CarRentalReturnWizard(models.TransientModel):
     @api.depends('contract_id')
     def _compute_km_settings(self):
         for wizard in self:
+            contract = wizard.contract_id
+            # لو العقد عمل return قبل كده وفيه قيم محفوظة، استخدمها
+            if contract and contract.extra_km_price:
+                wizard.km_per_day = contract.km_per_day
+                wizard.extra_km_price = contract.extra_km_price
+                continue
+            # غير كده، هات القيم الافتراضية من الإعدادات
             km_per_day = 0
             price = 0.0
-            if wizard.contract_id and wizard.contract_id.vehicle_id:
-                model = wizard.contract_id.vehicle_id.model_id
-                # دوّر على سطر فيه موديل العربية
+            if contract and contract.vehicle_id:
+                model = contract.vehicle_id.model_id
                 line = self.env['fleet.extra.km'].search([
                     ('model_ids', 'in', model.id),
                 ], limit=1)
-                # لو ملقاش، دوّر على السطر الفاضي (الافتراضي العام)
                 if not line:
                     line = self.env['fleet.extra.km'].search([
                         ('model_ids', '=', False),

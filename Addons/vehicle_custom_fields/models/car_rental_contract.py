@@ -286,9 +286,9 @@ class CarRentalContract(models.Model):
                 'default_has_damages': self.has_damages,
                 'default_estimated_cost': self.estimated_cost,
                 'default_damage_description': self.damage_description,
-                'default_km_per_day': self.km_per_day,
-                'default_day_rate': self.day_rate,
-                'default_extra_km_price': self.extra_km_price,
+                'default_km_per_day': self.km_per_day or False,
+                'default_day_rate': self.day_rate or False,
+                'default_extra_km_price': self.extra_km_price or False,
             },
         } 
 

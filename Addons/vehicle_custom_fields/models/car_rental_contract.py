@@ -286,11 +286,22 @@ class CarRentalContract(models.Model):
                 'default_has_damages': self.has_damages,
                 'default_estimated_cost': self.estimated_cost,
                 'default_damage_description': self.damage_description,
-                'default_km_per_day': self.km_per_day or False,
                 'default_day_rate': self.day_rate or False,
-                'default_extra_km_price': self.extra_km_price or False,
             },
-        } 
+        }
+
+    @api.model
+    def default_get(self, fields_list):
+        res = super().default_get(fields_list)
+        contract_id = self.env.context.get('default_contract_id')
+        if contract_id:
+            contract = self.env['car.rental.contract'].browse(contract_id)
+            # لو العقد عمل return قبل كده (فيه قيم محفوظة)، هاتها
+            if contract.km_per_day:
+                res['km_per_day'] = contract.km_per_day
+            if contract.extra_km_price:
+                res['extra_km_price'] = contract.extra_km_price
+        return res 
 
     def action_confirm_extend_rent(self):
         for contract in self:

@@ -165,6 +165,9 @@ class CarRentalReturnWizard(models.TransientModel):
             'total_ex_km_amount': self.total_ex_km_amount,
             'extra_days': self.extra_days,
             'extra_days_amount': self.extra_days_amount,
+            'extra_days': self.extra_days,
+            'extra_days_amount': self.extra_days_amount,
+            'day_rate': self.day_rate,
             'day_rate': self.day_rate,
         })
         # انقل الحالة لـ checking فقط لو الثلاثة كلهم متملّيين

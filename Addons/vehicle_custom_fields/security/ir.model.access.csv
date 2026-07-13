@@ -5,3 +5,5 @@ access_fleet_service_line,access_fleet_service_line,model_fleet_service_line,bas
 access_car_rental_return_wizard,car.rental.return.wizard,model_car_rental_return_wizard,base.group_user,1,1,1,1
 access_fleet_extra_km,fleet.extra.km,model_fleet_extra_km,base.group_user,1,1,1,1
 access_insurance_refund_wizard,access.insurance.refund.wizard,model_insurance_refund_wizard,base.group_user,1,1,1,1
+access_fleet_contract_rent_cost,fleet.contract.rent.cost,model_fleet_contract_rent_cost,base.group_user,1,1,1,1
+access_owner_statement_line,owner.statement.line,model_owner_statement_line,base.group_user,1,1,1,1

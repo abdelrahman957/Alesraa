@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- تاب Rent Cost + Smart Button على عقد الفليت -->
+    <record id="fleet_contract_form_rent_cost_inherit" model="ir.ui.view">
+        <field name="name">fleet.vehicle.log.contract.form.rent.cost</field>
+        <field name="model">fleet.vehicle.log.contract</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_log_contract_view_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Smart Button في الـ button_box -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_owner_statement"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-money">
+                    <field name="owner_statement_count" widget="statinfo" string="Owner Statement"/>
+                </button>
+            </xpath>
+
+            <!-- تاب Rent Cost -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Rent Cost" name="rent_cost">
+                    <field name="rent_cost_ids">
+                        <list editable="bottom">
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="rent_amount"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- List View للـ Owner Statement -->
+    <record id="owner_statement_line_list" model="ir.ui.view">
+        <field name="name">owner.statement.line.list</field>
+        <field name="model">owner.statement.line</field>
+        <field name="arch" type="xml">
+            <list string="Owner Statement" create="false">
+                <field name="line_type" string="Type"/>
+                <field name="date"/>
+                <field name="vehicle_id"/>
+                <field name="owner_id"/>
+                <field name="amount" sum="Total"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Search View مع Filters و Group By -->
+    <record id="owner_statement_line_search" model="ir.ui.view">
+        <field name="name">owner.statement.line.search</field>
+        <field name="model">owner.statement.line</field>
+        <field name="arch" type="xml">
+            <search string="Owner Statement">
+                <field name="vehicle_id"/>
+                <field name="owner_id"/>
+                <field name="date"/>
+                <filter string="Rent Cost" name="type_rent_cost" domain="[('line_type', '=', 'rent_cost')]"/>
+                <separator/>
+                <filter string="Vehicle" name="group_vehicle" context="{'group_by': 'vehicle_id'}"/>
+                <filter string="Owner" name="group_owner" context="{'group_by': 'owner_id'}"/>
+                <filter string="Type" name="group_type" context="{'group_by': 'line_type'}"/>
+                <separator/>
+                <filter string="Month" name="group_month" context="{'group_by': 'date:month'}"/>
+                <filter string="Quarter" name="group_quarter" context="{'group_by': 'date:quarter'}"/>
+                <filter string="Year" name="group_year" context="{'group_by': 'date:year'}"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_owner_statement" model="ir.actions.act_window">
+        <field name="name">Owner Statement</field>
+        <field name="res_model">owner.statement.line</field>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="owner_statement_line_list"/>
+        <field name="search_view_id" ref="owner_statement_line_search"/>
+    </record>
+
+    <!-- Menu تحت Fleet -->
+    <menuitem id="menu_owner_statement"
+              name="Owner Statement"
+              parent="fleet.fleet_vehicle_menu"
+              action="action_owner_statement"
+              sequence="50"/>
+</odoo>

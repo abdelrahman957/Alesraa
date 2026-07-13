@@ -81,10 +81,9 @@
     </record>
 
     <!-- Menu تحت Fleet -->
-    <menuitem id="menu_owner_statement"
+        <menuitem id="menu_owner_statement"
               name="Owner Statement"
-              parent="fleet.fleet_vehicle_menu"
+              parent="fleet.fleet_vehicles"
               action="action_owner_statement"
               sequence="50"/>
-
 </odoo>

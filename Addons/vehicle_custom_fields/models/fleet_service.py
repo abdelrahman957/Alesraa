@@ -15,7 +15,7 @@ class FleetVehicleLogServices(models.Model):
         'service_id',
         string='Service Lines',
     )
-    
+
     amount = fields.Monetary(
         string='Cost',
         compute='_compute_amount_from_lines',
@@ -64,6 +64,19 @@ class FleetVehicleLogServices(models.Model):
         for service in self:
             service.display_name = service.description or 'Service'
 
+    has_pending_responsibility = fields.Boolean(
+        string='Pending Responsibility',
+        compute='_compute_has_pending_responsibility',
+        store=True,
+    )
+
+    @api.depends('service_line_ids', 'service_line_ids.responsibility')
+    def _compute_has_pending_responsibility(self):
+        for service in self:
+            service.has_pending_responsibility = any(
+                not line.responsibility for line in service.service_line_ids
+            )
+
     
 
 
@@ -86,6 +99,7 @@ class FleetServiceLine(models.Model):
         selection=[
             ('owner', 'Owner'),
             ('company', 'Company'),
+            ('none', 'None'),
         ],
         string='Responsibility',
     )

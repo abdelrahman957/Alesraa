@@ -8,29 +8,27 @@
         <field name="inherit_id" ref="fleet.fleet_vehicle_log_contract_view_form"/>
         <field name="arch" type="xml">
 
-        <!-- Smart Button (نضيف button_box لو مش موجود) -->
-        <xpath expr="//sheet" position="inside">
-            <div class="oe_button_box" name="button_box">
-                <button name="action_view_owner_statement"
-                        type="object"
-                        class="oe_stat_button"
-                        icon="fa-money">
-                    <field name="owner_statement_count" widget="statinfo" string="Owner Statement"/>
-                </button>
-            </div>
-        </xpath>
-
-            <!-- تاب Rent Cost -->
-            <xpath expr="//notebook" position="inside">
-                <page string="Rent Cost" name="rent_cost">
-                    <field name="rent_cost_ids">
-                        <list editable="bottom">
-                            <field name="date_from"/>
-                            <field name="date_to"/>
-                            <field name="rent_amount"/>
-                        </list>
-                    </field>
-                </page>
+            <!-- Smart Button (نضيف button_box في أول الـ sheet) -->
+            <xpath expr="//sheet" position="inside">
+                <div class="oe_button_box" name="button_box">
+                    <button name="action_view_owner_statement"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-money">
+                        <field name="owner_statement_count" widget="statinfo" string="Owner Statement"/>
+                    </button>
+                </div>
+                <notebook>
+                    <page string="Rent Cost" name="rent_cost">
+                        <field name="rent_cost_ids">
+                            <list editable="bottom">
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                <field name="rent_amount"/>
+                            </list>
+                        </field>
+                    </page>
+                </notebook>
             </xpath>
 
         </field>
@@ -88,4 +86,5 @@
               parent="fleet.fleet_vehicle_menu"
               action="action_owner_statement"
               sequence="50"/>
+
 </odoo>

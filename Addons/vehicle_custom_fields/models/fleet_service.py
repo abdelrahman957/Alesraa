@@ -6,13 +6,6 @@ from odoo.exceptions import UserError
 class FleetVehicleLogServices(models.Model):
     _inherit = 'fleet.vehicle.log.services'
 
-    service_category = fields.Selection(
-        selection=[
-            ('periodic', 'Periodic Maintenance'),
-            ('accident', 'Accident'),
-        ],
-        string='Service Category',
-    )
     service_type_id = fields.Many2one(
         required=False,
     )
@@ -22,15 +15,12 @@ class FleetVehicleLogServices(models.Model):
         'service_id',
         string='Service Lines',
     )
+    
     amount = fields.Monetary(
         string='Cost',
         compute='_compute_amount_from_lines',
         store=True,
         readonly=True,
-    )
-    customer_charge = fields.Monetary(
-        string='Customer Charge',
-        currency_field='currency_id',
     )
 
     def action_service_run(self):
@@ -103,9 +93,6 @@ class FleetServiceLine(models.Model):
     currency_id = fields.Many2one(
         'res.currency',
         related='service_id.currency_id',
-    )
-    service_category = fields.Selection(
-        related='service_id.service_category',
     )
 
     @api.model_create_multi

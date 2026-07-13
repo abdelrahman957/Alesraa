@@ -119,7 +119,6 @@
                         domain="[('has_pending_responsibility', '=', True)]"/>
                 <separator/>
                 <filter string="Vehicle" name="group_vehicle" context="{'group_by': 'vehicle_id'}"/>
-                <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
             </search>
         </field>
     </record>

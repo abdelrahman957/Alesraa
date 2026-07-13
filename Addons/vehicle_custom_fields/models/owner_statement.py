@@ -123,7 +123,7 @@ class FleetVehicleLogContract(models.Model):
 
             lines.append({
                 'line_type': 'rent_cost',
-                'date': month_first,
+                'date': month_last,
                 'amount': amount,
                 'vehicle_id': vehicle,
                 'owner_id': owner,

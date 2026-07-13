@@ -105,10 +105,7 @@
                                     <tr>
                                         <td class="srv-card">
                                             <div class="lbl">النوع</div>
-                                            <div class="val">
-                                                <t t-if="o.service_category == 'periodic'">صيانة دورية</t>
-                                                <t t-if="o.service_category == 'accident'">حادث</t>
-                                            </div>
+                                            <div class="val">صيانة دورية</div>
                                         </td>
                                         <td class="srv-card">
                                             <div class="lbl">التاريخ</div>
@@ -132,7 +129,7 @@
                                         <tr>
                                             <th style="width:24%;">نوع الخدمة</th>
                                             <th>الوصف</th>
-                                            <th t-if="o.service_category == 'periodic'" style="width:16%;">المسؤول</th>
+                                            <th style="width:16%;">المسؤول</th>
                                             <th style="text-align:left; width:20%;">المبلغ</th>
                                         </tr>
                                     </thead>
@@ -140,9 +137,10 @@
                                         <tr t-foreach="o.service_line_ids" t-as="line">
                                             <td><span t-out="line.service_type_id.name"/></td>
                                             <td>&#8207;<span t-out="line.description"/>&#8207;</td>
-                                            <td t-if="o.service_category == 'periodic'">
+                                            <td>
                                                 <span t-if="line.responsibility == 'owner'" style="color:#c62828; font-weight:600;">المالك</span>
                                                 <span t-if="line.responsibility == 'company'" style="color:#2e7d32; font-weight:600;">الشركة</span>
+                                                <span t-if="line.responsibility == 'none'" style="color:#888; font-weight:600;">لا أحد</span>
                                             </td>
                                             <td style="text-align:left;"><span t-out="line.amount"/> ج.م</td>
                                         </tr>

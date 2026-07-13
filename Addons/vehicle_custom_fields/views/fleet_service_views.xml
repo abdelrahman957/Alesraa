@@ -101,22 +101,6 @@
                 <field name="vehicle_id"/>
                 <filter string="Pending Responsibility" name="pending"
                         domain="[('has_pending_responsibility', '=', True)]"/>
-                <group expand="0" string="Group By">
-                    <filter string="Vehicle" name="group_vehicle" context="{'group_by': 'vehicle_id'}"/>
-                    <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
-                </group>
-            </search>
-        </field>
-    </record>
-
-    <record id="fleet_service_pending_search" model="ir.ui.view">
-        <field name="name">fleet.service.pending.search</field>
-        <field name="model">fleet.vehicle.log.services</field>
-        <field name="arch" type="xml">
-            <search string="Pending Responsibility">
-                <field name="vehicle_id"/>
-                <filter string="Pending Responsibility" name="pending"
-                        domain="[('has_pending_responsibility', '=', True)]"/>
                 <separator/>
                 <filter string="Vehicle" name="group_vehicle" context="{'group_by': 'vehicle_id'}"/>
             </search>

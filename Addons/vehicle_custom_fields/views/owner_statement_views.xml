@@ -8,15 +8,17 @@
         <field name="inherit_id" ref="fleet.fleet_vehicle_log_contract_view_form"/>
         <field name="arch" type="xml">
 
-            <!-- Smart Button في الـ button_box -->
-            <xpath expr="//div[@name='button_box']" position="inside">
+        <!-- Smart Button (نضيف button_box لو مش موجود) -->
+        <xpath expr="//sheet" position="inside">
+            <div class="oe_button_box" name="button_box">
                 <button name="action_view_owner_statement"
                         type="object"
                         class="oe_stat_button"
                         icon="fa-money">
                     <field name="owner_statement_count" widget="statinfo" string="Owner Statement"/>
                 </button>
-            </xpath>
+            </div>
+        </xpath>
 
             <!-- تاب Rent Cost -->
             <xpath expr="//notebook" position="inside">

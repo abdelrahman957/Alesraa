@@ -110,6 +110,7 @@ class FleetVehicleLogServices(models.Model):
                         'vehicle_id': service.vehicle_id.id if service.vehicle_id else False,
                         'owner_id': owner,
                         'service_id': service.id,
+                        'description': line.service_type_id.name if line.service_type_id else '',
                     })
             if new_lines:
                 StatementLine.create(new_lines)

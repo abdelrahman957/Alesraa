@@ -94,6 +94,7 @@ class OwnerStatementReport(models.Model):
                     'line_type': src.line_type,
                     'date': src.date,
                     'amount': src.amount,
+                    'description': src.description,
                 })
             else:
                 # سطر جديد
@@ -103,6 +104,7 @@ class OwnerStatementReport(models.Model):
                     'line_type': src.line_type,
                     'date': src.date,
                     'amount': src.amount,
+                    'description': src.description,
                     'is_manual': False,
                 })
         return True

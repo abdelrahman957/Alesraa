@@ -47,6 +47,7 @@ class OwnerStatementLine(models.Model):
         string='Source',
         compute='_compute_source_ref',
     )
+    description = fields.Char(string='Description')
 
     @api.depends('line_type', 'contract_id', 'service_id')
     def _compute_source_ref(self):

@@ -7,3 +7,5 @@ access_fleet_extra_km,fleet.extra.km,model_fleet_extra_km,base.group_user,1,1,1,
 access_insurance_refund_wizard,access.insurance.refund.wizard,model_insurance_refund_wizard,base.group_user,1,1,1,1
 access_fleet_contract_rent_cost,fleet.contract.rent.cost,model_fleet_contract_rent_cost,base.group_user,1,1,1,1
 access_owner_statement_line,owner.statement.line,model_owner_statement_line,base.group_user,1,1,1,1
+access_owner_statement_report,owner.statement.report,model_owner_statement_report,base.group_user,1,1,1,1
+access_owner_statement_report_line,owner.statement.report.line,model_owner_statement_report_line,base.group_user,1,1,1,1

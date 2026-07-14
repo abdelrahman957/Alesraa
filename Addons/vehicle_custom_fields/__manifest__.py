@@ -25,6 +25,8 @@
     'views/extra_km_views.xml',
     'views/insurance_refund_wizard_views.xml',
     'views/owner_statement_views.xml',
+    'views/owner_statement_sequence.xml',
+    'views/owner_statement_report_views.xml',
 ],
     'installable': True,
     'auto_install': False,

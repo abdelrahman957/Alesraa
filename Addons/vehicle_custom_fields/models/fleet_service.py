@@ -114,11 +114,6 @@ class FleetVehicleLogServices(models.Model):
             if new_lines:
                 StatementLine.create(new_lines)
 
-    def action_service_done(self):
-        res = super().action_service_done()
-        self._generate_owner_statement_service_lines()
-        return res
-
     def write(self, vals):
         res = super().write(vals)
         # لو اتغيّرت الحالة أو البنود، أعِد التوليد

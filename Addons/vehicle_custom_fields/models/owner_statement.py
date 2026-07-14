@@ -76,6 +76,21 @@ class OwnerStatementLine(models.Model):
         string='Source Period',
         ondelete='cascade',
     )
+    source_label = fields.Char(
+        string='Source',
+        compute='_compute_source_label',
+    )
+
+    @api.depends('line_type')
+    def _compute_source_label(self):
+        for line in self:
+            if line.line_type == 'rent_cost':
+                line.source_label = 'Rent Contract'
+            elif line.line_type == 'service':
+                line.source_label = 'Service Report'
+            else:
+                line.source_label = ''
+    
     def action_open_source(self):
         self.ensure_one()
         if self.line_type == 'rent_cost' and self.contract_id:

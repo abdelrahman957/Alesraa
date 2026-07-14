@@ -41,7 +41,8 @@
         <field name="arch" type="xml">
             <list string="Owner Statement" create="false">
                 <field name="line_type" string="Type"/>
-                <field name="source_ref" string="Source" widget="reference"/>
+                <button name="action_open_source" type="object" class="btn-link" string="Open"/>
+                <field name="source_label" string="Source"/>
                 <field name="date"/>
                 <field name="vehicle_id"/>
                 <field name="owner_id"/>

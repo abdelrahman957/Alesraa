@@ -76,6 +76,24 @@ class OwnerStatementLine(models.Model):
         string='Source Period',
         ondelete='cascade',
     )
+    def action_open_source(self):
+        self.ensure_one()
+        if self.line_type == 'rent_cost' and self.contract_id:
+            return {
+                'type': 'ir.actions.act_window',
+                'res_model': 'fleet.vehicle.log.contract',
+                'res_id': self.contract_id.id,
+                'view_mode': 'form',
+                'target': 'current',
+            }
+        elif self.line_type == 'service' and self.service_id:
+            return {
+                'type': 'ir.actions.act_window',
+                'res_model': 'fleet.vehicle.log.services',
+                'res_id': self.service_id.id,
+                'view_mode': 'form',
+                'target': 'current',
+            }
 
 class FleetVehicleLogContract(models.Model):
     _inherit = 'fleet.vehicle.log.contract'

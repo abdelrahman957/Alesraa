@@ -171,9 +171,15 @@ class FleetVehicleLogContract(models.Model):
             # عدد أيام الاستخدام (inclusive)
             used_days = (used_end - used_start).days + 1
 
-            # النسبة: أيام الاستخدام ÷ إجمالي أيام الشهر
-            ratio = used_days / days_in_month
-            amount = monthly_amount * ratio
+            # هل الشهر كامل؟ (من أول الشهر لآخره)
+            is_full_month = (used_start == month_first and used_end == month_last)
+
+            if is_full_month:
+                # شهر كامل → المبلغ الشهري كامل
+                amount = monthly_amount
+            else:
+                # شهر ناقص → (المبلغ الشهري ÷ 30) × أيام الاستخدام
+                amount = (monthly_amount / 30.0) * used_days
 
             # الـ Owner من insurer_id بتاع العقد
             owner = contract.insurer_id.id if contract.insurer_id else False

@@ -77,6 +77,62 @@ class FleetVehicleLogServices(models.Model):
                 not line.responsibility for line in service.service_line_ids
             )
 
+    def _generate_owner_statement_service_lines(self):
+        """يولّد سطور Owner Statement من بنود الصيانة اللي مسؤوليتها owner (بالسالب)."""
+        StatementLine = self.env['owner.statement.line']
+        for service in self:
+            # امسح أي سطور service قديمة للتقرير ده
+            StatementLine.search([('service_id', '=', service.id)]).unlink()
+
+            # بس لو التقرير Done
+            if service.state != 'done':
+                continue
+
+            # هات المالك من عقد الفليت الـ running على العربية
+            owner = False
+            if service.vehicle_id:
+                fleet_contract = self.env['fleet.vehicle.log.contract'].search([
+                    ('vehicle_id', '=', service.vehicle_id.id),
+                    ('insurer_id', '!=', False),
+                    ('state', 'in', ['open', 'running']),
+                ], order='date desc', limit=1)
+                if fleet_contract:
+                    owner = fleet_contract.insurer_id.id
+
+            # لكل بند مسؤوليته owner، اعمل سطر بالسالب
+            new_lines = []
+            for line in service.service_line_ids:
+                if line.responsibility == 'owner' and line.amount:
+                    new_lines.append({
+                        'line_type': 'service',
+                        'date': service.date,
+                        'amount': -line.amount,
+                        'vehicle_id': service.vehicle_id.id if service.vehicle_id else False,
+                        'owner_id': owner,
+                        'service_id': service.id,
+                    })
+            if new_lines:
+                StatementLine.create(new_lines)
+
+    def action_service_done(self):
+        res = super().action_service_done()
+        self._generate_owner_statement_service_lines()
+        return res
+
+    def write(self, vals):
+        res = super().write(vals)
+        # لو اتغيّرت الحالة أو البنود، أعِد التوليد
+        if 'state' in vals or 'service_line_ids' in vals:
+            self._generate_owner_statement_service_lines()
+        return res
+
+    def unlink(self):
+        # امسح سطور الـ statement المرتبطة قبل حذف التقرير
+        self.env['owner.statement.line'].search([
+            ('service_id', 'in', self.ids)
+        ]).unlink()
+        return super().unlink()
+
     
 
 

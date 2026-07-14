@@ -33,6 +33,7 @@ class OwnerStatementLine(models.Model):
     line_type = fields.Selection(
         selection=[
             ('rent_cost', 'Rent Cost'),
+            ('service', 'Service'),
         ],
         string='Type',
         required=True,
@@ -45,6 +46,11 @@ class OwnerStatementLine(models.Model):
     contract_id = fields.Many2one(
         'fleet.vehicle.log.contract',
         string='Fleet Contract',
+        ondelete='cascade',
+    )
+    service_id = fields.Many2one(
+        'fleet.vehicle.log.services',
+        string='Service Report',
         ondelete='cascade',
     )
     rent_cost_id = fields.Many2one(

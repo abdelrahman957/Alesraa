@@ -39,6 +39,24 @@ class OwnerStatementLine(models.Model):
         required=True,
         default='rent_cost',
     )
+    source_ref = fields.Reference(
+        selection=[
+            ('fleet.vehicle.log.contract', 'Fleet Contract'),
+            ('fleet.vehicle.log.services', 'Service Report'),
+        ],
+        string='Source',
+        compute='_compute_source_ref',
+    )
+
+    @api.depends('line_type', 'contract_id', 'service_id')
+    def _compute_source_ref(self):
+        for line in self:
+            if line.line_type == 'rent_cost' and line.contract_id:
+                line.source_ref = 'fleet.vehicle.log.contract,%d' % line.contract_id.id
+            elif line.line_type == 'service' and line.service_id:
+                line.source_ref = 'fleet.vehicle.log.services,%d' % line.service_id.id
+            else:
+                line.source_ref = False
     date = fields.Date(string='Month', required=True)
     amount = fields.Float(string='Amount')
     vehicle_id = fields.Many2one('fleet.vehicle', string='Vehicle')

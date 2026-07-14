@@ -14,4 +14,4 @@ from . import extra_km
 from . import mail_mail
 from . import insurance_refund_wizard
 from . import owner_statement
-from . import owner_statement
+from . import owner_statement_report

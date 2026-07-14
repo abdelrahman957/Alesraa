@@ -69,6 +69,9 @@ class OwnerStatementReport(models.Model):
         if not self.vehicle_id or not self.date_from or not self.date_to:
             raise UserError("Please set Vehicle, From and To dates first.")
 
+        # امسح كل السطور المولّدة (غير اليدوية)
+        self.line_ids.filtered(lambda l: not l.is_manual).unlink()
+
         # هات سطور الأصل للعربية في الفترة
         source_lines = self.env['owner.statement.line'].search([
             ('vehicle_id', '=', self.vehicle_id.id),
@@ -76,37 +79,17 @@ class OwnerStatementReport(models.Model):
             ('date', '<=', self.date_to),
         ])
 
-        # السطور الحالية اللي مصدرها من الأصل (مش يدوية)
-        existing_source = self.line_ids.filtered(lambda l: l.source_line_id)
-        existing_map = {l.source_line_id.id: l for l in existing_source}
-        source_ids = set(source_lines.ids)
-
-        # 1) شيل السطور اللي اتمسحت من الأصل
-        for src_id, line in existing_map.items():
-            if src_id not in source_ids:
-                line.unlink()
-
-        # 2) ضيف/حدّث السطور من الأصل
+        # اعمل سطور جديدة من الأصل
         for src in source_lines:
-            if src.id in existing_map:
-                # حدّث القيم لو اتغيّرت
-                existing_map[src.id].write({
-                    'line_type': src.line_type,
-                    'date': src.date,
-                    'amount': src.amount,
-                    'description': src.description,
-                })
-            else:
-                # سطر جديد
-                self.env['owner.statement.report.line'].create({
-                    'report_id': self.id,
-                    'source_line_id': src.id,
-                    'line_type': src.line_type,
-                    'date': src.date,
-                    'amount': src.amount,
-                    'description': src.description,
-                    'is_manual': False,
-                })
+            self.env['owner.statement.report.line'].create({
+                'report_id': self.id,
+                'source_line_id': src.id,
+                'line_type': src.line_type,
+                'date': src.date,
+                'amount': src.amount,
+                'description': src.description,
+                'is_manual': False,
+            })
         return True
 
     def action_confirm(self):

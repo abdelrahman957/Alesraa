@@ -77,6 +77,7 @@ class OwnerStatementReport(models.Model):
             ('vehicle_id', '=', self.vehicle_id.id),
             ('date', '>=', self.date_from),
             ('date', '<=', self.date_to),
+            ('state', '=', 'open'),
         ])
 
         # اعمل سطور جديدة من الأصل
@@ -94,10 +95,26 @@ class OwnerStatementReport(models.Model):
 
     def action_confirm(self):
         self.ensure_one()
+        # السطور الأصلية المرتبطة بالتقرير (المولّدة، مش اليدوية)
+        source_lines = self.line_ids.filtered(lambda l: l.source_line_id).mapped('source_line_id')
+
+        # امنع لو أي سطر بقى confirmed في مكان تاني
+        already_confirmed = source_lines.filtered(lambda l: l.state == 'confirmed')
+        if already_confirmed:
+            raise UserError(
+                "Some lines are already confirmed in another report. "
+                "Please run Compute again to refresh, then confirm."
+            )
+
+        # أكّد السطور الأصلية
+        source_lines.write({'state': 'confirmed'})
         self.state = 'confirmed'
 
     def action_set_draft(self):
         self.ensure_one()
+        # رجّع السطور الأصلية لـ open
+        source_lines = self.line_ids.filtered(lambda l: l.source_line_id).mapped('source_line_id')
+        source_lines.write({'state': 'open'})
         self.state = 'draft'
 
     def unlink(self):

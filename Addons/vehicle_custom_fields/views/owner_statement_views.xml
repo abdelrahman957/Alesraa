@@ -47,6 +47,9 @@
                 <field name="vehicle_id"/>
                 <field name="owner_id"/>
                 <field name="amount" sum="Total"/>
+                <field name="state" widget="badge"
+                       decoration-muted="state == 'open'"
+                       decoration-success="state == 'confirmed'"/>
             </list>
         </field>
     </record>

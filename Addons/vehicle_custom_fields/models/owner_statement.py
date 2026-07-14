@@ -81,6 +81,15 @@ class OwnerStatementLine(models.Model):
         string='Source',
         compute='_compute_source_label',
     )
+    state = fields.Selection(
+        selection=[
+            ('open', 'Open'),
+            ('confirmed', 'Confirmed'),
+        ],
+        string='Status',
+        default='open',
+        copy=False,
+    )
 
     @api.depends('line_type')
     def _compute_source_label(self):

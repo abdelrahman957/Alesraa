@@ -64,9 +64,19 @@ class OwnerStatementReport(models.Model):
     @api.depends('bill_id', 'bill_id.payment_state')
     def _compute_is_paid(self):
         for report in self:
-            report.is_paid = bool(
+            paid = bool(
                 report.bill_id and report.bill_id.payment_state in ('paid', 'in_payment')
             )
+            report.is_paid = paid
+            # حدّث حالة السطور الأصلية
+            source_lines = report.line_ids.filtered(
+                lambda l: l.source_line_id
+            ).mapped('source_line_id')
+            if source_lines:
+                if paid:
+                    source_lines.filtered(lambda l: l.state == 'confirmed').write({'state': 'paid'})
+                else:
+                    source_lines.filtered(lambda l: l.state == 'paid').write({'state': 'confirmed'})
 
     @api.depends('vehicle_id')
     def _compute_owner(self):

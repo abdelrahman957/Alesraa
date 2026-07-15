@@ -49,7 +49,9 @@
                 <field name="amount" sum="Total"/>
                 <field name="state" widget="badge"
                        decoration-muted="state == 'open'"
-                       decoration-success="state == 'confirmed'"/>
+                       decoration-success="state == 'confirmed'"
+                       decoration-success="state == 'paid'"/>
+                       
             </list>
         </field>
     </record>

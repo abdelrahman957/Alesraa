@@ -85,6 +85,7 @@ class OwnerStatementLine(models.Model):
         selection=[
             ('open', 'Open'),
             ('confirmed', 'Confirmed'),
+            ('paid', 'Paid'),
         ],
         string='Status',
         default='open',

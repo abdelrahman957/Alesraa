@@ -148,11 +148,9 @@ class OwnerStatementReport(models.Model):
         # هات الحسابات
         rent_account = self.env['account.account'].search([
             ('code', '=', '500001'),
-            ('company_id', '=', self.env.company.id),
         ], limit=1)
         service_account = self.env['account.account'].search([
             ('code', '=', '500002'),
-            ('company_id', '=', self.env.company.id),
         ], limit=1)
 
         if not rent_account:

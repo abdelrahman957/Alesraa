@@ -60,6 +60,11 @@ class OwnerStatementReport(models.Model):
         compute='_compute_is_paid',
         store=True,
     )
+    company_id = fields.Many2one(
+        'res.company',
+        string='Company',
+        default=lambda self: self.env.company,
+    )
 
     @api.depends('bill_id', 'bill_id.payment_state')
     def _compute_is_paid(self):

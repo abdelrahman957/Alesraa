@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Paper Format: Landscape -->
+    <record id="paperformat_owner_statement" model="report.paperformat">
+        <field name="name">Owner Statement Landscape</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">12</field>
+        <field name="margin_bottom">12</field>
+        <field name="margin_left">8</field>
+        <field name="margin_right">8</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">10</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <!-- Report Action -->
+    <record id="action_report_owner_statement" model="ir.actions.report">
+        <field name="name">Owner Statement</field>
+        <field name="model">owner.statement.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">vehicle_custom_fields.report_owner_statement_document</field>
+        <field name="report_file">vehicle_custom_fields.report_owner_statement_document</field>
+        <field name="paperformat_id" ref="paperformat_owner_statement"/>
+        <field name="binding_model_id" ref="model_owner_statement_report"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Template -->
+    <template id="report_owner_statement_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+                    <div class="page" style="font-family: 'Helvetica', Arial, sans-serif; color:#1a1a1a;">
+
+                        <!-- Header -->
+                        <div style="display:flex; align-items:center; border-bottom:3px solid #1a3a4a; padding-bottom:12px; margin-bottom:20px;">
+                            <img t-if="o.company_id.logo"
+                                 t-att-src="image_data_uri(o.company_id.logo)"
+                                 style="height:60px; margin-right:16px;"/>
+                            <div>
+                                <div style="font-size:24px; font-weight:bold; letter-spacing:4px; color:#1a3a4a; line-height:1;">
+                                    <span t-field="o.company_id.name"/>
+                                </div>
+                            </div>
+                            <div style="margin-left:auto; text-align:right;">
+                                <div style="font-size:20px; font-weight:bold; color:#1a3a4a;">OWNER STATEMENT</div>
+                                <div style="font-size:13px; color:#5a7a8a; font-weight:600;"><span t-field="o.name"/></div>
+                            </div>
+                        </div>
+
+                        <!-- Info -->
+                        <table style="width:100%; margin-bottom:22px; border-collapse:collapse;">
+                            <tr>
+                                <td style="width:50%; padding:10px 14px; background:#f5f8fa; border:1px solid #dde5ea; border-radius:4px;">
+                                    <div style="font-size:10px; color:#7a8a95; text-transform:uppercase; letter-spacing:1px;">Owner</div>
+                                    <div style="font-size:15px; font-weight:bold; color:#1a3a4a;"><span t-field="o.owner_id.name"/></div>
+                                </td>
+                                <td style="width:8px;"></td>
+                                <td style="width:50%; padding:10px 14px; background:#f5f8fa; border:1px solid #dde5ea;">
+                                    <div style="font-size:10px; color:#7a8a95; text-transform:uppercase; letter-spacing:1px;">Vehicle</div>
+                                    <div style="font-size:15px; font-weight:bold; color:#1a3a4a;"><span t-field="o.vehicle_id.name"/></div>
+                                </td>
+                            </tr>
+                            <tr><td colspan="3" style="height:8px;"></td></tr>
+                            <tr>
+                                <td style="padding:10px 14px; background:#f5f8fa; border:1px solid #dde5ea;">
+                                    <div style="font-size:10px; color:#7a8a95; text-transform:uppercase; letter-spacing:1px;">Period</div>
+                                    <div style="font-size:14px; font-weight:600; color:#1a3a4a;">
+                                        <span t-field="o.date_from" t-options="{'widget': 'date'}"/>
+                                        &#8594;
+                                        <span t-field="o.date_to" t-options="{'widget': 'date'}"/>
+                                    </div>
+                                </td>
+                                <td></td>
+                                <td style="padding:10px 14px; background:#f5f8fa; border:1px solid #dde5ea;">
+                                    <div style="font-size:10px; color:#7a8a95; text-transform:uppercase; letter-spacing:1px;">Status</div>
+                                    <div style="font-size:14px; font-weight:600; color:#2c7a7b;">
+                                        <span t-if="o.is_paid">PAID</span>
+                                        <span t-elif="o.state == 'confirmed'">Confirmed</span>
+                                        <span t-else="">Draft</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- Lines -->
+                        <table style="width:100%; border-collapse:collapse; margin-bottom:20px;">
+                            <thead>
+                                <tr style="background:#1a3a4a; color:#fff;">
+                                    <th style="padding:10px 12px; text-align:left; font-size:12px; letter-spacing:1px; width:18%;">TYPE</th>
+                                    <th style="padding:10px 12px; text-align:left; font-size:12px; letter-spacing:1px; width:15%;">DATE</th>
+                                    <th style="padding:10px 12px; text-align:left; font-size:12px; letter-spacing:1px;">DESCRIPTION</th>
+                                    <th style="padding:10px 12px; text-align:right; font-size:12px; letter-spacing:1px; width:20%;">AMOUNT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.line_ids" t-as="line" style="border-bottom:1px solid #e8edf1;">
+                                    <td style="padding:9px 12px; font-size:13px;">
+                                        <span t-if="line.line_type == 'rent_cost'">Rent Cost</span>
+                                        <span t-elif="line.line_type == 'service'">Service</span>
+                                        <span t-else="">Other</span>
+                                    </td>
+                                    <td style="padding:9px 12px; font-size:13px;">
+                                        <span t-field="line.date" t-options="{'widget': 'date'}"/>
+                                    </td>
+                                    <td style="padding:9px 12px; font-size:13px; color:#555;">
+                                        <span t-field="line.description"/>
+                                    </td>
+                                    <td style="padding:9px 12px; font-size:13px; text-align:right; font-weight:600;"
+                                        t-attf-style="padding:9px 12px; font-size:13px; text-align:right; font-weight:600; color:#{'c62828' if line.amount &lt; 0 else '1a3a4a'};">
+                                        <span t-esc="'{:,.2f}'.format(line.amount)"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Total -->
+                        <table style="width:100%; border-collapse:collapse; margin-bottom:35px;">
+                            <tr>
+                                <td style="width:60%;"></td>
+                                <td style="padding:12px 16px; background:#1a3a4a; color:#fff;">
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td style="font-size:14px; font-weight:bold; letter-spacing:1px;">TOTAL DUE</td>
+                                            <td style="font-size:18px; font-weight:bold; text-align:right;">
+                                                <span t-esc="'{:,.2f}'.format(o.total_amount)"/>
+                                                <span style="font-size:12px;"> EGP</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- Signature -->
+                        <table style="width:100%; margin-top:30px;">
+                            <tr>
+                                <td style="width:40%; padding-top:30px; border-top:1px solid #999; font-size:12px; color:#555;">
+                                    Owner Signature
+                                </td>
+                                <td style="width:20%;"></td>
+                                <td style="width:40%; padding-top:30px; border-top:1px solid #999; font-size:12px; color:#555;">
+                                    <span t-field="o.company_id.name"/>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

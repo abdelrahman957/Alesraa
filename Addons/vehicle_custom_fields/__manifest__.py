@@ -27,6 +27,7 @@
     'views/owner_statement_views.xml',
     'views/owner_statement_sequence.xml',
     'views/owner_statement_report_views.xml',
+    'reports/owner_statement_report_pdf.xml',
 ],
     'installable': True,
     'auto_install': False,

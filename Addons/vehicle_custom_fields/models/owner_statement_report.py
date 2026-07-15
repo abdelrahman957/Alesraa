@@ -44,6 +44,29 @@ class OwnerStatementReport(models.Model):
         compute='_compute_total',
         store=True,
     )
+    bill_id = fields.Many2one(
+        'account.move',
+        string='Vendor Bill',
+        readonly=True,
+        copy=False,
+    )
+    payment_state = fields.Selection(
+        related='bill_id.payment_state',
+        string='Payment Status',
+        store=True,
+    )
+    is_paid = fields.Boolean(
+        string='Paid',
+        compute='_compute_is_paid',
+        store=True,
+    )
+
+    @api.depends('bill_id', 'bill_id.payment_state')
+    def _compute_is_paid(self):
+        for report in self:
+            report.is_paid = bool(
+                report.bill_id and report.bill_id.payment_state in ('paid', 'in_payment')
+            )
 
     @api.depends('vehicle_id')
     def _compute_owner(self):
@@ -95,7 +118,7 @@ class OwnerStatementReport(models.Model):
 
     def action_confirm(self):
         self.ensure_one()
-        # السطور الأصلية المرتبطة بالتقرير (المولّدة، مش اليدوية)
+        # السطور الأصلية المرتبطة بالتقرير
         source_lines = self.line_ids.filtered(lambda l: l.source_line_id).mapped('source_line_id')
 
         # امنع لو أي سطر بقى confirmed في مكان تاني
@@ -106,12 +129,86 @@ class OwnerStatementReport(models.Model):
                 "Please run Compute again to refresh, then confirm."
             )
 
+        if not self.owner_id:
+            raise UserError("Owner is required to create the vendor bill.")
+        if not self.line_ids:
+            raise UserError("No lines to confirm.")
+
+        # اعمل فاتورة المورد
+        self._create_vendor_bill()
+
         # أكّد السطور الأصلية
         source_lines.write({'state': 'confirmed'})
         self.state = 'confirmed'
 
+    def _create_vendor_bill(self):
+        """يعمل Vendor Bill للمالك بسطور الإيجار والصيانة."""
+        self.ensure_one()
+
+        # هات الحسابات
+        rent_account = self.env['account.account'].search([
+            ('code', '=', '500001'),
+            ('company_id', '=', self.env.company.id),
+        ], limit=1)
+        service_account = self.env['account.account'].search([
+            ('code', '=', '500002'),
+            ('company_id', '=', self.env.company.id),
+        ], limit=1)
+
+        if not rent_account:
+            raise UserError("Account 500001 (Car Rent Cost) not found.")
+        if not service_account:
+            raise UserError("Account 500002 (Car Service Cost) not found.")
+
+        invoice_lines = []
+        for line in self.line_ids:
+            # اختار الحساب حسب النوع
+            if line.line_type == 'service':
+                account = service_account
+            else:
+                account = rent_account
+
+            invoice_lines.append((0, 0, {
+                'name': line.description or dict(
+                    line._fields['line_type'].selection
+                ).get(line.line_type, 'Line'),
+                'account_id': account.id,
+                'quantity': 1,
+                'price_unit': line.amount,
+            }))
+
+        bill = self.env['account.move'].create({
+            'move_type': 'in_invoice',
+            'partner_id': self.owner_id.id,
+            'invoice_date': self.date_to,
+            'date': self.date_to,
+            'ref': self.name,
+            'invoice_line_ids': invoice_lines,
+        })
+        bill.action_post()
+        self.bill_id = bill.id
+        return bill
+
+    def action_view_bill(self):
+        self.ensure_one()
+        if not self.bill_id:
+            raise UserError("No vendor bill for this report.")
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'account.move',
+            'res_id': self.bill_id.id,
+            'view_mode': 'form',
+            'target': 'current',
+        }
+
     def action_set_draft(self):
         self.ensure_one()
+        if self.is_paid:
+            raise UserError("Cannot set to draft: the bill is already paid.")
+        # لغِ الفاتورة لو موجودة
+        if self.bill_id:
+            self.bill_id.button_draft()
+            self.bill_id.button_cancel()
         # رجّع السطور الأصلية لـ open
         source_lines = self.line_ids.filtered(lambda l: l.source_line_id).mapped('source_line_id')
         source_lines.write({'state': 'open'})

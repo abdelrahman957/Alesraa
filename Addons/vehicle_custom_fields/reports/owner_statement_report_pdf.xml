@@ -33,112 +33,107 @@
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
                 <t t-call="web.basic_layout">
-                    <div class="page" style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif; color:#2c3e50; padding:0;">
+                    <div class="page">
+                        <style>
+                            .os-wrap * { border: none !important; box-sizing: border-box; }
+                            .os-wrap { font-family: Helvetica, Arial, sans-serif; color: #2c3e50; }
+                            .os-head { display: flex; align-items: center; justify-content: space-between; padding-bottom: 14px; }
+                            .os-rule { height: 2px; background: #1a3a4a; margin-bottom: 30px; }
+                            .os-title { font-size: 26px; font-weight: 300; letter-spacing: 4px; color: #1a3a4a; text-align: right; line-height: 1.1; }
+                            .os-ref { font-size: 11px; color: #98a5b0; letter-spacing: 2px; text-align: right; margin-top: 3px; }
+                            .os-info { display: flex; margin-bottom: 34px; }
+                            .os-cell { flex: 1; padding-right: 24px; }
+                            .os-cell:last-child { padding-right: 0; text-align: right; }
+                            .os-lbl { font-size: 8.5px; color: #b0bac2; letter-spacing: 1.5px; margin-bottom: 4px; }
+                            .os-val { font-size: 13.5px; font-weight: bold; color: #1a3a4a; }
+                            .os-paid { font-size: 13.5px; font-weight: bold; color: #27a567; letter-spacing: 1px; }
+                            .os-row { display: flex; padding: 11px 0; }
+                            .os-hdr { display: flex; padding: 0 0 9px 0; border-bottom: 2px solid #1a3a4a !important; }
+                            .os-hdr div { font-size: 8.5px; font-weight: bold; letter-spacing: 1.5px; color: #98a5b0; }
+                            .os-line { border-bottom: 1px solid #eef2f5 !important; }
+                            .c1 { width: 16%; } .c2 { width: 15%; } .c3 { flex: 1; } .c4 { width: 20%; text-align: right; }
+                            .os-row .c1 { font-size: 12px; color: #2c3e50; }
+                            .os-row .c2, .os-row .c3 { font-size: 12px; color: #7a8894; }
+                            .os-row .c4 { font-size: 12.5px; font-weight: bold; }
+                            .os-total { display: flex; justify-content: flex-end; margin-top: 26px; }
+                            .os-tbox { width: 38%; border-top: 2px solid #1a3a4a !important; padding-top: 13px; display: flex; justify-content: space-between; align-items: baseline; }
+                            .os-tlbl { font-size: 10px; font-weight: bold; letter-spacing: 2px; color: #98a5b0; }
+                            .os-tval { font-size: 21px; font-weight: bold; color: #1a3a4a; }
+                            .os-cur { font-size: 10px; color: #98a5b0; margin-left: 4px; }
+                            .os-sign { display: flex; justify-content: space-between; margin-top: 90px; }
+                            .os-sbox { width: 34%; border-top: 1px solid #ccd4da !important; padding-top: 9px; font-size: 9px; color: #98a5b0; letter-spacing: 1px; }
+                            .os-sbox.right { text-align: right; }
+                        </style>
 
-                        <!-- HEADER -->
-                        <table style="width:100%; border:none; border-collapse:collapse; margin-bottom:8px;">
-                            <tr style="border:none;">
-                                <td style="border:none; vertical-align:middle; width:50%;">
-                                    <img t-if="o.company_id.logo"
-                                         t-att-src="image_data_uri(o.company_id.logo)"
-                                         style="height:52px;"/>
-                                </td>
-                                <td style="border:none; vertical-align:middle; text-align:right; width:50%;">
-                                    <div style="font-size:26px; font-weight:300; letter-spacing:3px; color:#1a3a4a; line-height:1.1;">OWNER STATEMENT</div>
-                                    <div style="font-size:12px; color:#8899a6; letter-spacing:2px; margin-top:2px;"><span t-field="o.name"/></div>
-                                </td>
-                            </tr>
-                        </table>
-                        <div style="height:2px; background:#1a3a4a; margin-bottom:28px;"></div>
+                        <div class="os-wrap">
+                            <div class="os-head">
+                                <div>
+                                    <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="height:50px;"/>
+                                </div>
+                                <div>
+                                    <div class="os-title">OWNER STATEMENT</div>
+                                    <div class="os-ref"><span t-field="o.name"/></div>
+                                </div>
+                            </div>
+                            <div class="os-rule"></div>
 
-                        <!-- INFO STRIP -->
-                        <table style="width:100%; border:none; border-collapse:collapse; margin-bottom:30px;">
-                            <tr style="border:none;">
-                                <td style="border:none; width:28%; padding:0 20px 0 0;">
-                                    <div style="font-size:9px; color:#a0aab3; letter-spacing:1.5px; margin-bottom:3px;">OWNER</div>
-                                    <div style="font-size:14px; font-weight:600; color:#1a3a4a;"><span t-field="o.owner_id.name"/></div>
-                                </td>
-                                <td style="border:none; width:28%; padding:0 20px 0 0;">
-                                    <div style="font-size:9px; color:#a0aab3; letter-spacing:1.5px; margin-bottom:3px;">VEHICLE</div>
-                                    <div style="font-size:14px; font-weight:600; color:#1a3a4a;"><span t-field="o.vehicle_id.name"/></div>
-                                </td>
-                                <td style="border:none; width:28%; padding:0 20px 0 0;">
-                                    <div style="font-size:9px; color:#a0aab3; letter-spacing:1.5px; margin-bottom:3px;">PERIOD</div>
-                                    <div style="font-size:14px; font-weight:600; color:#1a3a4a;">
+                            <div class="os-info">
+                                <div class="os-cell">
+                                    <div class="os-lbl">OWNER</div>
+                                    <div class="os-val"><span t-field="o.owner_id.name"/></div>
+                                </div>
+                                <div class="os-cell">
+                                    <div class="os-lbl">VEHICLE</div>
+                                    <div class="os-val"><span t-field="o.vehicle_id.name"/></div>
+                                </div>
+                                <div class="os-cell">
+                                    <div class="os-lbl">PERIOD</div>
+                                    <div class="os-val">
                                         <span t-field="o.date_from" t-options="{'widget': 'date'}"/> &#8212; <span t-field="o.date_to" t-options="{'widget': 'date'}"/>
                                     </div>
-                                </td>
-                                <td style="border:none; width:16%; text-align:right;">
-                                    <div style="font-size:9px; color:#a0aab3; letter-spacing:1.5px; margin-bottom:3px;">STATUS</div>
-                                    <div t-if="o.is_paid" style="font-size:14px; font-weight:700; color:#27a567; letter-spacing:1px;">PAID</div>
-                                    <div t-elif="o.state == 'confirmed'" style="font-size:14px; font-weight:600; color:#1a3a4a;">Confirmed</div>
-                                    <div t-else="" style="font-size:14px; font-weight:600; color:#a0aab3;">Draft</div>
-                                </td>
-                            </tr>
-                        </table>
+                                </div>
+                                <div class="os-cell">
+                                    <div class="os-lbl">STATUS</div>
+                                    <div t-if="o.is_paid" class="os-paid">PAID</div>
+                                    <div t-elif="o.state == 'confirmed'" class="os-val">Confirmed</div>
+                                    <div t-else="" class="os-val" style="color:#b0bac2;">Draft</div>
+                                </div>
+                            </div>
 
-                        <!-- LINES -->
-                        <table style="width:100%; border:none; border-collapse:collapse;">
-                            <thead>
-                                <tr style="border:none;">
-                                    <th style="border:none; border-bottom:2px solid #1a3a4a; padding:0 0 8px 0; text-align:left; font-size:9px; font-weight:600; letter-spacing:1.5px; color:#8899a6; width:16%;">TYPE</th>
-                                    <th style="border:none; border-bottom:2px solid #1a3a4a; padding:0 0 8px 0; text-align:left; font-size:9px; font-weight:600; letter-spacing:1.5px; color:#8899a6; width:14%;">DATE</th>
-                                    <th style="border:none; border-bottom:2px solid #1a3a4a; padding:0 0 8px 0; text-align:left; font-size:9px; font-weight:600; letter-spacing:1.5px; color:#8899a6;">DESCRIPTION</th>
-                                    <th style="border:none; border-bottom:2px solid #1a3a4a; padding:0 0 8px 0; text-align:right; font-size:9px; font-weight:600; letter-spacing:1.5px; color:#8899a6; width:18%;">AMOUNT</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr t-foreach="o.line_ids" t-as="line" style="border:none;">
-                                    <td style="border:none; border-bottom:1px solid #eef2f5; padding:12px 0; font-size:12.5px; color:#2c3e50;">
-                                        <span t-if="line.line_type == 'rent_cost'">Rent Cost</span>
-                                        <span t-elif="line.line_type == 'service'">Service</span>
-                                        <span t-else="">Other</span>
-                                    </td>
-                                    <td style="border:none; border-bottom:1px solid #eef2f5; padding:12px 0; font-size:12.5px; color:#6b7c8c;">
-                                        <span t-field="line.date" t-options="{'widget': 'date'}"/>
-                                    </td>
-                                    <td style="border:none; border-bottom:1px solid #eef2f5; padding:12px 0; font-size:12.5px; color:#6b7c8c;">
-                                        <span t-field="line.description"/>
-                                    </td>
-                                    <td t-attf-style="border:none; border-bottom:1px solid #eef2f5; padding:12px 0; font-size:13px; text-align:right; font-weight:600; color:#{'c0392b' if line.amount &lt; 0 else '2c3e50'};">
-                                        <span t-esc="'{:,.2f}'.format(line.amount)"/>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                            <div class="os-hdr">
+                                <div class="c1">TYPE</div>
+                                <div class="c2">DATE</div>
+                                <div class="c3">DESCRIPTION</div>
+                                <div class="c4">AMOUNT</div>
+                            </div>
 
-                        <!-- TOTAL -->
-                        <table style="width:100%; border:none; border-collapse:collapse; margin-top:24px;">
-                            <tr style="border:none;">
-                                <td style="border:none; width:62%;"></td>
-                                <td style="border:none; padding:16px 0 0 0;">
-                                    <table style="width:100%; border:none; border-collapse:collapse;">
-                                        <tr style="border:none;">
-                                            <td style="border:none; border-top:2px solid #1a3a4a; padding:12px 0 0 0; font-size:11px; font-weight:600; letter-spacing:2px; color:#8899a6;">TOTAL DUE</td>
-                                            <td style="border:none; border-top:2px solid #1a3a4a; padding:12px 0 0 0; text-align:right;">
-                                                <span style="font-size:22px; font-weight:700; color:#1a3a4a;"><span t-esc="'{:,.2f}'.format(o.total_amount)"/></span>
-                                                <span style="font-size:11px; color:#8899a6; margin-left:4px;">EGP</span>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
+                            <div t-foreach="o.line_ids" t-as="line" class="os-row os-line">
+                                <div class="c1">
+                                    <span t-if="line.line_type == 'rent_cost'">Rent Cost</span>
+                                    <span t-elif="line.line_type == 'service'">Service</span>
+                                    <span t-else="">Other</span>
+                                </div>
+                                <div class="c2"><span t-field="line.date" t-options="{'widget': 'date'}"/></div>
+                                <div class="c3"><span t-field="line.description"/></div>
+                                <div class="c4" t-attf-style="color:#{'c0392b' if line.amount &lt; 0 else '2c3e50'};">
+                                    <span t-esc="'{:,.2f}'.format(line.amount)"/>
+                                </div>
+                            </div>
 
-                        <!-- SIGNATURE -->
-                        <table style="width:100%; border:none; border-collapse:collapse; margin-top:70px;">
-                            <tr style="border:none;">
-                                <td style="border:none; width:35%;">
-                                    <div style="border-top:1px solid #c5cdd4; padding-top:8px; font-size:10px; color:#8899a6; letter-spacing:1px;">OWNER SIGNATURE</div>
-                                </td>
-                                <td style="border:none; width:30%;"></td>
-                                <td style="border:none; width:35%;">
-                                    <div style="border-top:1px solid #c5cdd4; padding-top:8px; font-size:10px; color:#8899a6; letter-spacing:1px; text-align:right;">
-                                        <span t-field="o.company_id.name"/>
+                            <div class="os-total">
+                                <div class="os-tbox">
+                                    <div class="os-tlbl">TOTAL DUE</div>
+                                    <div>
+                                        <span class="os-tval"><span t-esc="'{:,.2f}'.format(o.total_amount)"/></span><span class="os-cur">EGP</span>
                                     </div>
-                                </td>
-                            </tr>
-                        </table>
+                                </div>
+                            </div>
+
+                            <div class="os-sign">
+                                <div class="os-sbox">OWNER SIGNATURE</div>
+                                <div class="os-sbox right"><span t-field="o.company_id.name"/></div>
+                            </div>
+                        </div>
 
                     </div>
                 </t>

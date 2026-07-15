@@ -35,79 +35,90 @@
                 <t t-call="web.basic_layout">
                     <div class="page">
                         <style>
-                            .os-wrap * { border: none !important; box-sizing: border-box; }
-                            .os-wrap { font-family: Helvetica, Arial, sans-serif; color: #2c3e50; }
-                            .os-head { display: flex; align-items: center; justify-content: space-between; padding-bottom: 14px; }
-                            .os-rule { height: 2px; background: #1a3a4a; margin-bottom: 30px; }
-                            .os-title { font-size: 26px; font-weight: 300; letter-spacing: 4px; color: #1a3a4a; text-align: right; line-height: 1.1; }
-                            .os-ref { font-size: 11px; color: #98a5b0; letter-spacing: 2px; text-align: right; margin-top: 3px; }
-                            .os-info { display: flex; margin-bottom: 34px; }
-                            .os-cell { flex: 1; padding-right: 24px; }
-                            .os-cell:last-child { padding-right: 0; text-align: right; }
-                            .os-lbl { font-size: 8.5px; color: #b0bac2; letter-spacing: 1.5px; margin-bottom: 4px; }
-                            .os-val { font-size: 13.5px; font-weight: bold; color: #1a3a4a; }
-                            .os-paid { font-size: 13.5px; font-weight: bold; color: #27a567; letter-spacing: 1px; }
-                            .os-row { display: flex; padding: 11px 0; }
-                            .os-hdr { display: flex; padding: 0 0 9px 0; border-bottom: 2px solid #1a3a4a !important; }
-                            .os-hdr div { font-size: 8.5px; font-weight: bold; letter-spacing: 1.5px; color: #98a5b0; }
-                            .os-line { border-bottom: 1px solid #eef2f5 !important; }
-                            .c1 { width: 16%; } .c2 { width: 15%; } .c3 { flex: 1; } .c4 { width: 20%; text-align: right; }
-                            .os-row .c1 { font-size: 12px; color: #2c3e50; }
-                            .os-row .c2, .os-row .c3 { font-size: 12px; color: #7a8894; }
-                            .os-row .c4 { font-size: 12.5px; font-weight: bold; }
-                            .os-total { display: flex; justify-content: flex-end; margin-top: 26px; }
-                            .os-tbox { width: 38%; border-top: 2px solid #1a3a4a !important; padding-top: 13px; display: flex; justify-content: space-between; align-items: baseline; }
-                            .os-tlbl { font-size: 10px; font-weight: bold; letter-spacing: 2px; color: #98a5b0; }
-                            .os-tval { font-size: 21px; font-weight: bold; color: #1a3a4a; }
-                            .os-cur { font-size: 10px; color: #98a5b0; margin-left: 4px; }
-                            .os-sign { display: flex; justify-content: space-between; margin-top: 90px; }
-                            .os-sbox { width: 34%; border-top: 1px solid #ccd4da !important; padding-top: 9px; font-size: 9px; color: #98a5b0; letter-spacing: 1px; }
-                            .os-sbox.right { text-align: right; }
+                            .osw * { border:none !important; margin:0; padding:0; box-sizing:border-box; }
+                            .osw { font-family: Helvetica, Arial, sans-serif; color:#1c2b38; }
+                            .osw .head { display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; }
+                            .osw .brand-side { display:flex; align-items:center; }
+                            .osw .logo-img { height:54px; margin-right:14px; }
+                            .osw .brand-txt { line-height:1.15; }
+                            .osw .brand-1 { font-size:23px; letter-spacing:5px; color:#12384d; font-weight:bold; }
+                            .osw .brand-2 { font-size:11.5px; letter-spacing:4px; color:#5b7183; font-weight:bold; }
+                            .osw .title-box { text-align:right; }
+                            .osw .title { font-size:19px; font-weight:300; letter-spacing:4px; color:#12384d; line-height:1; }
+                            .osw .ref { margin-top:6px; font-size:11px; letter-spacing:2px; color:#5b7183; font-weight:bold; }
+                            .osw .rule { height:3px; background:#12384d !important; margin:14px 0 26px; }
+                            .osw .info { display:flex; margin-bottom:26px; }
+                            .osw .icell { flex:1; padding-right:26px; }
+                            .osw .icell.last { padding-right:0; text-align:right; }
+                            .osw .lbl { font-size:9px; letter-spacing:1.6px; color:#5b7183; font-weight:bold; margin-bottom:5px; }
+                            .osw .val { font-size:14px; font-weight:bold; color:#12384d; }
+                            .osw .val.paid { color:#15803d; letter-spacing:1px; }
+                            .osw .val.draft { color:#7d8d9b; }
+                            .osw .thead { display:flex; background:#12384d !important; padding:10px 12px; }
+                            .osw .thead div { font-size:9px; font-weight:bold; letter-spacing:1.6px; color:#ffffff; }
+                            .osw .row { display:flex; padding:13px 12px; border-bottom:1px solid #c9d3db !important; }
+                            .osw .c1 { width:15%; } .osw .c2 { width:14%; } .osw .c3 { flex:1; } .osw .c4 { width:18%; text-align:right; }
+                            .osw .row .c1 { font-size:12.5px; font-weight:bold; color:#1c2b38; }
+                            .osw .row .c2, .osw .row .c3 { font-size:12.5px; color:#425466; }
+                            .osw .row .c4 { font-size:13px; font-weight:bold; color:#1c2b38; }
+                            .osw .row .c4.neg { color:#b91c1c; }
+                            .osw .total { display:flex; justify-content:flex-end; margin-top:22px; }
+                            .osw .tbox { width:36%; border-top:2px solid #12384d !important; padding-top:14px; display:flex; justify-content:space-between; align-items:baseline; }
+                            .osw .tlbl { font-size:10px; font-weight:bold; letter-spacing:2px; color:#12384d; }
+                            .osw .tval { font-size:22px; font-weight:bold; color:#12384d; }
+                            .osw .cur { font-size:10px; color:#5b7183; margin-left:5px; font-weight:bold; }
+                            .osw .sign { display:flex; margin-top:80px; }
+                            .osw .sbox { width:32%; border-top:1px solid #8fa0ad !important; padding-top:9px; font-size:9.5px; letter-spacing:1.4px; color:#5b7183; font-weight:bold; }
                         </style>
 
-                        <div class="os-wrap">
-                            <div class="os-head">
-                                <div>
-                                    <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="height:50px;"/>
+                        <div class="osw">
+                            <div class="head">
+                                <div class="brand-side">
+                                    <img t-if="o.company_id.logo" class="logo-img"
+                                         t-att-src="image_data_uri(o.company_id.logo)"/>
+                                    <div class="brand-txt">
+                                        <div class="brand-1">ALESRAA</div>
+                                        <div class="brand-2">AUTO GROUP</div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <div class="os-title">OWNER STATEMENT</div>
-                                    <div class="os-ref"><span t-field="o.name"/></div>
+                                <div class="title-box">
+                                    <div class="title">OWNER STATEMENT</div>
+                                    <div class="ref"><span t-field="o.name"/></div>
                                 </div>
                             </div>
-                            <div class="os-rule"></div>
+                            <div class="rule"></div>
 
-                            <div class="os-info">
-                                <div class="os-cell">
-                                    <div class="os-lbl">OWNER</div>
-                                    <div class="os-val"><span t-field="o.owner_id.name"/></div>
+                            <div class="info">
+                                <div class="icell">
+                                    <div class="lbl">OWNER</div>
+                                    <div class="val"><span t-field="o.owner_id.name"/></div>
                                 </div>
-                                <div class="os-cell">
-                                    <div class="os-lbl">VEHICLE</div>
-                                    <div class="os-val"><span t-field="o.vehicle_id.name"/></div>
+                                <div class="icell">
+                                    <div class="lbl">VEHICLE</div>
+                                    <div class="val"><span t-field="o.vehicle_id.name"/></div>
                                 </div>
-                                <div class="os-cell">
-                                    <div class="os-lbl">PERIOD</div>
-                                    <div class="os-val">
+                                <div class="icell">
+                                    <div class="lbl">PERIOD</div>
+                                    <div class="val">
                                         <span t-field="o.date_from" t-options="{'widget': 'date'}"/> &#8212; <span t-field="o.date_to" t-options="{'widget': 'date'}"/>
                                     </div>
                                 </div>
-                                <div class="os-cell">
-                                    <div class="os-lbl">STATUS</div>
-                                    <div t-if="o.is_paid" class="os-paid">PAID</div>
-                                    <div t-elif="o.state == 'confirmed'" class="os-val">Confirmed</div>
-                                    <div t-else="" class="os-val" style="color:#b0bac2;">Draft</div>
+                                <div class="icell last">
+                                    <div class="lbl">STATUS</div>
+                                    <div t-if="o.is_paid" class="val paid">PAID</div>
+                                    <div t-elif="o.state == 'confirmed'" class="val">Confirmed</div>
+                                    <div t-else="" class="val draft">Draft</div>
                                 </div>
                             </div>
 
-                            <div class="os-hdr">
+                            <div class="thead">
                                 <div class="c1">TYPE</div>
                                 <div class="c2">DATE</div>
                                 <div class="c3">DESCRIPTION</div>
                                 <div class="c4">AMOUNT</div>
                             </div>
 
-                            <div t-foreach="o.line_ids" t-as="line" class="os-row os-line">
+                            <div t-foreach="o.line_ids" t-as="line" class="row">
                                 <div class="c1">
                                     <span t-if="line.line_type == 'rent_cost'">Rent Cost</span>
                                     <span t-elif="line.line_type == 'service'">Service</span>
@@ -115,23 +126,22 @@
                                 </div>
                                 <div class="c2"><span t-field="line.date" t-options="{'widget': 'date'}"/></div>
                                 <div class="c3"><span t-field="line.description"/></div>
-                                <div class="c4" t-attf-style="color:#{'c0392b' if line.amount &lt; 0 else '2c3e50'};">
+                                <div t-attf-class="c4 #{'neg' if line.amount &lt; 0 else ''}">
                                     <span t-esc="'{:,.2f}'.format(line.amount)"/>
                                 </div>
                             </div>
 
-                            <div class="os-total">
-                                <div class="os-tbox">
-                                    <div class="os-tlbl">TOTAL DUE</div>
+                            <div class="total">
+                                <div class="tbox">
+                                    <div class="tlbl">TOTAL DUE</div>
                                     <div>
-                                        <span class="os-tval"><span t-esc="'{:,.2f}'.format(o.total_amount)"/></span><span class="os-cur">EGP</span>
+                                        <span class="tval"><span t-esc="'{:,.2f}'.format(o.total_amount)"/></span><span class="cur">EGP</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="os-sign">
-                                <div class="os-sbox">OWNER SIGNATURE</div>
-                                <div class="os-sbox right"><span t-field="o.company_id.name"/></div>
+                            <div class="sign">
+                                <div class="sbox">OWNER SIGNATURE</div>
                             </div>
                         </div>
 

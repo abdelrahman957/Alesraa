@@ -70,8 +70,8 @@
                             <!-- HEADER -->
                             <table style="width:100%;">
                                 <tr>
-                                    <td style="width:70px; vertical-align:middle;">
-                                        <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="height:54px;"/>
+                                    <td style="width:90px; vertical-align:middle;">
+                                        <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="height:70px;"/>
                                     </td>
                                     <td style="vertical-align:middle; padding-left:14px;">
                                         <div class="brand-1">ALESRAA</div>

@@ -66,16 +66,16 @@
 
                         <div class="srw">
                             <!-- HEADER -->
-                            <table>
+                            <table style="table-layout:fixed;">
                                 <tr>
-                                    <td style="width:115px; vertical-align:middle;">
+                                    <td style="width:22%; vertical-align:middle;">
                                         <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="height:80px;"/>
                                     </td>
-                                    <td style="vertical-align:middle; text-align:center;">
+                                    <td style="width:56%; vertical-align:middle; text-align:center;">
                                         <div class="brand-1">ALESRAA</div>
                                         <div class="brand-2">AUTO GROUP</div>
                                     </td>
-                                    <td style="vertical-align:middle; text-align:left;">
+                                    <td style="width:22%; vertical-align:middle; text-align:left;">
                                         <div class="title">تقرير صيانة</div>
                                         <div class="ref"><span t-field="o.date" t-options="{'widget': 'date'}"/></div>
                                     </td>

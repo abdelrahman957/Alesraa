@@ -54,7 +54,7 @@
                             .osw .val { font-size:14px; font-weight:bold; color:#12384d; }
                             .osw .val.paid { color:#15803d; letter-spacing:1px; }
                             .osw .val.draft { color:#7d8d9b; }
-                            .osw .th { background:#12384d !important; padding:12px !important; font-size:11.5px; font-weight:bold; letter-spacing:2px; color:#ffffff !important; }
+                            .osw .th { background:#12384d !important; padding:12px !important; font-size:13.5px; font-weight:bold; letter-spacing:2px; color:#ffffff !important; }
                             .osw .td { padding:13px 12px !important; border-bottom:1px solid #c9d3db !important; font-size:12.5px; }
                             .osw .td.b { font-weight:bold; color:#1c2b38; }
                             .osw .td.g { color:#425466; }

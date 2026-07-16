@@ -76,9 +76,9 @@
                                     <td style="vertical-align:middle; text-align:right;">
                                         <div class="title">STATEMENT LINES</div>
                                         <div class="ref">
-                                            <span t-if="blk['date_from']" t-field="blk['date_from']" t-options="{'widget': 'date'}"/>
+                                            <span t-if="blk['date_from']" t-esc="blk['date_from'].strftime('%d/%m/%Y')"/>
                                             <span t-if="blk['date_from']"> &#8212; </span>
-                                            <span t-if="blk['date_to']" t-field="blk['date_to']" t-options="{'widget': 'date'}"/>
+                                            <span t-if="blk['date_to']" t-esc="blk['date_to'].strftime('%d/%m/%Y')"/>
                                         </div>
                                     </td>
                                 </tr>
@@ -89,7 +89,7 @@
                             <table style="margin-bottom:26px;">
                                 <tr><td><div class="lbl">OWNER</div></td></tr>
                                 <tr><td><div class="val">
-                                    <span t-if="blk['owner']" t-field="blk['owner'].name"/>
+                                    <span t-if="blk['owner']" t-esc="blk['owner'].name"/>
                                     <span t-else="">&#8212;</span>
                                 </div></td></tr>
                             </table>

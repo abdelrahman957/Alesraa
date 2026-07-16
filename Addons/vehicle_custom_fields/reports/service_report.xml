@@ -1,174 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Paper Format -->
+
     <record id="paperformat_service_report" model="report.paperformat">
-        <field name="name">Service Report Format</field>
+        <field name="name">Service Report Landscape</field>
+        <field name="default" eval="False"/>
         <field name="format">A4</field>
-        <field name="orientation">Portrait</field>
-        <field name="margin_top">5</field>
-        <field name="margin_bottom">15</field>
-        <field name="margin_left">5</field>
-        <field name="margin_right">5</field>
-        <field name="header_spacing">5</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">14</field>
+        <field name="margin_bottom">14</field>
+        <field name="margin_left">16</field>
+        <field name="margin_right">16</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">10</field>
         <field name="dpi">90</field>
     </record>
 
-    <!-- Report Action -->
     <record id="action_report_service" model="ir.actions.report">
         <field name="name">تقرير صيانة</field>
         <field name="model">fleet.vehicle.log.services</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">vehicle_custom_fields.report_service_document</field>
         <field name="report_file">vehicle_custom_fields.report_service_document</field>
-        <field name="binding_model_id" ref="fleet.model_fleet_vehicle_log_services"/>
-        <field name="binding_type">report</field>
         <field name="paperformat_id" ref="paperformat_service_report"/>
+        <field name="binding_model_id" ref="model_fleet_vehicle_log_services"/>
+        <field name="binding_type">report</field>
     </record>
 
-    <!-- Report Template -->
     <template id="report_service_document">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-
-                <!-- Article (body) -->
-                <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id">
-                    <div class="page" style="font-family:'Noto Sans Arabic', sans-serif; color:#2c3e50; direction:rtl;"> 
-                       <style>
-                            table, td, th { border:0 !important; }
-                            .srv-grid td { border:1px solid #e3e9ef !important; }
-                            .srv-table tbody td { border-bottom:1px solid #eef1f4 !important; }
-                            .srv-header { background:#ffffff; color:#1a3a4a; padding:15px 35px 20px; border-bottom:4px solid #1a3a4a; }
-                            .srv-header table { width:100%; border:none; }
-                            .srv-header td { border:none; vertical-align:middle; }
-                            .srv-header h1 { font-size:28px; font-weight:900; margin:0; color:#1a3a4a; }
-                            .srv-meta { background:#f5b800; color:#1a3a4a; padding:10px 35px; font-size:13px; font-weight:600; }
-                            .srv-meta table { width:100%; border:none; }
-                            .srv-meta td { border:none; }
-                            .srv-content { padding:30px 35px; }
-                            .srv-section { margin-bottom:28px; }
-                            .srv-title { font-size:16px; font-weight:700; color:#1a3a4a; margin-bottom:12px; padding-right:12px; border-right:4px solid #f5b800; }
-                            .srv-grid { width:100%; border:none; border-collapse:separate; border-spacing:8px; table-layout:fixed; }
-                            .srv-grid td { background:#eef2f6; border:1px solid #e3e9ef; border-radius:6px; padding:12px 15px; width:50%; vertical-align:top; }                            
-                            .srv-card .lbl { font-size:12px; color:#7a8a99; margin-bottom:3px; }
-                            .srv-card .val { font-size:15px; font-weight:600; color:#1a3a4a; direction:rtl; text-align:right; overflow-wrap:break-word; }
-                            .srv-table { width:100%; border-collapse:collapse; }
-                            .srv-table, .srv-table tr, .srv-table td, .srv-table th { border:0 !important; }
-                            .srv-table * { border-color:transparent !important; }
-                            .srv-table tbody td { border-bottom:1px solid #eef1f4 !important; }
-                            .srv-table thead th { background:#1a3a4a; color:#fff; padding:12px 15px; font-size:13px; text-align:right; font-weight:700; }                            
-                            .srv-table tbody td { padding:12px 15px; font-size:13px; border-bottom:1px solid #eef1f4; direction:rtl; text-align:right; overflow-wrap:break-word; }
-                            .srv-total { background:#1a3a4a; color:#fff; padding:14px 30px; border-radius:6px; display:inline-block; margin-top:18px; }
-                            .srv-total .tl { font-size:15px; font-weight:600; }
-                            .srv-total .tv { font-size:22px; font-weight:900; color:#f5b800; padding-right:25px; }
-                            .srv-notes { background:#fffbe6; border:1px dashed #e0c870; border-radius:6px; padding:15px; font-size:13px; color:#6b5d2f; }
+                <t t-call="web.basic_layout">
+                    <div class="page">
+                        <style>
+                            .srw table, .srw thead, .srw tbody, .srw tr, .srw td, .srw th {
+                                border:0 !important; border-width:0 !important; border-style:none !important;
+                                border-color:transparent !important; border-collapse:collapse !important;
+                                background-image:none !important; margin:0; padding:0;
+                            }
+                            .srw table { width:100%; }
+                            .srw { font-family:'Tajawal','Amiri',Arial,sans-serif; color:#1c2b38; direction:rtl; }
+                            .srw .brand-1 { font-size:25px; letter-spacing:5px; color:#12384d; font-weight:bold; line-height:1.1; direction:ltr; }
+                            .srw .brand-2 { font-size:13.5px; letter-spacing:4px; color:#5b7183; font-weight:bold; direction:ltr; }
+                            .srw .title { font-size:23px; font-weight:bold; color:#12384d; line-height:1.2; }
+                            .srw .ref { font-size:13px; color:#5b7183; font-weight:bold; padding-top:5px !important; }
+                            .srw .rule { height:3px; background:#12384d !important; margin:14px 0 24px; font-size:0; line-height:0; }
+                            .srw .lbl { font-size:11px; color:#5b7183; font-weight:bold; padding-bottom:5px !important; }
+                            .srw .val { font-size:15px; font-weight:bold; color:#12384d; }
+                            .srw .val.st { color:#15803d; }
+                            .srw .sec-title { font-size:14px; font-weight:bold; color:#12384d; padding:0 2px 8px 0 !important; }
+                            .srw .th { background:#12384d !important; padding:11px 12px !important; font-size:13px; font-weight:bold; color:#ffffff !important; }
+                            .srw .td { padding:11px 12px !important; border-bottom:1px solid #c9d3db !important; border-bottom-width:1px !important; border-bottom-style:solid !important; font-size:14px; }
+                            .srw .td.g { color:#425466; }
+                            .srw .td.amt { font-size:14.5px; font-weight:bold; text-align:left; direction:ltr; }
+                            .srw .resp-o { color:#b91c1c; font-weight:bold; }
+                            .srw .resp-c { color:#15803d; font-weight:bold; }
+                            .srw .resp-n { color:#8fa0ad; font-weight:bold; }
+                            .srw .tlbl { font-size:13px; font-weight:bold; color:#12384d; border-top:2px solid #12384d !important; border-top-width:2px !important; border-top-style:solid !important; padding-top:14px !important; }
+                            .srw .tval { font-size:24px; font-weight:bold; color:#12384d; border-top:2px solid #12384d !important; border-top-width:2px !important; border-top-style:solid !important; padding-top:14px !important; text-align:left; direction:ltr; }
+                            .srw .cur { font-size:12px; color:#5b7183; font-weight:bold; }
+                            .srw .notes-box { margin-top:26px; background:#f5f8fa !important; padding:14px 16px !important; }
+                            .srw .notes-lbl { font-size:11px; color:#5b7183; font-weight:bold; padding-bottom:6px !important; }
+                            .srw .notes-txt { font-size:13px; color:#425466; line-height:1.6; }
+                            .srw .sbox { border-top:1px solid #8fa0ad !important; border-top-width:1px !important; border-top-style:solid !important; padding-top:9px !important; font-size:12px; color:#5b7183; font-weight:bold; }
                         </style>
 
-                        <!-- Header -->
-                        <div class="srv-header">
-                            <div style="display:table; width:100%;">
-                                <div style="display:table-cell; text-align:right; vertical-align:middle;"><h1>تقرير صيانة</h1></div>
-                                <div style="display:table-cell; text-align:left; vertical-align:middle; width:180px;">
-                                    <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height:80px; max-width:180px;"/>
-                                </div>
+                        <div class="srw">
+                            <!-- HEADER -->
+                            <table>
+                                <tr>
+                                    <td style="width:90px; vertical-align:middle;">
+                                        <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="height:60px;"/>
+                                    </td>
+                                    <td style="vertical-align:middle; padding-right:14px !important;">
+                                        <div class="brand-1">ALESRAA</div>
+                                        <div class="brand-2">AUTO GROUP</div>
+                                    </td>
+                                    <td style="vertical-align:middle; text-align:left;">
+                                        <div class="title">تقرير صيانة</div>
+                                        <div class="ref"><span t-field="o.date" t-options="{'widget': 'date'}"/></div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="rule">&#160;</div>
+
+                            <!-- INFO ROW 1 -->
+                            <table style="margin-bottom:18px;">
+                                <tr>
+                                    <td style="width:28%;"><div class="lbl">العربية</div></td>
+                                    <td style="width:18%;"><div class="lbl">التاريخ</div></td>
+                                    <td style="width:27%;"><div class="lbl">الورشة / المورّد</div></td>
+                                    <td style="width:27%;"><div class="lbl">الحالة</div></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="val"><span t-field="o.vehicle_id.name"/></div></td>
+                                    <td><div class="val"><span t-field="o.date" t-options="{'widget': 'date'}"/></div></td>
+                                    <td><div class="val"><span t-if="o.vendor_id" t-field="o.vendor_id.name"/><span t-else="">&#8212;</span></div></td>
+                                    <td><div t-attf-class="val #{'st' if o.state == 'done' else ''}">
+                                        <span t-if="o.state == 'new'">جديد</span>
+                                        <span t-elif="o.state == 'running'">جاري</span>
+                                        <span t-elif="o.state == 'done'">منتهي</span>
+                                        <span t-elif="o.state == 'cancelled'">ملغي</span>
+                                        <span t-else="">&#8212;</span>
+                                    </div></td>
+                                </tr>
+                            </table>
+
+                            <!-- INFO ROW 2 -->
+                            <table style="margin-bottom:26px;">
+                                <tr>
+                                    <td style="width:28%;"><div class="lbl">عداد الكيلومترات</div></td>
+                                    <td style="width:18%;"><div class="lbl">مسؤول الصيانة</div></td>
+                                    <td style="width:27%;"><div class="lbl">المشتري</div></td>
+                                    <td style="width:27%;"><div class="lbl">رقم الفاتورة</div></td>
+                                </tr>
+                                <tr>
+                                    <td><div class="val">
+                                        <span t-if="o.odometer_id"><span t-field="o.odometer_id.value"/> كم</span>
+                                        <span t-else="">&#8212;</span>
+                                    </div></td>
+                                    <td><div class="val"><span t-if="o.manager_id" t-field="o.manager_id.name"/><span t-else="">&#8212;</span></div></td>
+                                    <td><div class="val"><span t-if="o.purchaser_id" t-field="o.purchaser_id.name"/><span t-else="">&#8212;</span></div></td>
+                                    <td><div class="val"><span t-if="o.inv_ref" t-field="o.inv_ref"/><span t-else="">&#8212;</span></div></td>
+                                </tr>
+                            </table>
+
+                            <!-- LINES -->
+                            <div class="sec-title">بنود الصيانة</div>
+                            <table>
+                                <tr>
+                                    <th class="th" style="width:24%; text-align:right;">نوع الخدمة</th>
+                                    <th class="th" style="text-align:right;">الوصف</th>
+                                    <th class="th" style="width:16%; text-align:right;">المسؤولية</th>
+                                    <th class="th" style="width:18%; text-align:left;">المبلغ</th>
+                                </tr>
+                                <tr t-foreach="o.service_line_ids" t-as="line">
+                                    <td class="td"><span t-field="line.service_type_id.name"/></td>
+                                    <td class="td g"><span t-if="line.description" t-field="line.description"/><span t-else="">&#8212;</span></td>
+                                    <td class="td">
+                                        <span t-if="line.responsibility == 'owner'" class="resp-o">المالك</span>
+                                        <span t-elif="line.responsibility == 'company'" class="resp-c">الشركة</span>
+                                        <span t-elif="line.responsibility == 'none'" class="resp-n">لا أحد</span>
+                                        <span t-else="" class="resp-n">&#8212;</span>
+                                    </td>
+                                    <td class="td amt"><span t-esc="'{:,.2f}'.format(line.amount)"/></td>
+                                </tr>
+                            </table>
+
+                            <!-- TOTAL -->
+                            <table style="margin-top:24px;">
+                                <tr>
+                                    <td style="width:62%;">&#160;</td>
+                                    <td class="tlbl" style="width:18%;">إجمالي التكلفة</td>
+                                    <td class="tval" style="width:20%;">
+                                        <span t-esc="'{:,.2f}'.format(o.amount)"/><span class="cur"> ج.م</span>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- NOTES -->
+                            <div t-if="o.notes" class="notes-box">
+                                <div class="notes-lbl">ملاحظات</div>
+                                <div class="notes-txt"><span t-field="o.notes"/></div>
                             </div>
+
+                            <!-- SIGN -->
+                            <table style="margin-top:60px;">
+                                <tr>
+                                    <td class="sbox" style="width:30%;">توقيع مسؤول الصيانة</td>
+                                    <td style="width:40%;">&#160;</td>
+                                    <td class="sbox" style="width:30%; text-align:left;">توقيع مدير الحركة</td>
+                                </tr>
+                            </table>
                         </div>
 
-                        <!-- Meta -->
-                        <div class="srv-meta">
-                            <div style="text-align:right;">تاريخ الطباعة: <span dir="ltr" t-out="datetime.date.today().strftime('%d/%m/%Y')"/></div>
-                        </div>
-
-                        <div class="srv-content">
-                            <!-- Vehicle Info -->
-                            <div class="srv-section">
-                                <div class="srv-title">بيانات السيارة</div>
-                                <table class="srv-grid">
-                                    <tr>
-                                        <td class="srv-card"><div class="lbl">الماركة / الموديل</div><div class="val"><span t-out="o.vehicle_id.brand_id.name"/> / <span t-out="o.vehicle_id.model_id.name"/></div></td>
-                                        <td class="srv-card"><div class="lbl">سنة الصنع</div><div class="val"><span t-out="o.vehicle_id.model_year"/></div></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="srv-card"><div class="lbl">رقم اللوحة</div><div class="val">&#8207;<span t-out="o.vehicle_id.license_plate"/>&#8207;</div></td>
-                                        <td class="srv-card"><div class="lbl">رقم الشاسيه</div><div class="val"><span t-out="o.vehicle_id.vin_sn"/></div></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="srv-card"><div class="lbl">قراءة العداد</div><div class="val"><span t-out="o.odometer"/> كم</div></td>
-                                        <td class="srv-card"><div class="lbl">السائق</div><div class="val"><span t-out="o.purchaser_id.name"/></div></td>
-                                    </tr>
-                                </table>
-                            </div>
-
-                            <!-- Service Info -->
-                            <div class="srv-section">
-                                <div class="srv-title">تفاصيل الصيانة</div>
-                                <table class="srv-grid">
-                                    <tr>
-                                        <td class="srv-card">
-                                            <div class="lbl">النوع</div>
-                                            <div class="val">صيانة دورية</div>
-                                        </td>
-                                        <td class="srv-card">
-                                            <div class="lbl">التاريخ</div>
-                                            <div class="val"><span t-out="o.date" t-options="{'widget': 'date'}"/></div>
-                                        </td>
-                                    </tr>
-                                </table>
-                                <table class="srv-grid">
-                                    <tr>
-                                        <td class="srv-card"><div class="lbl">الوصف</div><div class="val">&#8207;<span t-out="o.description"/>&#8207;</div></td>
-                                        <td class="srv-card"><div class="lbl">المورّد / الورشة</div><div class="val"><span t-out="o.vendor_id.name"/></div></td>
-                                    </tr>
-                                </table>
-                            </div>
-
-                            <!-- Lines -->
-                            <div class="srv-section">
-                                <div class="srv-title">بنود الصيانة</div>
-                                <table class="srv-table">
-                                    <thead>
-                                        <tr>
-                                            <th style="width:24%;">نوع الخدمة</th>
-                                            <th>الوصف</th>
-                                            <th style="width:16%;">المسؤول</th>
-                                            <th style="text-align:left; width:20%;">المبلغ</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr t-foreach="o.service_line_ids" t-as="line">
-                                            <td><span t-out="line.service_type_id.name"/></td>
-                                            <td>&#8207;<span t-out="line.description"/>&#8207;</td>
-                                            <td>
-                                                <span t-if="line.responsibility == 'owner'" style="color:#c62828; font-weight:600;">المالك</span>
-                                                <span t-if="line.responsibility == 'company'" style="color:#2e7d32; font-weight:600;">الشركة</span>
-                                                <span t-if="line.responsibility == 'none'" style="color:#888; font-weight:600;">لا أحد</span>
-                                            </td>
-                                            <td style="text-align:left;"><span t-out="line.amount"/> ج.م</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div style="text-align:right;">
-                                    <div class="srv-total">
-                                        <span class="tl">الإجمالي</span>
-                                        <span class="tv"><span t-out="o.amount"/> ج.م</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Notes -->
-                            <div class="srv-section" t-if="o.notes">
-                                <div class="srv-title">ملاحظات</div>
-                                <div class="srv-notes"><span t-out="o.notes"/></div>
-                            </div>
-                        </div>
                     </div>
-                </div>
-
-                <!-- Footer حقيقي (هنا أرقام الصفحات بتشتغل) -->
-                <div class="footer" style="text-align:center; font-size:10px; color:#95a5a6; direction:ltr;">
-                    <span class="page"/> / <span class="topage"/>
-                </div>
-
+                </t>
             </t>
         </t>
     </template>
+
 </odoo>

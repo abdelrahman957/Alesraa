@@ -5,7 +5,10 @@
         <field name="name">vehicle.statement.line.list</field>
         <field name="model">vehicle.statement.line</field>
         <field name="arch" type="xml">
-            <list string="Vehicle Statement" create="false" edit="false">
+            <list string="Vehicle Statement" create="true" edit="false">
+                <header>
+                    <button name="action_refresh" type="object" string="Refresh Data" class="btn-primary"/>
+                </header>
                 <field name="line_type" string="Type"/>
                 <field name="date"/>
                 <field name="vehicle_id"/>

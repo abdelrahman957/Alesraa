@@ -69,7 +69,6 @@ class VehicleStatementLine(models.Model):
                 'target': 'current',
             }
 
-    @api.model
     def action_refresh(self):
         """يعيد بناء كل السطور من المصادر."""
         self.search([]).unlink()
@@ -134,4 +133,6 @@ class VehicleStatementLine(models.Model):
             'type': 'ir.actions.client',
             'tag': 'reload',
         }
+    
+    
     

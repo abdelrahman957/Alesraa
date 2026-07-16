@@ -39,6 +39,11 @@ class OwnerStatementLine(models.Model):
         required=True,
         default='rent_cost',
     )
+    company_id = fields.Many2one(
+        'res.company',
+        string='Company',
+        default=lambda self: self.env.company,
+    )
     source_ref = fields.Reference(
         selection=[
             ('fleet.vehicle.log.contract', 'Fleet Contract'),
@@ -48,6 +53,41 @@ class OwnerStatementLine(models.Model):
         compute='_compute_source_ref',
     )
     description = fields.Char(string='Description')
+
+    def _group_for_report(self):
+        """يجمّع السطور بالمالك ثم بالنوع، للتقرير."""
+        result = []
+        owners = self.mapped('owner_id')
+        # لو فيه سطور من غير مالك، ضيفها في مجموعة لوحدها
+        no_owner = self.filtered(lambda l: not l.owner_id)
+
+        for owner in owners:
+            owner_lines = self.filtered(lambda l: l.owner_id == owner)
+            result.append(self._build_owner_block(owner, owner_lines))
+        if no_owner:
+            result.append(self._build_owner_block(False, no_owner))
+        return result
+
+    def _build_owner_block(self, owner, lines):
+        types = []
+        selection = dict(self._fields['line_type'].selection)
+        for type_key in selection.keys():
+            type_lines = lines.filtered(lambda l: l.line_type == type_key)
+            if not type_lines:
+                continue
+            types.append({
+                'label': selection[type_key],
+                'lines': type_lines.sorted('date'),
+                'subtotal': sum(type_lines.mapped('amount')),
+            })
+        dates = [l.date for l in lines if l.date]
+        return {
+            'owner': owner,
+            'types': types,
+            'grand_total': sum(lines.mapped('amount')),
+            'date_from': min(dates) if dates else False,
+            'date_to': max(dates) if dates else False,
+        }
 
     @api.depends('line_type', 'contract_id', 'service_id')
     def _compute_source_ref(self):

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paperformat_statement_lines" model="report.paperformat">
+        <field name="name">Statement Lines Landscape</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">14</field>
+        <field name="margin_bottom">14</field>
+        <field name="margin_left">16</field>
+        <field name="margin_right">16</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">10</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_statement_lines" model="ir.actions.report">
+        <field name="name">Statement Lines</field>
+        <field name="model">owner.statement.line</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">vehicle_custom_fields.report_statement_lines_document</field>
+        <field name="report_file">vehicle_custom_fields.report_statement_lines_document</field>
+        <field name="paperformat_id" ref="paperformat_statement_lines"/>
+        <field name="binding_model_id" ref="model_owner_statement_line"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_statement_lines_document">
+        <t t-call="web.html_container">
+            <t t-set="blocks" t-value="docs._group_for_report()"/>
+            <t t-set="company" t-value="docs[0].company_id if docs and 'company_id' in docs._fields else res_company"/>
+            <t t-foreach="blocks" t-as="blk">
+                <t t-call="web.basic_layout">
+                    <div class="page">
+                        <style>
+                            .slw table, .slw thead, .slw tbody, .slw tr, .slw td, .slw th {
+                                border:0 !important; border-width:0 !important; border-style:none !important;
+                                border-color:transparent !important; border-collapse:collapse !important;
+                                background-image:none !important; margin:0; padding:0;
+                            }
+                            .slw table { width:100%; }
+                            .slw { font-family: Helvetica, Arial, sans-serif; color:#1c2b38; }
+                            .slw .brand-1 { font-size:25px; letter-spacing:5px; color:#12384d; font-weight:bold; line-height:1.1; }
+                            .slw .brand-2 { font-size:13.5px; letter-spacing:4px; color:#5b7183; font-weight:bold; }
+                            .slw .title { font-size:21px; font-weight:300; letter-spacing:4px; color:#12384d; line-height:1.1; }
+                            .slw .ref { font-size:13px; letter-spacing:2px; color:#5b7183; font-weight:bold; padding-top:5px !important; }
+                            .slw .rule { height:3px; background:#12384d !important; margin:14px 0 24px; font-size:0; line-height:0; }
+                            .slw .lbl { font-size:11px; letter-spacing:1.6px; color:#5b7183; font-weight:bold; padding-bottom:5px !important; }
+                            .slw .val { font-size:16px; font-weight:bold; color:#12384d; }
+                            .slw .sec-title { font-size:12px; font-weight:bold; letter-spacing:2.5px; color:#12384d; padding:0 0 8px 2px !important; }
+                            .slw .th { background:#12384d !important; padding:11px 12px !important; font-size:12px; font-weight:bold; letter-spacing:1.8px; color:#ffffff !important; }
+                            .slw .td { padding:11px 12px !important; border-bottom:1px solid #c9d3db !important; border-bottom-width:1px !important; border-bottom-style:solid !important; font-size:13.5px; }
+                            .slw .td.g { color:#425466; }
+                            .slw .td.amt { font-size:14px; font-weight:bold; text-align:right; }
+                            .slw .td.amt.neg { color:#b91c1c; }
+                            .slw .sub-lbl { font-size:10.5px; font-weight:bold; letter-spacing:1.8px; color:#5b7183; padding:11px 12px !important; text-align:right; }
+                            .slw .sub-val { font-size:15px; font-weight:bold; color:#12384d; padding:11px 12px !important; text-align:right; }
+                            .slw .sub-val.neg { color:#b91c1c; }
+                            .slw .glbl { font-size:12px; font-weight:bold; letter-spacing:2.5px; color:#12384d; border-top:2px solid #12384d !important; border-top-width:2px !important; border-top-style:solid !important; padding-top:14px !important; }
+                            .slw .gval { font-size:24px; font-weight:bold; color:#12384d; border-top:2px solid #12384d !important; border-top-width:2px !important; border-top-style:solid !important; padding-top:14px !important; text-align:right; }
+                            .slw .cur { font-size:12px; color:#5b7183; font-weight:bold; }
+                        </style>
+
+                        <div class="slw">
+                            <!-- HEADER -->
+                            <table>
+                                <tr>
+                                    <td style="width:90px; vertical-align:middle;">
+                                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="height:60px;"/>
+                                    </td>
+                                    <td style="vertical-align:middle; padding-left:14px !important;">
+                                        <div class="brand-1">ALESRAA</div>
+                                        <div class="brand-2">AUTO GROUP</div>
+                                    </td>
+                                    <td style="vertical-align:middle; text-align:right;">
+                                        <div class="title">STATEMENT LINES</div>
+                                        <div class="ref">
+                                            <span t-if="blk['date_from']" t-field="blk['date_from']" t-options="{'widget': 'date'}"/>
+                                            <span t-if="blk['date_from']"> &#8212; </span>
+                                            <span t-if="blk['date_to']" t-field="blk['date_to']" t-options="{'widget': 'date'}"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="rule">&#160;</div>
+
+                            <!-- OWNER -->
+                            <table style="margin-bottom:26px;">
+                                <tr><td><div class="lbl">OWNER</div></td></tr>
+                                <tr><td><div class="val">
+                                    <span t-if="blk['owner']" t-field="blk['owner'].name"/>
+                                    <span t-else="">&#8212;</span>
+                                </div></td></tr>
+                            </table>
+
+                            <!-- TYPE SECTIONS -->
+                            <t t-foreach="blk['types']" t-as="grp">
+                                <div class="sec-title"><span t-esc="grp['label'].upper()"/></div>
+                                <table style="margin-bottom:26px;">
+                                    <tr>
+                                        <th class="th" style="width:14%; text-align:left;">DATE</th>
+                                        <th class="th" style="width:26%; text-align:left;">VEHICLE</th>
+                                        <th class="th" style="text-align:left;">DESCRIPTION</th>
+                                        <th class="th" style="width:18%; text-align:right;">AMOUNT</th>
+                                    </tr>
+                                    <tr t-foreach="grp['lines']" t-as="line">
+                                        <td class="td g"><span t-field="line.date" t-options="{'widget': 'date'}"/></td>
+                                        <td class="td"><span t-field="line.vehicle_id.name"/></td>
+                                        <td class="td g">
+                                            <span t-if="line.description" t-field="line.description"/>
+                                            <span t-else="">&#8212;</span>
+                                        </td>
+                                        <td t-attf-class="td amt #{'neg' if line.amount &lt; 0 else ''}">
+                                            <span t-esc="'{:,.2f}'.format(line.amount)"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" class="sub-lbl">SUBTOTAL</td>
+                                        <td t-attf-class="sub-val #{'neg' if grp['subtotal'] &lt; 0 else ''}">
+                                            <span t-esc="'{:,.2f}'.format(grp['subtotal'])"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </t>
+
+                            <!-- GRAND TOTAL -->
+                            <table style="margin-top:26px;">
+                                <tr>
+                                    <td style="width:62%;">&#160;</td>
+                                    <td class="glbl" style="width:18%;">GRAND TOTAL</td>
+                                    <td class="gval" style="width:20%;">
+                                        <span t-esc="'{:,.2f}'.format(blk['grand_total'])"/><span class="cur"> EGP</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

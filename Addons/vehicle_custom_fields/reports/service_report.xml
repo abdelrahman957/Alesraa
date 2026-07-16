@@ -39,7 +39,7 @@
                             }
                             .srw table { width:100%; }
                             .srw { font-family:'Tajawal','Amiri',Arial,sans-serif; color:#1c2b38; direction:rtl; }
-                            .srw .brand-1 { font-size:50px; letter-spacing:4px; color:#12384d; font-weight:bold; line-height:0.95; direction:ltr; text-align:center; }
+                            .srw .brand-1 { font-size:50px; letter-spacing:4px; color:#12384d; font-weight:bold; line-height:1; direction:ltr; text-align:center; }
                             .srw .brand-2 { font-size:25px; letter-spacing:3px; color:#5b7183; font-weight:bold; direction:ltr; text-align:center; }
                             .srw .title { font-size:23px; font-weight:bold; color:#12384d; line-height:1.2; }
                             .srw .ref { font-size:13px; color:#5b7183; font-weight:bold; padding-top:5px !important; }

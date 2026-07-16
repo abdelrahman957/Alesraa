@@ -39,8 +39,8 @@
                             }
                             .srw table { width:100%; }
                             .srw { font-family:'Tajawal','Amiri',Arial,sans-serif; color:#1c2b38; direction:rtl; }
-                            .srw .brand-1 { font-size:25px; letter-spacing:5px; color:#12384d; font-weight:bold; line-height:1.1; direction:ltr; }
-                            .srw .brand-2 { font-size:13.5px; letter-spacing:4px; color:#5b7183; font-weight:bold; direction:ltr; }
+                            .srw .brand-1 { font-size:32px; letter-spacing:6px; color:#12384d; font-weight:bold; line-height:1.1; direction:ltr; }
+                            .srw .brand-2 { font-size:17px; letter-spacing:5px; color:#5b7183; font-weight:bold; direction:ltr; }
                             .srw .title { font-size:23px; font-weight:bold; color:#12384d; line-height:1.2; }
                             .srw .ref { font-size:13px; color:#5b7183; font-weight:bold; padding-top:5px !important; }
                             .srw .rule { height:3px; background:#12384d !important; margin:14px 0 24px; font-size:0; line-height:0; }
@@ -68,8 +68,8 @@
                             <!-- HEADER -->
                             <table>
                                 <tr>
-                                    <td style="width:90px; vertical-align:middle;">
-                                        <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="height:60px;"/>
+                                    <td style="width:115px; vertical-align:middle;">
+                                        <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="height:80px;"/>
                                     </td>
                                     <td style="vertical-align:middle; padding-right:14px !important;">
                                         <div class="brand-1">ALESRAA</div>

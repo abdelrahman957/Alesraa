@@ -65,6 +65,8 @@
                 <field name="vehicle_id"/>
                 <field name="owner_id"/>
                 <field name="date"/>
+                <separator/>
+                <filter string="Date" name="filter_date" date="date"/>
                 <filter string="Rent Cost" name="type_rent_cost" domain="[('line_type', '=', 'rent_cost')]"/>
                 <separator/>
                 <filter string="Vehicle" name="group_vehicle" context="{'group_by': 'vehicle_id'}"/>

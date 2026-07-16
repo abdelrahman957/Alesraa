@@ -110,7 +110,7 @@
                                 <tr>
                                     <td style="width:28%;"><div class="lbl">عداد الكيلومترات</div></td>
                                     <td style="width:18%;"><div class="lbl">مسؤول الصيانة</div></td>
-                                    <td style="width:27%;"><div class="lbl">المشتري</div></td>
+                                    <td style="width:27%;"><div class="lbl">الوصف</div></td>
                                     <td style="width:27%;"><div class="lbl">رقم الفاتورة</div></td>
                                 </tr>
                                 <tr>
@@ -119,7 +119,7 @@
                                         <span t-else="">&#8212;</span>
                                     </div></td>
                                     <td><div class="val"><span t-if="o.manager_id" t-field="o.manager_id.name"/><span t-else="">&#8212;</span></div></td>
-                                    <td><div class="val"><span t-if="o.purchaser_id" t-field="o.purchaser_id.name"/><span t-else="">&#8212;</span></div></td>
+                                    <td><div class="val"><span t-if="o.description" t-field="o.description"/><span t-else="">&#8212;</span></div></td>
                                     <td><div class="val"><span t-if="o.inv_ref" t-field="o.inv_ref"/><span t-else="">&#8212;</span></div></td>
                                 </tr>
                             </table>

@@ -25,6 +25,11 @@
                         type="object"
                         class="btn-primary"
                         invisible="pending_extension_amount &lt;= 0"/>
+                <button name="action_verify"
+                        string="Verify"
+                        type="object"
+                        class="btn-primary"
+                        invisible="state != 'checking'"/>
             </xpath>
              <xpath expr="//sheet" position="inside">
                 <widget name="web_ribbon" title="Insurance Paid" bg_color="text-bg-success" invisible="insurance_refund_done == False"/>
@@ -162,7 +167,12 @@
                 <filter string="Customer" name="group_customer"
                         context="{'group_by': 'customer_id'}"/>
             </search>
+            <!-- اخفِ زر Verify القديم (اللي تحت في تاب Financial Details) -->
+            <xpath expr="//div[@style='float: right;margin-left: 78%;margin-bottom: 36px;']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
         </field>
+        
     </record>
 
     <!-- Attach search view to the action -->

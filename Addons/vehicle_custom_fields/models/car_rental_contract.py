@@ -11,6 +11,7 @@ class CarRentalContract(models.Model):
         string='Sales Order',
         domain=[('state', 'in', ['sale', 'done'])],
     )
+    cost_frequency = fields.Selection(default='no')
 
     pickup_location = fields.Char(string='Pick Up Location')
     dropoff_location = fields.Char(string='Drop Off Location')

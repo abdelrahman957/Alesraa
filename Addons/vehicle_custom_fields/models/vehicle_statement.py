@@ -99,11 +99,7 @@ class VehicleStatementLine(models.Model):
 
     @api.model
     def _rebuild_lines(self):
-        """يعيد بناء كل السطور من المصادر (مسح ذرّي ثم بناء، مرة واحدة لكل request)."""
-        if getattr(self.env, '_vs_rebuilding', False):
-            return
-        self.env._vs_rebuilding = True
-
+        """يعيد بناء كل السطور من المصادر (مسح ذرّي ثم بناء)."""
         self.env.cr.execute("DELETE FROM vehicle_statement_line")
         self.env.invalidate_all()
         vals_list = []
@@ -163,5 +159,3 @@ class VehicleStatementLine(models.Model):
 
         if vals_list:
             self.create(vals_list)
-
-        self.env._vs_rebuilding = False

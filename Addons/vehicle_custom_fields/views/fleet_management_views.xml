@@ -79,6 +79,7 @@
                 <filter string="Group by Return Date" name="group_return_date" context="{'group_by': 'rental_return_date'}"/>
                 <filter string="Group by Delivery Date" name="group_delivery_date" context="{'group_by': 'rental_start_date'}"/>
                 <filter string="Group by Status" name="group_status" context="{'group_by': 'rental_status'}"/>
+                <filter string="Group by Owner" name="group_owner" context="{'group_by': 'owner_id'}"/>
             </search>
         </field>
     </record>

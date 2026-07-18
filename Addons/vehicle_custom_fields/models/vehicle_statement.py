@@ -23,9 +23,12 @@ class VehicleStatementLine(models.Model):
         'res.company', string='Company',
         default=lambda self: self.env.company,
     )
-    contract_id = fields.Many2one('car.rental.contract', string='Rental Contract', ondelete='cascade')
-    statement_line_id = fields.Many2one('owner.statement.line', string='Statement Line', ondelete='cascade')
-    service_line_id = fields.Many2one('fleet.service.line', string='Service Line', ondelete='cascade')
+    contract_id = fields.Many2one(
+        'car.rental.contract', string='Rental Contract', ondelete='cascade')
+    statement_line_id = fields.Many2one(
+        'owner.statement.line', string='Statement Line', ondelete='cascade')
+    service_line_id = fields.Many2one(
+        'fleet.service.line', string='Service Line', ondelete='cascade')
 
     source_label = fields.Char(string='Source', compute='_compute_source_label')
 
@@ -69,8 +72,19 @@ class VehicleStatementLine(models.Model):
             }
 
     @api.model
+    def web_search_read(self, domain, specification, offset=0, limit=None, order=None, count_limit=None):
+        # ابنِ الداتا أول ما الشاشة تتحمّل (menu أو refresh البراوزر) - مرة واحدة لكل request
+        if not self.env.context.get('_vs_built'):
+            self.with_context(_vs_built=True)._rebuild_lines()
+            self = self.with_context(_vs_built=True)
+        return super().web_search_read(
+            domain, specification, offset=offset, limit=limit,
+            order=order, count_limit=count_limit,
+        )
+
+    @api.model
     def action_open_statement(self):
-        """يبني الداتا من جديد ويفتح الـ list."""
+        """يبني الداتا من جديد ويفتح الـ list (من الـ menu)."""
         self._rebuild_lines()
         return {
             'type': 'ir.actions.act_window',
@@ -85,12 +99,16 @@ class VehicleStatementLine(models.Model):
 
     @api.model
     def _rebuild_lines(self):
-        """يعيد بناء كل السطور من المصادر (مسح ذرّي ثم بناء)."""
+        """يعيد بناء كل السطور من المصادر (مسح ذرّي ثم بناء، مرة واحدة لكل request)."""
+        if getattr(self.env, '_vs_rebuilding', False):
+            return
+        self.env._vs_rebuilding = True
+
         self.env.cr.execute("DELETE FROM vehicle_statement_line")
         self.env.invalidate_all()
         vals_list = []
 
-        # 1) إيراد الإيجار — من عقود العملاء (Done)
+        # 1) إيراد الإيجار - من عقود العملاء (Done)
         contracts = self.env['car.rental.contract'].search([('state', '=', 'done')])
         for contract in contracts:
             rent_lines = contract.checklist_line.filtered(
@@ -109,7 +127,7 @@ class VehicleStatementLine(models.Model):
                 'contract_id': contract.id,
             })
 
-        # 2) تكلفة إيجار المالك — من owner.statement.line
+        # 2) تكلفة إيجار المالك - من owner.statement.line
         stmt_lines = self.env['owner.statement.line'].search([('line_type', '=', 'rent_cost')])
         for sl in stmt_lines:
             if not sl.amount:
@@ -124,7 +142,7 @@ class VehicleStatementLine(models.Model):
                 'statement_line_id': sl.id,
             })
 
-        # 3) تكلفة الصيانة — الشركة فقط (تقرير Done)
+        # 3) تكلفة الصيانة - الشركة فقط (تقرير Done)
         service_lines = self.env['fleet.service.line'].search([
             ('responsibility', '=', 'company'),
             ('service_id.state', '=', 'done'),
@@ -145,3 +163,5 @@ class VehicleStatementLine(models.Model):
 
         if vals_list:
             self.create(vals_list)
+
+        self.env._vs_rebuilding = False

@@ -247,4 +247,15 @@
               action="action_insurance_tracking"
               sequence="3"/>
 
+    <record id="car_rental_contract_tree_total_inherit" model="ir.ui.view">
+        <field name="name">car.rental.contract.tree.total</field>
+        <field name="model">car.rental.contract</field>
+        <field name="inherit_id" ref="fleet_rental.car_rental_contract_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='cost_generated']" position="replace">
+                <field name="checklist_total" string="Total"/>
+            </xpath>
+        </field>
+    </record>
+
 </odoo>

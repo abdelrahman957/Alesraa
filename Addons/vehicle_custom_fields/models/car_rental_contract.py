@@ -22,6 +22,17 @@ class CarRentalContract(models.Model):
         store=True,
     )
 
+    checklist_total = fields.Float(
+        string='Contract Total',
+        compute='_compute_checklist_total',
+        store=True,
+    )
+
+    @api.depends('checklist_line', 'checklist_line.price')
+    def _compute_checklist_total(self):
+        for contract in self:
+            contract.checklist_total = sum(contract.checklist_line.mapped('price'))
+
     def unlink(self):
         for contract in self:
             if contract.state not in ('draft', 'cancel'):

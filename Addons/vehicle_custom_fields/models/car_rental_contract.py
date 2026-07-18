@@ -61,10 +61,17 @@ class CarRentalContract(models.Model):
         return res
 
     def action_confirm(self):
+        # احفظ الأرقام بتاعتنا قبل الـ super (الأصلي بيدوس برقم من car.rental.sequence)
+        saved_names = {contract.id: contract.name for contract in self}
         res = super().action_confirm()
         for contract in self:
-            already_set = contract.name and (contract.name.startswith('CORP/') or contract.name.startswith('RET/'))
-            if not already_set:
+            saved = saved_names.get(contract.id)
+            # لو كان عندنا رقم CORP/RET قبل الـ super، رجّعه
+            if saved and (saved.startswith('CORP/') or saved.startswith('RET/')):
+                if contract.name != saved:
+                    contract.name = saved
+            else:
+                # مفيش رقم بتاعنا (حالة نادرة) — ولّد واحد
                 if contract.contract_type == 'corporate':
                     contract.name = self.env['ir.sequence'].next_by_code('car.rental.contract.corporate')
                 elif contract.contract_type == 'retail':

@@ -65,6 +65,11 @@ class OwnerStatementReport(models.Model):
         string='Company',
         default=lambda self: self.env.company,
     )
+    pending_warning = fields.Text(
+        string='Pending Warning',
+        readonly=True,
+        copy=False,
+    )
 
     @api.depends('bill_id', 'bill_id.payment_state')
     def _compute_is_paid(self):
@@ -129,7 +134,31 @@ class OwnerStatementReport(models.Model):
                 'description': src.description,
                 'is_manual': False,
             })
+        # فحص الصيانات اللي مسؤوليتها Pending
+        pending_services = self.env['fleet.vehicle.log.services'].search([
+            ('vehicle_id', '=', self.vehicle_id.id),
+            ('state', '=', 'done'),
+            ('has_pending_responsibility', '=', True),
+            ('date', '>=', self.date_from),
+            ('date', '<=', self.date_to),
+        ])
+
+        if pending_services:
+            details = []
+            for srv in pending_services:
+                ref = srv.display_name or ('#%s' % srv.id)
+                date_str = srv.date.strftime('%d/%m/%Y') if srv.date else '-'
+                details.append('%s (%s)' % (ref, date_str))
+            details_str = ' , '.join(details)
+            self.pending_warning = (
+                "Maintenance with undefined responsibility in this period: %s\n"
+                "يوجد صيانة لم تُحدَّد مسؤوليتها في هذه الفترة: %s"
+            ) % (details_str, details_str)
+        else:
+            self.pending_warning = False
+
         return True
+        
 
     def action_confirm(self):
         self.ensure_one()

@@ -20,6 +20,11 @@
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirmed"/>
                 </header>
                 <sheet>
+                    <div class="alert alert-warning" role="alert"
+                         invisible="not pending_warning"
+                         style="white-space: pre-line;">
+                        <field name="pending_warning" readonly="1" nolabel="1"/>
+                    </div>
                     <widget name="web_ribbon" title="Paid" bg_color="text-bg-success"
                             invisible="not is_paid"/>
                     <div class="oe_title">

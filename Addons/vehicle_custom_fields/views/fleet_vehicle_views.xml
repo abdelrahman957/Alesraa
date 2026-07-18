@@ -106,4 +106,15 @@
         action="action_fleet_vehicle_insurance_type"
         sequence="20"/>
 
+    <record id="fleet_vehicle_search_owner_group" model="ir.ui.view">
+        <field name="name">fleet.vehicle.search.owner.group</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <filter string="Owner" name="group_owner" context="{'group_by': 'owner_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
 </odoo>

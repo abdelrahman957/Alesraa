@@ -1,4 +1,4 @@
-from odoo import fields, models, api
+from odoo import fields, models, api, _
 
 
 class VehicleStatementLine(models.Model):
@@ -13,7 +13,6 @@ class VehicleStatementLine(models.Model):
             ('service', 'Service Cost'),
         ],
         string='Type',
-        required=True,
     )
     date = fields.Date(string='Date')
     description = fields.Char(string='Description')
@@ -34,11 +33,11 @@ class VehicleStatementLine(models.Model):
     def _compute_source_label(self):
         for line in self:
             if line.line_type == 'rent':
-                line.source_label = 'Rental Contract'
+                line.source_label = _('Rental Contract')
             elif line.line_type == 'rent_cost':
-                line.source_label = 'Fleet Contract'
+                line.source_label = _('Fleet Contract')
             elif line.line_type == 'service':
-                line.source_label = 'Service Report'
+                line.source_label = _('Service Report')
             else:
                 line.source_label = ''
 
@@ -69,75 +68,27 @@ class VehicleStatementLine(models.Model):
                 'target': 'current',
             }
 
-    def action_refresh(self):
-        """زر التحديث."""
+    @api.model
+    def action_open_statement(self):
+        """يبني الداتا من جديد ويفتح الـ list."""
         self._rebuild_lines()
         return {
-            'type': 'ir.actions.client',
-            'tag': 'reload',
+            'type': 'ir.actions.act_window',
+            'name': _('Vehicle Statement'),
+            'res_model': 'vehicle.statement.line',
+            'view_mode': 'list',
+            'views': [(self.env.ref('vehicle_custom_fields.vehicle_statement_list').id, 'list')],
+            'search_view_id': [self.env.ref('vehicle_custom_fields.vehicle_statement_search').id],
+            'context': {'search_default_g_vehicle': 1},
+            'target': 'current',
         }
 
     @api.model
     def _rebuild_lines(self):
-        """يعيد بناء كل السطور من المصادر."""
-        self.sudo().search([]).unlink()
+        """يعيد بناء كل السطور من المصادر (مسح ذرّي ثم بناء)."""
+        self.env.cr.execute("DELETE FROM vehicle_statement_line")
+        self.env.invalidate_all()
         vals_list = []
-
-        # 1) إيراد الإيجار
-        contracts = self.env['car.rental.contract'].search([('state', '=', 'done')])
-        for contract in contracts:
-            rent_lines = contract.checklist_line.filtered(
-                lambda l: l.name and l.name.name == 'Rent Fees'
-            )
-            amount = sum(rent_lines.mapped('price'))
-            if not amount:
-                continue
-            vals_list.append({
-                'line_type': 'rent',
-                'date': contract.create_date.date() if contract.create_date else False,
-                'description': contract.name,
-                'amount': amount,
-                'vehicle_id': contract.vehicle_id.id if contract.vehicle_id else False,
-                'owner_id': contract.vehicle_id.owner_id.id if contract.vehicle_id and contract.vehicle_id.owner_id else False,
-                'contract_id': contract.id,
-            })
-
-        # 2) تكلفة إيجار المالك
-        stmt_lines = self.env['owner.statement.line'].search([('line_type', '=', 'rent_cost')])
-        for sl in stmt_lines:
-            if not sl.amount:
-                continue
-            vals_list.append({
-                'line_type': 'rent_cost',
-                'date': sl.date,
-                'description': 'Owner Rent',
-                'amount': -abs(sl.amount),
-                'vehicle_id': sl.vehicle_id.id if sl.vehicle_id else False,
-                'owner_id': sl.owner_id.id if sl.owner_id else False,
-                'statement_line_id': sl.id,
-            })
-
-        # 3) تكلفة الصيانة (الشركة)
-        service_lines = self.env['fleet.service.line'].search([
-            ('responsibility', '=', 'company'),
-            ('service_id.state', '=', 'done'),
-        ])
-        for sline in service_lines:
-            if not sline.amount:
-                continue
-            service = sline.service_id
-            vals_list.append({
-                'line_type': 'service',
-                'date': service.date,
-                'description': sline.service_type_id.name if sline.service_type_id else 'Service',
-                'amount': -abs(sline.amount),
-                'vehicle_id': service.vehicle_id.id if service.vehicle_id else False,
-                'owner_id': service.vehicle_id.owner_id.id if service.vehicle_id and service.vehicle_id.owner_id else False,
-                'service_line_id': sline.id,
-            })
-
-        if vals_list:
-            self.sudo().create(vals_list)
 
         # 1) إيراد الإيجار — من عقود العملاء (Done)
         contracts = self.env['car.rental.contract'].search([('state', '=', 'done')])
@@ -166,7 +117,7 @@ class VehicleStatementLine(models.Model):
             vals_list.append({
                 'line_type': 'rent_cost',
                 'date': sl.date,
-                'description': 'Owner Rent',
+                'description': _('Owner Rent'),
                 'amount': -abs(sl.amount),
                 'vehicle_id': sl.vehicle_id.id if sl.vehicle_id else False,
                 'owner_id': sl.owner_id.id if sl.owner_id else False,
@@ -185,7 +136,7 @@ class VehicleStatementLine(models.Model):
             vals_list.append({
                 'line_type': 'service',
                 'date': service.date,
-                'description': sline.service_type_id.name if sline.service_type_id else 'Service',
+                'description': sline.service_type_id.name if sline.service_type_id else _('Service'),
                 'amount': -abs(sline.amount),
                 'vehicle_id': service.vehicle_id.id if service.vehicle_id else False,
                 'owner_id': service.vehicle_id.owner_id.id if service.vehicle_id and service.vehicle_id.owner_id else False,
@@ -194,19 +145,3 @@ class VehicleStatementLine(models.Model):
 
         if vals_list:
             self.create(vals_list)
-        return {
-            'type': 'ir.actions.client',
-            'tag': 'reload',
-        }
-
-    @api.model
-    def web_search_read(self, domain, specification, offset=0, limit=None, order=None, count_limit=None):
-        # حدّث البيانات تلقائياً أول ما الشاشة تتحمّل
-        self.sudo()._rebuild_lines()
-        return super().web_search_read(
-            domain, specification, offset=offset, limit=limit,
-            order=order, count_limit=count_limit,
-        )
-    
-    
-    

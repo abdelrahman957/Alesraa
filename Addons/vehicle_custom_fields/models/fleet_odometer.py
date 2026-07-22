@@ -81,6 +81,7 @@ class FleetVehicleOdometer(models.Model):
             'view_mode': 'list',
             'views': [(self.env.ref('vehicle_custom_fields.fleet_odometer_tracking_list').id, 'list')],
             'search_view_id': [self.env.ref('vehicle_custom_fields.fleet_odometer_tracking_search').id],
+            'domain': [('tracking_type', '!=', False)],
             'target': 'current',
         }
 

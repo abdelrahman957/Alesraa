@@ -16,3 +16,4 @@ from . import insurance_refund_wizard
 from . import owner_statement
 from . import owner_statement_report
 from . import vehicle_statement
+from . import fleet_odometer

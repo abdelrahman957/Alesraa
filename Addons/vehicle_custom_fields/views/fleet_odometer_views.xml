@@ -29,6 +29,7 @@
                 <separator/>
                 <filter string="Vehicle" name="g_vehicle" context="{'group_by': 'vehicle_id'}"/>
                 <filter string="Type" name="g_type" context="{'group_by': 'tracking_type'}"/>
+                <filter string="Tracked Only" name="tracked_only" domain="[('tracking_type', '!=', False)]"/>
             </search>
         </field>
     </record>

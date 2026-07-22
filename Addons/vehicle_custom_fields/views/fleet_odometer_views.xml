@@ -8,6 +8,7 @@
             <list string="Vehicle Odometer" create="false" edit="false">
                 <field name="vehicle_id" string="License Plate"/>
                 <field name="tracking_type" string="Type"/>
+                <field name="responsible_id" string="Responsible"/>
                 <field name="date_from"/>
                 <field name="date_to"/>
                 <field name="value" string="Odometer"/>
@@ -23,6 +24,7 @@
             <search string="Vehicle Odometer">
                 <field name="vehicle_id"/>
                 <filter string="Rent Contract" name="f_rent" domain="[('tracking_type', '=', 'rent')]"/>
+                <field name="responsible_id"/>
                 <filter string="Service" name="f_service" domain="[('tracking_type', '=', 'service')]"/>
                 <separator/>
                 <filter string="Vehicle" name="g_vehicle" context="{'group_by': 'vehicle_id'}"/>

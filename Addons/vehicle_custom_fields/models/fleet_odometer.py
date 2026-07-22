@@ -11,6 +11,8 @@ class FleetVehicleOdometer(models.Model):
         ],
         string='Type',
     )
+    responsible_id = fields.Many2one(
+        'res.partner', string='Responsible')
     date_from = fields.Date(string='From')
     date_to = fields.Date(string='To')
 
@@ -43,6 +45,7 @@ class FleetVehicleOdometer(models.Model):
                 'date_from': contract.rent_start_date,
                 'date_to': contract.rent_end_date,
                 'rental_contract_id': contract.id,
+                'responsible_id': contract.customer_id.id if contract.customer_id else False,
             })
 
         # 2) الصيانات (Done)
@@ -64,6 +67,7 @@ class FleetVehicleOdometer(models.Model):
                 'date_from': False,
                 'date_to': False,
                 'service_id': service.id,
+                'responsible_id': service.purchaser_id.id if service.purchaser_id else False,
             })
 
     @api.model

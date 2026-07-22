@@ -114,6 +114,12 @@
             <xpath expr="//search" position="inside">
                 <filter string="Owner" name="group_owner" context="{'group_by': 'owner_id'}"/>
             </xpath>
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="owner_id"/>
+                <field name="vin_sn"/>
+                <field name="motor_number"/>
+                <field name="license_plate"/>
+            </xpath>
         </field>
     </record>
 

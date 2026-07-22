@@ -70,6 +70,11 @@
         <field name="model">fleet.vehicle</field>
         <field name="arch" type="xml">
             <search string="Fleet Management">
+                <field name="name"/>
+                <field name="owner_id"/>
+                <field name="vin_sn"/>
+                <field name="motor_number"/>
+                <field name="license_plate"/>
                 <field name="rental_return_date"/>
                 <filter string="In Rent" name="in_rent" domain="[('rental_status', '=', 'In Rent')]"/>
                 <filter string="Available" name="available" domain="[('rental_status', '=', 'Available')]"/>

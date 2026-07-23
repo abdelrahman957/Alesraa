@@ -128,7 +128,7 @@ class FleetVehicleOdometer(models.Model):
         self._rebuild_tracking()
         return {
             'type': 'ir.actions.act_window',
-            'name': 'Vehicle Odometer',
+            'name': 'Vehicle Tracking',
             'res_model': 'fleet.vehicle.odometer',
             'view_mode': 'list',
             'views': [(self.env.ref('vehicle_custom_fields.fleet_odometer_tracking_list').id, 'list')],

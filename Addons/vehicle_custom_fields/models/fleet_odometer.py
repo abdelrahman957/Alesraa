@@ -24,29 +24,81 @@ class FleetVehicleOdometer(models.Model):
 
     @api.model
     def _rebuild_tracking(self):
-        """يبني سجلات العداد من العقود والصيانات (بدون تكرار)."""
+        """يربط سجلات العداد بالعقود والصيانات (تحديث بدل تكرار)."""
 
         # 1) عقود الإيجار (Done)
         contracts = self.env['car.rental.contract'].search([('state', '=', 'done')])
         for contract in contracts:
-            # هل السجل موجود؟
-            existing = self.search([('rental_contract_id', '=', contract.id)], limit=1)
-            if existing:
-                continue
             if not contract.vehicle_id:
                 continue
-            # قيمة العداد لو موجودة، غير كده صفر
-            value = getattr(contract, 'return_km', 0) or 0
-            self.create({
-                'vehicle_id': contract.vehicle_id.id,
-                'value': value,
-                'date': contract.rent_end_date or fields.Date.today(),
+            # لو مربوط قبل كده، تخطَّ
+            if self.search([('rental_contract_id', '=', contract.id)], limit=1):
+                continue
+
+            vals = {
                 'tracking_type': 'rent',
                 'date_from': contract.rent_start_date,
                 'date_to': contract.rent_end_date,
                 'rental_contract_id': contract.id,
                 'responsible_id': contract.customer_id.id if contract.customer_id else False,
-            })
+            }
+            value = getattr(contract, 'return_km', 0) or 0
+            rec_date = contract.rent_end_date or fields.Date.today()
+
+            # دوّر على سجل عداد موجود (من أودو) لنفس العربية والتاريخ
+            existing = self.search([
+                ('vehicle_id', '=', contract.vehicle_id.id),
+                ('date', '=', rec_date),
+                ('tracking_type', '=', False),
+            ], limit=1)
+
+            if existing:
+                existing.write(vals)          # حدّث الموجود
+            else:
+                vals.update({
+                    'vehicle_id': contract.vehicle_id.id,
+                    'value': value,
+                    'date': rec_date,
+                })
+                self.create(vals)             # مفيش سجل، اعمل واحد
+
+        # 2) الصيانات (Done)
+        services = self.env['fleet.vehicle.log.services'].search([('state', '=', 'done')])
+        for service in services:
+            if not service.vehicle_id:
+                continue
+            if self.search([('service_id', '=', service.id)], limit=1):
+                continue
+
+            vals = {
+                'tracking_type': 'service',
+                'date_from': False,
+                'date_to': False,
+                'service_id': service.id,
+                'responsible_id': service.purchaser_id.id if service.purchaser_id else False,
+            }
+            rec_date = service.date or fields.Date.today()
+
+            # لو الصيانة مربوطة بسجل عداد أصلاً، استخدمه
+            if service.odometer_id:
+                service.odometer_id.write(vals)
+                continue
+
+            existing = self.search([
+                ('vehicle_id', '=', service.vehicle_id.id),
+                ('date', '=', rec_date),
+                ('tracking_type', '=', False),
+            ], limit=1)
+
+            if existing:
+                existing.write(vals)
+            else:
+                vals.update({
+                    'vehicle_id': service.vehicle_id.id,
+                    'value': 0,
+                    'date': rec_date,
+                })
+                self.create(vals)
 
         # 2) الصيانات (Done)
         services = self.env['fleet.vehicle.log.services'].search([('state', '=', 'done')])

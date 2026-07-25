@@ -26,7 +26,7 @@ class OwnerStatementReport(models.Model):
     vendor_id = fields.Many2one(
         'res.partner',
         string='Vendor',
-        compute='_compute_owner_id',   # نفس الـ compute بتاع owner_id
+        compute='_compute_owner',   # نفس الـ compute بتاع owner_id
         store=True,
     )
     date_from = fields.Date(string='From', required=True)

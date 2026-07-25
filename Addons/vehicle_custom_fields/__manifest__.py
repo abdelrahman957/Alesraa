@@ -31,7 +31,6 @@
     'reports/owner_statement_lines_pdf.xml',
     'views/vehicle_statement_views.xml',
     'views/fleet_odometer_views.xml',
-    'views/fleet_driver_views.xml',
 ],
     'installable': True,
     'auto_install': False,

@@ -10,4 +10,3 @@ access_owner_statement_line,owner.statement.line,model_owner_statement_line,base
 access_owner_statement_report,owner.statement.report,model_owner_statement_report,base.group_user,1,1,1,1
 access_owner_statement_report_line,owner.statement.report.line,model_owner_statement_report_line,base.group_user,1,1,1,1
 access_vehicle_statement_line,vehicle.statement.line,model_vehicle_statement_line,base.group_user,1,1,1,1
-access_fleet_driver,fleet.driver,model_fleet_driver,base.group_user,1,1,1,1

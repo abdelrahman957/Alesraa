@@ -55,9 +55,9 @@
                     <field name="license_plate" readonly="1"/>
                     <field name="vin_sn" string="Chassis Number" readonly="1" optional="show"/>
                     <field name="motor_number" optional="show"/>
+                    <field name="vendor_id" string="Vendor" optional="show"/>
                     <field name="owner_id" string="Owner" optional="show"/>
                     <field name="owner_mobile" string="Mobile" optional="show"/>
-                    <field name="vendor_id" string="Vendor" optional="show"/>
                     <field name="owner_vat" string="ID" optional="show"/>
                     <field name="acquisition_date" string="Acquisition Date" readonly="1" optional="show" widget="date" options="{'format': 'dd/MM/yyyy'}"/>
                     <field name="driver_id" widget="many2one_avatar" readonly="1" optional="show"/>

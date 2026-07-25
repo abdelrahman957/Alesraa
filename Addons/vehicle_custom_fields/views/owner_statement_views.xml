@@ -7,6 +7,15 @@
         <field name="model">fleet.vehicle.log.contract</field>
         <field name="inherit_id" ref="fleet.fleet_vehicle_log_contract_view_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='cost_generated']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='cost_frequency']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
 
             <!-- Smart Button (نضيف button_box في أول الـ sheet) -->
             <xpath expr="//sheet" position="inside">

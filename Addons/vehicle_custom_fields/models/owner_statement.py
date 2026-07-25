@@ -181,6 +181,16 @@ class OwnerStatementLine(models.Model):
                 'view_mode': 'form',
                 'target': 'current',
             }
+        else:
+            # السطور اليدوية - افتح الفورم بتاع السطر نفسه
+            return {
+                'type': 'ir.actions.act_window',
+                'res_model': 'owner.statement.line',
+                'res_id': self.id,
+                'view_mode': 'form',
+                'views': [(self.env.ref('vehicle_custom_fields.owner_statement_line_form').id, 'form')],
+                'target': 'new',
+            }
 
 class FleetVehicleLogContract(models.Model):
     _inherit = 'fleet.vehicle.log.contract'

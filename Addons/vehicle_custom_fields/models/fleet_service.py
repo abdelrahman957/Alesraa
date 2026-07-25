@@ -169,6 +169,21 @@ class FleetServiceLine(models.Model):
         related='service_id.currency_id',
     )
 
+    @api.onchange('service_type_id')
+    def _onchange_service_type_responsibility(self):
+        for line in self:
+            if not line.service_type_id:
+                continue
+            vehicle = line.service_id.vehicle_id
+            if not vehicle:
+                continue
+            contract = self.env['fleet.vehicle.log.contract'].search([
+                ('vehicle_id', '=', vehicle._origin.id or vehicle.id),
+                ('state', '=', 'open'),
+            ], limit=1)
+            if contract and line.service_type_id in contract.service_ids:
+                line.responsibility = 'company'
+
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:

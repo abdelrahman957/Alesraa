@@ -129,6 +129,14 @@ class FleetVehicleLogServices(models.Model):
         ]).unlink()
         return super().unlink()
 
+    def unlink(self):
+        for service in self:
+            if service.state == 'done':
+                raise UserError(_(
+                    "You cannot delete a service report that is marked as Done."
+                ))
+        return super().unlink()
+
     
 
 

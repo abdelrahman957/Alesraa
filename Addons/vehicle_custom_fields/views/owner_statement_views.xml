@@ -64,6 +64,37 @@
         </field>
     </record>
 
+    <record id="owner_statement_line_form" model="ir.ui.view">
+        <field name="name">owner.statement.line.form</field>
+        <field name="model">owner.statement.line</field>
+        <field name="arch" type="xml">
+            <form string="Owner Statement Line">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="line_type"/>
+                            <field name="date"/>
+                            <field name="vehicle_id"/>
+                            <field name="owner_id" readonly="1"/>
+                            <field name="vendor_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="description"/>
+                            <field name="amount"/>
+                            <field name="source_label" string="Source" readonly="1"/>
+                            <field name="state" readonly="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <!-- حقول داخلية مخفية -->
+                    <field name="service_id" invisible="1"/>
+                    <field name="contract_id" invisible="1"/>
+                    <field name="rent_cost_id" invisible="1"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
     <!-- Search View مع Filters و Group By -->
     <record id="owner_statement_line_search" model="ir.ui.view">
         <field name="name">owner.statement.line.search</field>
@@ -93,7 +124,7 @@
     <record id="action_owner_statement" model="ir.actions.act_window">
         <field name="name">Owner Statement</field>
         <field name="res_model">owner.statement.line</field>
-        <field name="view_mode">list</field>
+        <field name="view_mode">list,form</field>
         <field name="view_id" ref="owner_statement_line_list"/>
         <field name="search_view_id" ref="owner_statement_line_search"/>
     </record>

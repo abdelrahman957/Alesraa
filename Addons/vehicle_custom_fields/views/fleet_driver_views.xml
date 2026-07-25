@@ -17,10 +17,10 @@
     </record>
 
     <menuitem
-        id="fleet_driver_menu"
-        name="Drivers"
-        parent="fleet.fleet_vehicle_configuration"
-        action="action_fleet_driver"
-        sequence="50"/>
+    id="fleet_driver_menu"
+    name="Drivers"
+    parent="fleet.fleet_configuration"
+    action="action_fleet_driver"
+    sequence="50"/>
 
 </odoo>

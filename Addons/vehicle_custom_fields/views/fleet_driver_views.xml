@@ -1,12 +1,12 @@
 <odoo>
 
-    <record id="view_fleet_driver_tree" model="ir.ui.view">
-        <field name="name">fleet.driver.tree</field>
+    <record id="view_fleet_driver_list" model="ir.ui.view">
+        <field name="name">fleet.driver.list</field>
         <field name="model">fleet.driver</field>
         <field name="arch" type="xml">
-            <tree editable="bottom">
+            <list editable="bottom">
                 <field name="name"/>
-            </tree>
+            </list>
         </field>
     </record>
 

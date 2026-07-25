@@ -10,6 +10,7 @@ class ResPartner(models.Model):
     vat_valid_to = fields.Date(string='Valid To')
     driving_license_valid_to = fields.Date(string='Valid To')
     name_arabic = fields.Char(string='Arabic Name')
+    is_driver = fields.Boolean(string='Is Driver')
 
     @api.constrains('name_arabic')
     def _check_name_arabic(self):

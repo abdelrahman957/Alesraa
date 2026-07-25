@@ -34,7 +34,8 @@
             </xpath>
             <xpath expr="//field[@name='purchaser_id']" position="attributes">
                 <attribute name="readonly">state in ('done','cancelled')</attribute>
-            </xpath>
+                <attribute name="domain">[('is_driver', '=', True)]</attribute>
+            </xpath>            
             <xpath expr="//field[@name='odometer']" position="attributes">
                 <attribute name="readonly">state in ('done','cancelled')</attribute>
             </xpath>

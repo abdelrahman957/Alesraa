@@ -23,6 +23,12 @@ class OwnerStatementReport(models.Model):
         compute='_compute_owner',
         store=True,
     )
+    vendor_id = fields.Many2one(
+        'res.partner',
+        string='Vendor',
+        compute='_compute_owner_id',   # نفس الـ compute بتاع owner_id
+        store=True,
+    )
     date_from = fields.Date(string='From', required=True)
     date_to = fields.Date(string='To', required=True)
     state = fields.Selection(
@@ -92,6 +98,7 @@ class OwnerStatementReport(models.Model):
     def _compute_owner(self):
         for report in self:
             report.owner_id = report.vehicle_id.owner_id.id if report.vehicle_id else False
+            report.vendor_id = report.vehicle_id.vendor_id.id if report.vehicle_id else False
 
     @api.depends('line_ids', 'line_ids.amount')
     def _compute_total(self):

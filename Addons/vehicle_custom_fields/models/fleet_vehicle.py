@@ -20,6 +20,12 @@ class FleetVehicle(models.Model):
         compute='_compute_owner_fields',
         store=True,
     )
+    vendor_id = fields.Many2one(
+        'res.partner',
+        string='Vendor',
+        compute='_compute_owner_fields',
+        store=True,
+    )
     owner_mobile = fields.Char(
         string='Mobile',
         compute='_compute_owner_fields',
@@ -58,7 +64,7 @@ class FleetVehicle(models.Model):
             else:
                 vehicle.vehicle_image = False
 
-    @api.depends('log_contracts', 'log_contracts.insurer_id', 'log_contracts.state')
+    @api.depends('log_contracts', 'log_contracts.insurer_id', 'log_contracts.vendor_id', 'log_contracts.state')
     def _compute_owner_fields(self):
         for vehicle in self:
             # Get the most recent running contract that has an insurer
@@ -79,10 +85,12 @@ class FleetVehicle(models.Model):
                 vehicle.owner_id = contract.insurer_id
                 vehicle.owner_mobile = contract.insurer_id.phone or False
                 vehicle.owner_vat = contract.insurer_id.vat or False
+                vehicle.vendor_id = contract.vendor_id or False
             else:
                 vehicle.owner_id = False
                 vehicle.owner_mobile = False
                 vehicle.owner_vat = False
+                vehicle.vendor_id = False
 
     @api.depends('model_id')
     def _compute_color(self):

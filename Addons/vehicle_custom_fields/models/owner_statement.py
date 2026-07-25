@@ -102,6 +102,7 @@ class OwnerStatementLine(models.Model):
     amount = fields.Float(string='Amount')
     vehicle_id = fields.Many2one('fleet.vehicle', string='Vehicle')
     owner_id = fields.Many2one('res.partner', string='Owner')
+    vendor_id = fields.Many2one('res.partner', string='Vendor')
     contract_id = fields.Many2one(
         'fleet.vehicle.log.contract',
         string='Fleet Contract',
@@ -166,7 +167,7 @@ class FleetVehicleLogContract(models.Model):
 
     insurer_id = fields.Many2one(string='Owner')
     vendor_id = fields.Many2one('res.partner', string='Vendor')
-    
+
     rent_cost_ids = fields.One2many(
         'fleet.contract.rent.cost',
         'contract_id',
@@ -236,6 +237,7 @@ class FleetVehicleLogContract(models.Model):
 
             # الـ Owner من insurer_id بتاع العقد
             owner = contract.insurer_id.id if contract.insurer_id else False
+            vendor = contract.vendor_id.id if contract.vendor_id else False
             vehicle = contract.vehicle_id.id if contract.vehicle_id else False
 
             lines.append({
@@ -244,6 +246,7 @@ class FleetVehicleLogContract(models.Model):
                 'amount': amount,
                 'vehicle_id': vehicle,
                 'owner_id': owner,
+                'vendor_id': vendor,
                 'contract_id': contract.id,
                 'rent_cost_id': period.id,
             })

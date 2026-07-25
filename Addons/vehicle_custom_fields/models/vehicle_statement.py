@@ -19,6 +19,7 @@ class VehicleStatementLine(models.Model):
     amount = fields.Float(string='Amount')
     vehicle_id = fields.Many2one('fleet.vehicle', string='Vehicle')
     owner_id = fields.Many2one('res.partner', string='Owner')
+    vendor_id = fields.Many2one('res.partner', string='Vendor')
     company_id = fields.Many2one(
         'res.company', string='Company',
         default=lambda self: self.env.company,
@@ -120,6 +121,7 @@ class VehicleStatementLine(models.Model):
                 'amount': amount,
                 'vehicle_id': contract.vehicle_id.id if contract.vehicle_id else False,
                 'owner_id': contract.vehicle_id.owner_id.id if contract.vehicle_id and contract.vehicle_id.owner_id else False,
+                'vendor_id': contract.vehicle_id.vendor_id.id if contract.vehicle_id and contract.vehicle_id.vendor_id else False,
                 'contract_id': contract.id,
             })
 
@@ -135,6 +137,7 @@ class VehicleStatementLine(models.Model):
                 'amount': -abs(sl.amount),
                 'vehicle_id': sl.vehicle_id.id if sl.vehicle_id else False,
                 'owner_id': sl.owner_id.id if sl.owner_id else False,
+                'vendor_id': sl.vehicle_id.vendor_id.id if sl.vehicle_id and sl.vehicle_id.vendor_id else False,
                 'statement_line_id': sl.id,
             })
 
@@ -154,6 +157,7 @@ class VehicleStatementLine(models.Model):
                 'amount': -abs(sline.amount),
                 'vehicle_id': service.vehicle_id.id if service.vehicle_id else False,
                 'owner_id': service.vehicle_id.owner_id.id if service.vehicle_id and service.vehicle_id.owner_id else False,
+                'vendor_id': service.vehicle_id.vendor_id.id if service.vehicle_id and service.vehicle_id.vendor_id else False,
                 'service_line_id': sline.id,
             })
 

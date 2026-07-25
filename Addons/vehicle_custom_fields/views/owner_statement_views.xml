@@ -7,9 +7,9 @@
         <field name="model">fleet.vehicle.log.contract</field>
         <field name="inherit_id" ref="fleet.fleet_vehicle_log_contract_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//group[@string='Cost']" position="attributes">
+            <xpath expr="//field[@name='amount']/ancestor::group[2]" position="attributes">
                 <attribute name="invisible">1</attribute>
-            </xpath>
+            </xpath>            
             <!-- Smart Button (نضيف button_box في أول الـ sheet) -->
             <xpath expr="//sheet" position="inside">
                 <div class="oe_button_box" name="button_box">

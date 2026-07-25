@@ -30,8 +30,12 @@
                     </page>
                 </notebook>
             </xpath>
+            <xpath expr="//field[@name='insurer_id']" position="after">
+                <field name="vendor_id"/>
+            </xpath>
 
         </field>
+        
     </record>
 
     <!-- List View للـ Owner Statement -->

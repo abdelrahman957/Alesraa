@@ -164,6 +164,9 @@ class OwnerStatementLine(models.Model):
 class FleetVehicleLogContract(models.Model):
     _inherit = 'fleet.vehicle.log.contract'
 
+    insurer_id = fields.Many2one(string='Owner')
+    vendor_id = fields.Many2one('res.partner', string='Vendor')
+    
     rent_cost_ids = fields.One2many(
         'fleet.contract.rent.cost',
         'contract_id',

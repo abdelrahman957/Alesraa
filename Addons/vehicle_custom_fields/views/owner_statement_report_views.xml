@@ -34,6 +34,7 @@
                         <group>
                             <field name="vehicle_id" readonly="state != 'draft'"/>
                             <field name="owner_id" readonly="1"/>
+                            <field name="vendor_id" readonly="1"/>
                         </group>
                         <group>
                             <field name="date_from" readonly="state != 'draft'"/>
@@ -70,6 +71,7 @@
                 <field name="name"/>
                 <field name="vehicle_id"/>
                 <field name="owner_id"/>
+                <field name="vendor_id"/>
                 <field name="date_from"/>
                 <field name="date_to"/>
                 <field name="total_amount" sum="Total"/>

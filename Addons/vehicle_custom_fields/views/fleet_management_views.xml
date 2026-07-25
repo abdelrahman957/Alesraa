@@ -37,6 +37,8 @@
             <field name="arch" type="xml">
             <list string="Fleet Management" create="false">
                 <field name="display_name" string="Vehicle"/>
+                <field name="owner_id" string="Owner" optional="show"/>
+                <field name="vendor_id" string="Vendor" optional="show"/>
                 <field name="rental_status" string="Status"
                        decoration-success="rental_status == 'Available'"
                        decoration-bf="rental_status == 'In Rent'"/>
@@ -72,6 +74,7 @@
             <search string="Fleet Management">
                 <field name="name"/>
                 <field name="owner_id"/>
+                <field name="vendor_id"/>
                 <field name="vin_sn"/>
                 <field name="motor_number"/>
                 <field name="license_plate"/>

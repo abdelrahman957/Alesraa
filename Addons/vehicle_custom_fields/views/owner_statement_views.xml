@@ -50,6 +50,7 @@
                 <field name="date"/>
                 <field name="vehicle_id"/>
                 <field name="owner_id"/>
+                <field name="vendor_id"/>
                 <field name="amount" sum="Total"/>
                 <field name="state" widget="badge"
                        decoration-muted="state == 'open'"
@@ -68,6 +69,7 @@
             <search string="Owner Statement">
                 <field name="vehicle_id"/>
                 <field name="owner_id"/>
+                <field name="vendor_id"/>
                 <field name="date"/>
                 <separator/>
                 <filter string="Date" name="filter_date" date="date"/>
@@ -99,4 +101,15 @@
               parent="fleet.fleet_vehicles"
               action="action_owner_statement"
               sequence="50"/>
+
+    <record id="fleet_contract_list_vendor" model="ir.ui.view">
+        <field name="name">fleet.vehicle.log.contract.list.vendor</field>
+        <field name="model">fleet.vehicle.log.contract</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_log_contract_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='insurer_id']" position="after">
+                <field name="vendor_id"/>
+            </xpath>
+        </field>
+    </record>
 </odoo>

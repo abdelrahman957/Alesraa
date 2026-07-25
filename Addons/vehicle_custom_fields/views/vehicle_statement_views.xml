@@ -10,6 +10,7 @@
                 <field name="date"/>
                 <field name="vehicle_id"/>
                 <field name="owner_id"/>
+                <field name="vendor_id"/>
                 <field name="description"/>
                 <button name="action_open_source" type="object" class="btn-link" string="Open"/>
                 <field name="source_label" string="Source"/>
@@ -25,6 +26,7 @@
             <search string="Vehicle Statement">
                 <field name="vehicle_id"/>
                 <field name="owner_id"/>
+                <field name="vendor_id"/>
                 <filter string="Rent Revenue" name="f_rent" domain="[('line_type', '=', 'rent')]"/>
                 <filter string="Rent Cost" name="f_rent_cost" domain="[('line_type', '=', 'rent_cost')]"/>
                 <filter string="Service Cost" name="f_service" domain="[('line_type', '=', 'service')]"/>

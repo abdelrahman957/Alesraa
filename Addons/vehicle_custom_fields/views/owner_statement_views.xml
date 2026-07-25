@@ -45,15 +45,16 @@
         <field name="name">owner.statement.line.list</field>
         <field name="model">owner.statement.line</field>
         <field name="arch" type="xml">
-            <list string="Owner Statement" create="false">
-                <field name="line_type" string="Type"/>
+            <list string="Owner Statement">
+                <field name="line_type" readonly="line_type in ('rent_cost','service')"/>
                 <button name="action_open_source" type="object" class="btn-link" string="Open"/>
-                <field name="source_label" string="Source"/>
-                <field name="date"/>
-                <field name="vehicle_id"/>
-                <field name="owner_id"/>
-                <field name="vendor_id"/>
-                <field name="amount" sum="Total"/>
+                <field name="source_label" string="Source" readonly="1"/>
+                <field name="date" readonly="line_type in ('rent_cost','service')"/>
+                <field name="vehicle_id" readonly="line_type in ('rent_cost','service')"/>
+                <field name="owner_id" readonly="1"/>
+                <field name="vendor_id" readonly="1"/>
+                <field name="description" readonly="line_type in ('rent_cost','service')"/>
+                <field name="amount" readonly="line_type in ('rent_cost','service')"/>
                 <field name="state" widget="badge"
                        decoration-muted="state == 'open'"
                        decoration-info="state == 'confirmed'"

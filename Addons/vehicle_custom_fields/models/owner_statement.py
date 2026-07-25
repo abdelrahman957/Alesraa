@@ -34,10 +34,11 @@ class OwnerStatementLine(models.Model):
         selection=[
             ('rent_cost', 'Rent Cost'),
             ('service', 'Service'),
+            ('manual_add', 'Addition'),
+            ('manual_deduct', 'Deduction'),
         ],
         string='Type',
         required=True,
-        default='rent_cost',
     )
     company_id = fields.Many2one(
         'res.company',
@@ -140,8 +141,27 @@ class OwnerStatementLine(models.Model):
                 line.source_label = 'Rent Contract'
             elif line.line_type == 'service':
                 line.source_label = 'Service Report'
+            elif line.line_type in ('manual_add', 'manual_deduct'):
+                line.source_label = 'Manual'
             else:
                 line.source_label = ''
+
+    @api.onchange('vehicle_id')
+    def _onchange_vehicle_owner(self):
+        for line in self:
+            if line.vehicle_id:
+                line.owner_id = line.vehicle_id.owner_id
+                line.vendor_id = line.vehicle_id.vendor_id
+    
+    @api.onchange('line_type', 'amount')
+    def _onchange_manual_amount_sign(self):
+        for line in self:
+            if not line.amount:
+                continue
+            if line.line_type == 'manual_deduct':
+                line.amount = -abs(line.amount)
+            elif line.line_type == 'manual_add':
+                line.amount = abs(line.amount)
     
     def action_open_source(self):
         self.ensure_one()

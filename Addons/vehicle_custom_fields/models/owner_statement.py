@@ -213,6 +213,18 @@ class FleetVehicleLogContract(models.Model):
         compute='_compute_owner_statement_count',
     )
 
+    first_rent_amount = fields.Monetary(
+        string='Rent Amount',
+        compute='_compute_first_rent_amount',
+        store=True,
+    )
+
+    @api.depends('rent_cost_ids', 'rent_cost_ids.rent_amount')
+    def _compute_first_rent_amount(self):
+        for contract in self:
+            first = contract.rent_cost_ids[:1]
+            contract.first_rent_amount = first.rent_amount if first else 0.0
+
     def _compute_owner_statement_count(self):
         for contract in self:
             contract.owner_statement_count = len(contract.owner_statement_ids)

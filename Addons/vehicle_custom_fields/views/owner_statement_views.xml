@@ -144,6 +144,12 @@
             <xpath expr="//field[@name='insurer_id']" position="after">
                 <field name="vendor_id"/>
             </xpath>
+            <xpath expr="//field[@name='cost_generated']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='cost_generated']" position="after">
+                <field name="first_rent_amount" string="Rent Amount"/>
+            </xpath>
         </field>
     </record>
 </odoo>

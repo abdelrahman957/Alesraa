@@ -90,6 +90,9 @@
             <xpath expr="//field[@name='vehicle_id']" position="attributes">
                 <attribute name="widget"></attribute>
             </xpath>
+            <xpath expr="//field[@name='service_type_id']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
         </field>
     </record>
 

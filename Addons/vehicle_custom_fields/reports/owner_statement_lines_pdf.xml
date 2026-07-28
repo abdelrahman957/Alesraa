@@ -87,7 +87,7 @@
 
                             <!-- OWNER -->
                             <table style="margin-bottom:26px;">
-                                <tr><td><div class="lbl">OWNER</div></td></tr>
+                                <tr><td><div class="lbl">VENDOR</div></td></tr>
                                 <tr><td><div class="val">
                                     <span t-if="blk['owner']" t-esc="blk['owner'].name"/>
                                     <span t-else="">&#8212;</span>

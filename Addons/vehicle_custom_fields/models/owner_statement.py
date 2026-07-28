@@ -56,20 +56,19 @@ class OwnerStatementLine(models.Model):
     description = fields.Char(string='Description')
 
     def _group_for_report(self):
-        """يجمّع السطور بالمالك ثم بالنوع، للتقرير."""
+        """يجمّع السطور بالمورد ثم بالنوع، للتقرير."""
         result = []
-        owners = self.mapped('owner_id')
-        # لو فيه سطور من غير مالك، ضيفها في مجموعة لوحدها
-        no_owner = self.filtered(lambda l: not l.owner_id)
+        vendors = self.mapped('vendor_id')
+        no_vendor = self.filtered(lambda l: not l.vendor_id)
 
-        for owner in owners:
-            owner_lines = self.filtered(lambda l: l.owner_id == owner)
-            result.append(self._build_owner_block(owner, owner_lines))
-        if no_owner:
-            result.append(self._build_owner_block(False, no_owner))
+        for vendor in vendors:
+            vendor_lines = self.filtered(lambda l: l.vendor_id == vendor)
+            result.append(self._build_owner_block(vendor, vendor_lines))
+        if no_vendor:
+            result.append(self._build_owner_block(False, no_vendor))
         return result
 
-    def _build_owner_block(self, owner, lines):
+    def _build_owner_block(self, vendor, lines):
         types = []
         selection = dict(self._fields['line_type'].selection)
         for type_key in selection.keys():
@@ -83,7 +82,7 @@ class OwnerStatementLine(models.Model):
             })
         dates = [l.date for l in lines if l.date]
         return {
-            'owner': owner,
+            'owner': vendor,          # المفتاح زي ما هو عشان التمبلت ما يتغيّرش
             'types': types,
             'grand_total': sum(lines.mapped('amount')),
             'date_from': min(dates) if dates else False,

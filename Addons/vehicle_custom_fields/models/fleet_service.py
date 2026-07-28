@@ -90,6 +90,7 @@ class FleetVehicleLogServices(models.Model):
 
             # هات المالك من عقد الفليت الـ running على العربية
             owner = False
+            vendor = False
             if service.vehicle_id:
                 fleet_contract = self.env['fleet.vehicle.log.contract'].search([
                     ('vehicle_id', '=', service.vehicle_id.id),
@@ -98,6 +99,7 @@ class FleetVehicleLogServices(models.Model):
                 ], order='date desc', limit=1)
                 if fleet_contract:
                     owner = fleet_contract.insurer_id.id
+                    vendor = fleet_contract.vendor_id.id if fleet_contract.vendor_id else False
 
             # لكل بند مسؤوليته owner، اعمل سطر بالسالب
             new_lines = []
@@ -109,6 +111,7 @@ class FleetVehicleLogServices(models.Model):
                         'amount': -line.amount,
                         'vehicle_id': service.vehicle_id.id if service.vehicle_id else False,
                         'owner_id': owner,
+                        'vendor_id': vendor,
                         'service_id': service.id,
                         'description': line.service_type_id.name if line.service_type_id else '',
                     })
@@ -123,18 +126,16 @@ class FleetVehicleLogServices(models.Model):
         return res
 
     def unlink(self):
-        # امسح سطور الـ statement المرتبطة قبل حذف التقرير
-        self.env['owner.statement.line'].search([
-            ('service_id', 'in', self.ids)
-        ]).unlink()
-        return super().unlink()
-
-    def unlink(self):
+        # امنع مسح التقارير المنتهية
         for service in self:
             if service.state == 'done':
                 raise UserError(_(
                     "You cannot delete a service report that is marked as Done."
                 ))
+        # امسح سطور الـ statement المرتبطة
+        self.env['owner.statement.line'].search([
+            ('service_id', 'in', self.ids)
+        ]).unlink()
         return super().unlink()
 
     

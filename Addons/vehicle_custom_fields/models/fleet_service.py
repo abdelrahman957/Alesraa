@@ -113,7 +113,7 @@ class FleetVehicleLogServices(models.Model):
                         'owner_id': owner,
                         'vendor_id': vendor,
                         'service_id': service.id,
-                        'description': line.service_type_id.name if line.service_type_id else '',
+                        'description': line.description or '',
                     })
             if new_lines:
                 StatementLine.create(new_lines)
@@ -155,7 +155,7 @@ class FleetServiceLine(models.Model):
         'fleet.service.type',
         string='Service Type',
     )
-    description = fields.Char(string='Description')
+    description = fields.Char(string='Description', required=True)
     responsibility = fields.Selection(
         selection=[
             ('owner', 'Owner'),

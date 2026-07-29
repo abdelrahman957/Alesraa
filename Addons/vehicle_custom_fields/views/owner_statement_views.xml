@@ -76,7 +76,7 @@
                             <field name="date"/>
                             <field name="vehicle_id"/>
                             <field name="owner_id" readonly="1"/>
-                            <field name="vendor_id" readonly="1"/>
+                            <field name="vendor_id"/>
                         </group>
                         <group>
                             <field name="description"/>

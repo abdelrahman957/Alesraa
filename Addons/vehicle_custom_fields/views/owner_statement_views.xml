@@ -52,7 +52,7 @@
                 <field name="date" readonly="line_type in ('rent_cost','service')"/>
                 <field name="vehicle_id" readonly="line_type in ('rent_cost','service')"/>
                 <field name="owner_id" readonly="1"/>
-                <field name="vendor_id" readonly="1"/>
+                <field name="vendor_id"/>
                 <field name="description" readonly="line_type in ('rent_cost','service')"/>
                 <field name="amount" readonly="line_type in ('rent_cost','service')"/>
                 <field name="state" widget="badge"

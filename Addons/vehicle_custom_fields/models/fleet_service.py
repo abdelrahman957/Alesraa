@@ -85,7 +85,7 @@ class FleetVehicleLogServices(models.Model):
             StatementLine.search([('service_id', '=', service.id)]).unlink()
 
             # بس لو التقرير Done
-            if service.state != 'done':
+            if service.state not in ('done', 'cancelled'):
                 continue
 
             # هات المالك من عقد الفليت الـ running على العربية

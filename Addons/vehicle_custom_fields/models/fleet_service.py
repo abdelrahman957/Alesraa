@@ -138,6 +138,39 @@ class FleetVehicleLogServices(models.Model):
         ]).unlink()
         return super().unlink()
 
+    def action_reset_to_draft(self):
+        """يرجّع التقرير لـ Draft ويمسح السطور المرتبطة (لو مش محجوزة في تقرير)."""
+        for service in self:
+            if service.state != 'done':
+                continue
+
+            # افحص السطور المرتبطة - لو أي واحد محجوز في تقرير، امنع
+            stmt_lines = self.env['owner.statement.line'].search([
+                ('service_id', '=', service.id),
+            ])
+            blocked = stmt_lines.filtered(lambda l: l.state != 'open')
+            if blocked:
+                raise UserError(_(
+                    "Cannot reset to draft: this service is already included in a "
+                    "confirmed or paid Owner Statement Report. Please reset that report first."
+                ))
+
+            # امسح السطور المرتبطة
+            stmt_lines.unlink()
+            self.env['vehicle.statement.line'].search([
+                ('service_line_id', 'in', service.service_line_ids.ids),
+            ]).unlink()
+            self.env['fleet.vehicle.odometer'].search([
+                ('service_id', '=', service.id),
+            ]).write({
+                'tracking_type': False,
+                'service_id': False,
+                'responsible_id': False,
+            })
+
+            service.write({'state': 'new'})
+        return True
+
     
 
 

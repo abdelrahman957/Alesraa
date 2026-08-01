@@ -306,8 +306,14 @@ class FleetVehicleLogContract(models.Model):
     def write(self, vals):
         res = super().write(vals)
         # لو اتعدّلت الفترات أو العربية أو المالك، أعِد توليد السطور
-        if 'rent_cost_ids' in vals or 'vehicle_id' in vals or 'insurer_id' in vals:
+        if 'rent_cost_ids' in vals or 'vehicle_id' in vals or 'insurer_id' in vals or 'vendor_id' in vals:
             self._generate_owner_statement_lines()
+        # لو المورد بس اتغيّر، حدّث السطور الموجودة من غير إعادة بناء
+        if 'vendor_id' in vals:
+            for contract in self:
+                contract.owner_statement_ids.write({
+                    'vendor_id': contract.vendor_id.id if contract.vendor_id else False,
+                })
         return res
 
     def action_view_owner_statement(self):

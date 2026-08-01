@@ -85,7 +85,7 @@ class FleetVehicleLogServices(models.Model):
             StatementLine.search([('service_id', '=', service.id)]).unlink()
 
             # بس لو التقرير Done
-            if service.state not in ('done', 'cancelled'):
+            if service.state != 'done':
                 continue
 
             # هات المالك من عقد الفليت الـ running على العربية
@@ -141,7 +141,7 @@ class FleetVehicleLogServices(models.Model):
     def action_reset_to_draft(self):
         """يرجّع التقرير لـ Draft ويمسح السطور المرتبطة (لو مش محجوزة في تقرير)."""
         for service in self:
-            if service.state != 'done':
+            if service.state not in ('done', 'cancelled'):
                 continue
 
             # افحص السطور المرتبطة - لو أي واحد محجوز في تقرير، امنع

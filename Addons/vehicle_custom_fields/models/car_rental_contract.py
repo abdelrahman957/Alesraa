@@ -716,6 +716,18 @@ class CarRentalContract(models.Model):
                 invoice.write({'invoice_line_ids': lines})
         return res
     
+    def force_checking(self):
+        """نسخة بدون فحص الفواتير المدفوعة."""
+        for contract in self:
+            contract.state = 'checking'
+        return True
+
+    def set_to_done(self):
+        """نسخة بدون فحص الفواتير المدفوعة."""
+        for contract in self:
+            contract.state = 'done'
+        return True
+    
                      
 class CarTools(models.Model):
     _inherit = 'car.tools'
@@ -728,6 +740,7 @@ class CarTools(models.Model):
                     "You cannot delete the default items (Rent Fees, Pick Up Charges, Drop Off Charges, Refundable Insurance, Full Coverage Insurance)."
                 )
         return super().unlink()
+    
     
 class CarRentalChecklist(models.Model):
     _inherit = 'car.rental.checklist'

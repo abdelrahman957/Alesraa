@@ -100,6 +100,7 @@
     <record id="fleet_service_pending_search" model="ir.ui.view">
         <field name="name">fleet.service.pending.search</field>
         <field name="model">fleet.vehicle.log.services</field>
+        <field name="priority">99</field>
         <field name="arch" type="xml">
             <search string="Pending Responsibility">
                 <field name="vehicle_id"/>

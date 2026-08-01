@@ -126,4 +126,19 @@
               action="action_fleet_service_pending"
               groups="fleet.fleet_group_manager"
               sequence="55"/>
+    
+    <record id="fleet_service_search_extra" model="ir.ui.view">
+        <field name="name">fleet.service.search.extra</field>
+        <field name="model">fleet.vehicle.log.services</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_log_services_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vehicle_id']" position="after">
+                <field name="purchaser_id" string="Driver"/>
+                <field name="vendor_id" string="Vendor"/>
+                <field name="description"/>
+                <field name="amount"/>
+            </xpath>
+        </field>
+    </record>
+    
 </odoo>

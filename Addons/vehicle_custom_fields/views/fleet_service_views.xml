@@ -132,7 +132,7 @@
         <field name="model">fleet.vehicle.log.services</field>
         <field name="inherit_id" ref="fleet.fleet_vehicle_log_services_view_search"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='vehicle_id']" position="after">
+            <xpath expr="//search" position="inside">
                 <field name="purchaser_id" string="Driver"/>
                 <field name="vendor_id" string="Vendor"/>
                 <field name="description"/>
@@ -140,5 +140,5 @@
             </xpath>
         </field>
     </record>
-    
+
 </odoo>

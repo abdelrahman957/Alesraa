@@ -11,7 +11,7 @@
                         string="Reset to Draft"
                         type="object"
                         class="btn-secondary"
-                        invisible="state != 'done'"/>
+                        invisible="state not in ('done', 'cancelled')"/>
             </xpath>
 
             <!-- أزرار الـ Workflow في الـ header -->

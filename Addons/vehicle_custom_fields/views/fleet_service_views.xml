@@ -135,7 +135,6 @@
             <xpath expr="//search" position="inside">
                 <field name="purchaser_id" string="Driver"/>
                 <field name="vendor_id" string="Vendor"/>
-                <field name="description"/>
                 <field name="amount"/>
             </xpath>
         </field>

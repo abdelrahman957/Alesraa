@@ -129,8 +129,10 @@
                                             <span t-else="">&#8212;</span>
                                         </td>
                                         <td class="td g"><span t-field="line.description"/></td>
-                                    </tr>
                                         <td t-attf-class="td amt #{'neg' if line.amount &lt; 0 else ''}">
+                                            <span t-esc="'{:,.2f}'.format(line.amount)"/>
+                                        </td>
+                                    </tr>
                                             <span t-esc="'{:,.2f}'.format(line.amount)"/>
                                         </td>
                                     </tr>

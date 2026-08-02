@@ -1,4 +1,4 @@
-from odoo import fields, models, api
+from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError
 from odoo.exceptions import UserError
 
@@ -726,6 +726,57 @@ class CarRentalContract(models.Model):
         """نسخة بدون فحص الفواتير المدفوعة."""
         for contract in self:
             contract.state = 'done'
+        return True
+
+    def unlink(self):
+        vehicles = self.mapped('vehicle_id')
+        reservations = self.mapped('reserved_fleet_id')
+        res = super().unlink()
+        # رجّع العربيات متاحة بعد المسح
+        if reservations:
+            reservations.unlink()
+        for vehicle in vehicles:
+            vehicle.rental_check_availability = True
+            vehicle._compute_rental_status()
+        return res
+    
+    def action_cancel(self):
+        for contract in self:
+            # امنع الإلغاء لو فيه فواتير مربوطة
+            invoices = self.env['account.move'].search([
+                ('fleet_rent_id', '=', contract.id),
+            ])
+            if invoices:
+                raise UserError(_(
+                    "Cannot cancel this contract: it has linked invoices. "
+                    "Please delete the invoices first."
+                ))
+
+            # امسح سطور Vehicle Statement
+            self.env['vehicle.statement.line'].search([
+                ('contract_id', '=', contract.id),
+            ]).unlink()
+
+            # فك ربط سجلات العداد
+            self.env['fleet.vehicle.odometer'].search([
+                ('rental_contract_id', '=', contract.id),
+            ]).write({
+                'tracking_type': False,
+                'rental_contract_id': False,
+                'responsible_id': False,
+                'date_from': False,
+                'date_to': False,
+            })
+
+            # امسح الحجز
+            if contract.reserved_fleet_id:
+                contract.reserved_fleet_id.unlink()
+
+            # ألغِ العقد ورجّع العربية متاحة
+            contract.state = 'cancel'
+            if contract.vehicle_id:
+                contract.vehicle_id.rental_check_availability = True
+                contract.vehicle_id._compute_rental_status()
         return True
     
                      

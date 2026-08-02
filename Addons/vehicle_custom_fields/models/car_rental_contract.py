@@ -778,6 +778,16 @@ class CarRentalContract(models.Model):
                 contract.vehicle_id.rental_check_availability = True
                 contract.vehicle_id._compute_rental_status()
         return True
+
+    def action_reset_to_draft(self):
+        """يرجّع العقد الملغي لـ Draft."""
+        for contract in self:
+            if contract.state != 'cancel':
+                continue
+            contract.state = 'draft'
+            if contract.vehicle_id:
+                contract.vehicle_id._compute_rental_status()
+        return True
     
                      
 class CarTools(models.Model):

@@ -30,6 +30,11 @@
                         type="object"
                         class="btn-primary"
                         invisible="state != 'checking'"/>
+                <button name="action_reset_to_draft"
+                        string="Reset to Draft"
+                        type="object"
+                        class="btn-secondary"
+                        invisible="state != 'cancel'"/>
             </xpath>
             <!-- اخفِ زر Verify القديم -->
             <xpath expr="//div[@style='float: right;margin-left: 78%;margin-bottom: 36px;']" position="attributes">

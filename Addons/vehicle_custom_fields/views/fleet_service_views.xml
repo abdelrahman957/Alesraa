@@ -78,6 +78,7 @@
                         <field name="description"
                                readonly="parent.state == 'cancelled'"/>
                         <field name="deduction_date"
+                               groups="fleet.fleet_group_manager"
                                readonly="parent.state in ('done','cancelled')"/>
                         <field name="amount" widget="monetary"
                                readonly="parent.state in ('done','cancelled')"/>

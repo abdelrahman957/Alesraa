@@ -123,9 +123,9 @@ class FleetVehicleLogServices(models.Model):
     def unlink(self):
         # امنع مسح التقارير المنتهية
         for service in self:
-            if service.state == 'done':
+            if service.state in ('done', 'running'):
                 raise UserError(_(
-                    "You cannot delete a service report that is marked as Done."
+                    "You cannot delete a service report in Running or Done state."
                 ))
         # امسح سطور الـ statement المرتبطة
         self.env['owner.statement.line'].search([

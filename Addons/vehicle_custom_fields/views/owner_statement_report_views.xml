@@ -50,6 +50,7 @@
                                 <list editable="bottom">
                                     <field name="line_type"/>
                                     <field name="date"/>
+                                    <field name="service_date" string="Service Date" optional="show"/>
                                     <field name="description"/>
                                     <field name="is_manual" readonly="1" optional="hide"/>
                                     <field name="amount" sum="Total"/>

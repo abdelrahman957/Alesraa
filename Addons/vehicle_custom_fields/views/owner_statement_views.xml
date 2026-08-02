@@ -50,6 +50,7 @@
                 <button name="action_open_source" type="object" class="btn-link" string="Open"/>
                 <field name="source_label" string="Source" readonly="1"/>
                 <field name="date" readonly="line_type in ('rent_cost','service')"/>
+                <field name="service_date" string="Service Date" optional="show"/>
                 <field name="vehicle_id" readonly="line_type in ('rent_cost','service')"/>
                 <field name="owner_id" readonly="1"/>
                 <field name="vendor_id"/>

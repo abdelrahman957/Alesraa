@@ -101,7 +101,8 @@ class FleetVehicleLogServices(models.Model):
                 if line.responsibility == 'owner' and line.amount:
                     new_lines.append({
                         'line_type': 'service',
-                        'date': service.date,
+                        'date': line.deduction_date or service.date,
+                        'service_date': service.date,
                         'amount': -line.amount,
                         'vehicle_id': service.vehicle_id.id if service.vehicle_id else False,
                         'owner_id': owner,
@@ -197,6 +198,13 @@ class FleetServiceLine(models.Model):
         'res.currency',
         related='service_id.currency_id',
     )
+    deduction_date = fields.Date(string='Deduction Date')
+
+    @api.onchange('service_id')
+    def _onchange_service_deduction_date(self):
+        for line in self:
+            if not line.deduction_date and line.service_id.date:
+                line.deduction_date = line.service_id.date
 
     @api.onchange('service_type_id')
     def _onchange_service_type_responsibility(self):
@@ -217,8 +225,12 @@ class FleetServiceLine(models.Model):
     def create(self, vals_list):
         for vals in vals_list:
             sid = vals.get('service_id')
-            if sid and self.env['fleet.vehicle.log.services'].browse(sid).state in ('done', 'cancelled'):
-                raise UserError("لا يمكن إضافة بنود والتقرير في حالة Done أو Cancelled.")
+            if sid:
+                service = self.env['fleet.vehicle.log.services'].browse(sid)
+                if service.state in ('done', 'cancelled'):
+                    raise UserError("لا يمكن إضافة بنود والتقرير في حالة Done أو Cancelled.")
+                if not vals.get('deduction_date') and service.date:
+                    vals['deduction_date'] = service.date
         return super().create(vals_list)
 
     def unlink(self):

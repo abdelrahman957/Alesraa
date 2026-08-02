@@ -54,6 +54,7 @@ class OwnerStatementLine(models.Model):
         compute='_compute_source_ref',
     )
     description = fields.Char(string='Description')
+    service_date = fields.Date(string='Service Date')
 
     def _group_for_report(self):
         """يجمّع السطور بالمورد ثم بالنوع، للتقرير."""

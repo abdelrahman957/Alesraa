@@ -109,10 +109,11 @@
                             <table style="width:100%;">
                                 <thead>
                                     <tr>
-                                        <th class="th" style="width:15%; text-align:left;">TYPE</th>
-                                        <th class="th" style="width:14%; text-align:left;">DATE</th>
+                                        <th class="th" style="width:14%; text-align:left;">TYPE</th>
+                                        <th class="th" style="width:13%; text-align:left;">DATE</th>
+                                        <th class="th" style="width:13%; text-align:left;">SERVICE DATE</th>
                                         <th class="th" style="text-align:left;">DESCRIPTION</th>
-                                        <th class="th" style="width:18%; text-align:right;">AMOUNT</th>
+                                        <th class="th" style="width:16%; text-align:right;">AMOUNT</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -123,7 +124,12 @@
                                             <span t-else="">Other</span>
                                         </td>
                                         <td class="td g"><span t-field="line.date" t-options="{'widget': 'date'}"/></td>
+                                        <td class="td g">
+                                            <span t-if="line.service_date" t-field="line.service_date" t-options="{'widget': 'date'}"/>
+                                            <span t-else="">&#8212;</span>
+                                        </td>
                                         <td class="td g"><span t-field="line.description"/></td>
+                                    </tr>
                                         <td t-attf-class="td amt #{'neg' if line.amount &lt; 0 else ''}">
                                             <span t-esc="'{:,.2f}'.format(line.amount)"/>
                                         </td>

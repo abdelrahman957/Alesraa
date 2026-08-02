@@ -137,6 +137,7 @@ class OwnerStatementReport(models.Model):
                 'source_line_id': src.id,
                 'line_type': src.line_type,
                 'date': src.date,
+                'service_date': src.service_date,
                 'amount': src.amount,
                 'description': src.description,
                 'is_manual': False,
@@ -299,3 +300,4 @@ class OwnerStatementReportLine(models.Model):
     date = fields.Date(string='Date')
     description = fields.Char(string='Description')
     amount = fields.Float(string='Amount')
+    service_date = fields.Date(string='Service Date')

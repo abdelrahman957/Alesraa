@@ -133,9 +133,6 @@
                                             <span t-esc="'{:,.2f}'.format(line.amount)"/>
                                         </td>
                                     </tr>
-                                            <span t-esc="'{:,.2f}'.format(line.amount)"/>
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
 

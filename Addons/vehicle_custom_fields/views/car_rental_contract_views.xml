@@ -126,6 +126,7 @@
             </xpath>
             <xpath expr="//button[@name='action_cancel']" position="attributes">
                 <attribute name="invisible">state not in ('draft', 'reserved', 'running', 'checking')</attribute>
+                <attribute name="class">btn-secondary</attribute>
             </xpath>
         </field>
     </record>

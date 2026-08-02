@@ -33,15 +33,6 @@ class CarRentalContract(models.Model):
         for contract in self:
             contract.checklist_total = sum(contract.checklist_line.mapped('price'))
 
-    def unlink(self):
-        for contract in self:
-            if contract.state not in ('draft', 'cancel'):
-                raise UserError(
-                    "You cannot delete a confirmed contract. "
-                    "Please cancel it instead."
-                )
-        return super().unlink()
-
     def write(self, vals):
         res = super().write(vals)
         # لما العقد يوصل لحالة invoice، خلي rent_end_date = actual_return_date
@@ -729,6 +720,14 @@ class CarRentalContract(models.Model):
         return True
 
     def unlink(self):
+        # امنع المسح إلا في draft أو cancel
+        for contract in self:
+            if contract.state not in ('draft', 'cancel'):
+                raise UserError(_(
+                    "You cannot delete a confirmed contract. "
+                    "Please cancel it instead."
+                ))
+
         vehicles = self.mapped('vehicle_id')
         reservations = self.mapped('reserved_fleet_id')
         res = super().unlink()

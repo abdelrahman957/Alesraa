@@ -32,12 +32,6 @@ class FleetVehicleLogServices(models.Model):
     def action_service_cancel(self):
         self.write({'state': 'cancelled'})
 
-    def unlink(self):
-        # ممنوع حذف التقرير وهو في حالة Done
-        if any(s.state == 'done' for s in self):
-            raise UserError("لا يمكن حذف التقرير وهو في حالة Done.")
-        # نسمح بحذف باقي التقارير من غير ما الـ guard بتاع البنود يمنعه
-        return super(FleetVehicleLogServices, self.with_context(removing_service=True)).unlink()
 
     @api.depends('service_line_ids', 'service_line_ids.amount')
     def _compute_amount_from_lines(self):
@@ -136,7 +130,8 @@ class FleetVehicleLogServices(models.Model):
         self.env['owner.statement.line'].search([
             ('service_id', 'in', self.ids)
         ]).unlink()
-        return super().unlink()
+        # الـ context عشان الـ guard بتاع البنود ما يمنعش المسح
+        return super(FleetVehicleLogServices, self.with_context(removing_service=True)).unlink()
 
     def action_reset_to_draft(self):
         """يرجّع التقرير لـ Draft ويمسح السطور المرتبطة (لو مش محجوزة في تقرير)."""

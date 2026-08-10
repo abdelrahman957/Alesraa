@@ -28,6 +28,19 @@ class CarRentalContract(models.Model):
         store=True,
     )
 
+    @api.constrains('rent_end_date')
+    def validate_on_read_only(self):
+        for contract in self:
+            if not contract.read_only:
+                continue
+            old_date = contract.vehicle_id.rental_reserved_time.date_to
+            # لو مفيش حجز، تخطَّ الفحص
+            if not old_date:
+                continue
+            if contract.rent_end_date <= old_date:
+                raise ValidationError(
+                    f"Please choose a date greater that {old_date}")
+
     @api.depends('checklist_line', 'checklist_line.price')
     def _compute_checklist_total(self):
         for contract in self:
